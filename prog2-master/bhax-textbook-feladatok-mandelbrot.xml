@@ -1,0 +1,290 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Mandelbrot!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section xml:id="bhax-textbook-feladatok-mandelbrot.Mandelbrot">
+        <title>A Mandelbrot halmaz</title>
+        <para>
+            1980-ban egy lengyel matematikus, Benoit B. Mandelbrot felfedezett egy érdekességet a komplex számok halmazán. Ha veszünk egy komplex számot -2 és 2 között, azt a négyzetre emeljük majd az így kapott eredménnyel megismételjük a műveletet, ezt a végtelenségig folytatva két kategóriába sorolhatjuk a számokat: Vagy konvergens, azaz az iterációk során egy adott számhoz tart az eredmény, vagy divergens, mely esetben a kapott szám a végtelenségig nő. Ha ábrázoljuk a komplex számok halmazán azokat a számokat, melyek négyzetes sora konvergens, egy érdekes alakzatot kapunk, melynek számtalan érdekessége van. Az egyik az, hogy a végtelenségig nagyítható, azaz bármilyen közel megyünk valamely elválasztóponthoz, mindig fogunk új elágazásokat találni rajta. Az alakzat szimmetrikus az x, azaz a valós tengelyre, de nem az a képzetesre. Rengeteg furcsa tulajdonságot lehet felfedezni például az alakzatból kinyúló karokról, vagy a csomópontok elhelyezkedéséről. 
+        </para>
+        <para>
+            Magunknak is tudunk egy mandelbrot-képet generálni, mely a következő program segítségével lehetséges:
+        </para>
+        <programlisting>
+<![CDATA[
+#include <stdio.h>
+#include <stdlib.h>
+
+int main ()
+{
+    int nr = 5;
+    double **tm;
+
+    printf("%p\n", &tm);
+
+    if ((tm = (double **) malloc (nr * sizeof (double *))) == NULL)
+    {
+        return -1;
+    }
+
+    printf("%p\n", tm);
+
+    for (int i = 0; i < nr; ++i)
+    {
+        if ((tm[i] = (double *) malloc ((i + 1) * sizeof (double))) == NULL)
+        {
+            return -1;
+        }
+
+    }
+
+    printf("%p\n", tm[0]);    
+
+    for (int i = 0; i < nr; ++i)
+        for (int j = 0; j < i + 1; ++j)
+            tm[i][j] = i * (i + 1) / 2 + j;
+
+    for (int i = 0; i < nr; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+            printf ("%f, ", tm[i][j]);
+        printf ("\n");
+    }
+
+    tm[3][0] = 42.0;
+    (*(tm + 3))[1] = 43.0;	// mi van, ha itt hiányzik a külső ()
+    *(tm[3] + 2) = 44.0;
+    *(*(tm + 3) + 3) = 45.0;
+
+    for (int i = 0; i < nr; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+            printf ("%f, ", tm[i][j]);
+        printf ("\n");
+    }
+
+    for (int i = 0; i < nr; ++i)
+        free (tm[i]);
+
+    free (tm);
+
+    return 0;
+}
+        <programlisting>
+<![CDATA[
+#include <stdio.h>
+#include <iostream>
+#include "png++/png.hpp"
+#include <sys/times.h>
+#define MERET 600
+#define ITER_HAT 32000
+void
+mandel (int kepadat[MERET][MERET]) {
+   
+    clock_t delta = clock ();
+    struct tms tmsbuf1, tmsbuf2;
+    times (&tmsbuf1);
+    float a = -2.0, b = .7, c = -1.35, d = 1.35;
+    int szelesseg = MERET, magassag = MERET, iteraciosHatar = ITER_HAT;
+    
+    float dx = (b - a) / szelesseg;
+    float dy = (d - c) / magassag;
+    float reC, imC, reZ, imZ, ujreZ, ujimZ;
+ 
+    int iteracio = 0;
+    for (int j = 0; j < magassag; ++j)
+    {
+        
+        for (int k = 0; k < szelesseg; ++k)
+        {
+            reC = a + k * dx;
+            imC = d - j * dy;
+            // z_0 = 0 = (reZ, imZ)
+            reZ = 0;
+            imZ = 0;
+            iteracio = 0;
+            while (reZ * reZ + imZ * imZ < 4 && iteracio < iteraciosHatar)
+            {
+                // z_{n+1} = z_n * z_n + c
+                ujreZ = reZ * reZ - imZ * imZ + reC;
+                ujimZ = 2 * reZ * imZ + imC;
+                reZ = ujreZ;
+                imZ = ujimZ;
+                ++iteracio;
+            }
+            kepadat[j][k] = iteracio;
+        }
+    }
+    times (&tmsbuf2);
+    std::cout << tmsbuf2.tms_utime - tmsbuf1.tms_utime
+              + tmsbuf2.tms_stime - tmsbuf1.tms_stime << std::endl;
+    delta = clock () - delta;
+    std::cout << (float) delta / CLOCKS_PER_SEC << " sec" << std::endl;
+}
+int
+main (int argc, char *argv[])
+{
+    if (argc != 2)
+    {
+        std::cout << "Hasznalat: ./mandelpng fajlnev";
+        return -1;
+    }
+    int kepadat[MERET][MERET];
+    mandel(kepadat);
+    png::image < png::rgb_pixel > kep (MERET, MERET);
+    for (int j = 0; j < MERET; ++j)
+    {
+        for (int k = 0; k < MERET; ++k)
+        {
+            kep.set_pixel (k, j,
+                png::rgb_pixel (255 -
+                (255 * kepadat[j][k]) / ITER_HAT,
+                 255 -
+                (255 * kepadat[j][k]) / ITER_HAT,
+                255 -
+                (255 * kepadat[j][k]) / ITER_HAT));
+        }
+    }
+    kep.write (argv[1]);
+    std::cout << argv[1] << " mentve" << std::endl;
+}
+]]>
+        </programlisting>
+        <figure>
+            <title>A Mandelbrot halmaz a komplex síkon</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="Mandel/mandelbrot.png" scale="15" />
+                </imageobject>
+                <textobject>
+                    <phrase>A Mandelbrot halmaz a komplex síkon</phrase>
+                </textobject>
+            </mediaobject>
+        </figure>
+    </section>        
+        
+    <section>
+        <title>A Mandelbrot halmaz a <filename>std::complex</filename> osztállyal</title>
+        <para>
+            Mivel a Mandelbrot-halmaz a komplex számsíkon van értelmezve, ezért egyszerűbb az std::complex osztályt használni a halmaz elemeinek a kiszámolására. Így nem szükséges egy komplex számnak két valós értéket adnunk, egy elemként kezelhetjük a valós és az imaginárius részt. Ezáltal megspórolhatunk felesleges változó-deklarálásokat és műveleteket is, melyek során a kódunk egyszerűbb és átláthatóbb lesz. 
+        </para>
+        <para>
+            A következő program komplex számokkal dolgozik, majd egy ppm fájlba írja ki a kimenetet, mely pixelenként tömörítetlenül tárolja el a szükséges színkódokat. Ezáltal magunk is könnyedén tudunk egyszerű, átlátható műveletekkel képeket létrehozni, melyek később természetesen tömöríthetőek, valamint átkonvertálhatóak bármilyen más képformátumba.
+        </para>
+        
+        <programlisting language="c++">
+<![CDATA[
+#include <iostream>
+#include <fstream>
+#include <complex>
+
+using namespace std;
+
+float width = 4096;
+float height = 4096; 
+
+
+int value (int x, int y)  {
+    complex<float> point((float)x/width*4-2, (float)y/height*4-2);
+    complex<float> z(0, 0);
+    int nb_iter = 0;
+    while (abs (z) < 2 && nb_iter <= 128) {
+        z = z * z + point;
+        nb_iter++;
+    }
+    if (nb_iter < 128)
+       return (255*nb_iter)/128;
+    else 
+       return 0;
+}
+
+int main ()  {
+
+    ofstream my_Image ("mandelbrot.ppm");
+
+
+    if (my_Image.is_open ()) {
+        my_Image << "P3\n" << width << " " << height << " 255\n";
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++)  {
+                int val = value(i, j);
+                my_Image << val << ' ' << val/2 << ' ' << val << "\n";
+            }
+        }
+        my_Image.close();
+    }
+    else
+      cout << "Could not open the file";
+    
+    return 0;
+}
+]]>
+        </programlisting>        
+    </section>        
+                
+    <section>
+        <title>Biomorfok</title>
+        <para>
+            Végtelen sok, a mandelbrot halmazhoz hasonló kinézetű fraktált lehet készíteni különböző függvények megadásával, melyek érdekes alakzatokat rajzolnak ki. Csupán annyi a dolgunk, hogy módosítunk egy-két adatot az előbb bemutatott programunkban és lefuttatjuk az algoritmust. 
+        </para>
+        <para>
+            A 90-es években Clifford Pickover érdekes alakzatokat hozott létre, mikor Julia-halmazokat próbált kirajzolni a számítógépén, de elfelejtette a konstansokat a függvénye végén iterálni. Életszerű alakok jöttek ki eredményként, melyek kinézete nagyban hasonlított az egysejtűekére. Mikor felfedezte őket, azt hitte, hogy rátalált "az élet bölcsőjére", de mint utólag kiderült, nem ez volt a helyzet. Ezek az alakzatok is "csupán" a komplex síkon való konvergenciavizsgálat eredményei, jelenlegi kutatások szerint nincs szoros összeköttetés különböző életformák felépítéséhez.
+        </para>
+        <figure>
+            <title>Biomorph</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="Mandel/biomorph/biomorph.jpg" scale="70" />
+                </imageobject>
+                <textobject>
+                    <phrase>A Mandelbrot halmaz a komplex síkon</phrase>
+                </textobject>
+            </mediaobject>
+        </figure>
+    </section>                     
+
+    <section>
+        <title>A Mandelbrot halmaz CUDA megvalósítása</title>
+        <para>
+            A CUDA, azaz Compute Unified Device Architecture egy Nvidia által 2007-ben bevezetett technológia, melyet elsősorban videokártyákba építettek be. A chipek egyszerű aritmetikai műveletekre vannak optimalizálva és nagy sebességgel képesek végrehajtani őket. Talán a legnagyobb előny a hagyományos, cpu-alapú számításokhoz képest az egyszerű parallelizálhatóság. Az Nvidia által szolgáltatott toolkit segítségével sokkal egyszerűbb a műveletek több szálon való végrehajtása, így a programozók munkája könnyebb és egyszerűbb lesz. A legjobb példa erre egy for ciklus, melyet Nvidia videokártyák segítségével felbonthatunk külön szálakra, így a műveletek egyszerre képesek végrehajtódni, ezzel gyorsítva a teljes folyamat sebességét. Sajnos én magam nem rendelkezem CUDA technológiával felszerelt kártyával, de amint tudom, kipróbálom a módszert valaki más számítógépén.
+        </para>
+        
+    </section>                     
+
+    <section>
+        <title>Mandelbrot nagyító és utazó C++ nyelven</title>
+        <para>
+            Építs GUI-t a Mandelbrot algoritmusra, lehessen egérrel nagyítani egy területet, illetve egy pontot
+            egérrel kiválasztva vizualizálja onnan a komplex iteréció bejárta z<subscript>n</subscript> komplex számokat!
+        </para>
+        <para>
+            A programot a QApplication könyvtár segítségével írjuk meg, mely lehetőséget ad számunkra egy GUI felépítésére. A cél, hogy a felhasználó saját kedvére tudjon nagyítani a mandelbrot-halmazban. 
+        </para>
+        <para>
+            A programunk több részből fog állni: A main.cpp fájlban inicializáljuk a többi elemhez szükséges programrészeket, valamint megnyitjuk az ablakot, melyben a program fog futni. A frakszal.cpp-ben történik a számolás nagyja, itt fogjuk az inputot vizsgálni, valamint a halmaz értékeit módosítani, a kívánt nagyításnak megfelelően.
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/takiviko/prog1/tree/master/bhax_textbook_IgyNeveldaProgramozod/Mandel/mandel_nagyito/"></link>
+        </para>
+    </section>                     
+                                                                                                                                                                            
+    <section>
+        <title>Mandelbrot nagyító és utazó Java nyelven</title>
+        <para>
+            Ehhez a java GUI implementációhoz három fájl szükséges, az első magát a halmazt fogja számunkra kirajzolni. Ez valójában ugyanaz a program, mint amit már korábban láthattunk, csak java kódba átírva. A második fájl, a MandelbrotIterációk.java, ugyanezen az lagoritmuson alapszik, de csak egy szeletét fogja kirajzolni a Mandelbrot-halmaznak. A harmadik, MandelbrotHalmazNagyító.java program fogja majd az egér pozícióját vanni bemenetként és annak pozíciója alapján kirajzolni a megfelelő pozícióban levő értékeit a halmaznak. Nagyítani úgy tudunk, hogy az egérrel kijelölünk egy téglalapot a képen, ekkor a program a kijelölt alakzatban elhelyezkedő pontokra fogja kirajzolni a Mandelbrot-halmaz-elemeket.
+        </para>
+        <para>
+            A három fájlt nem írom bele a könyvbe, hiszen már az első is négy egész oldalt felölel, de íme egy link a három program forráskódjához:
+        </para>
+        <para>
+            Fontos megjegyezni, hogy a fordítás sorrendje nem mindegy először a MandelbrotHalmaz.java, majd a MandelbrotIteráció.java, és végül a MandelbrotHalmazNagyító.java kódot kell fordítani.
+        </para>
+        <para>
+            <link xlink:href="https://github.com/takiviko/prog1/tree/master/konyv/mandelbrot/mandelbrot_java">https://github.com/takiviko/prog1/tree/master/konyv/mandelbrot/mandelbrot_java</link>
+        </para>
+    </section>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>

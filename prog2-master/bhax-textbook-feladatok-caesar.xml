@@ -1,0 +1,454 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Caesar!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title><type>double **</type> háromszögmátrix</title>
+        <figure>
+            <title>Többelemű tömbre való hivatkozás pointerekkel</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="Caesar/doublecscs.png" scale="50" />
+                </imageobject>
+                <textobject>
+                    <phrase>Többelemű tömbre való hivatkozás pointerekkel</phrase>
+                </textobject>
+            </mediaobject>
+        </figure>
+        <para>
+            A háromszög-mátrixok olyan kvadratikus mátrixok, melyeknek a főátlója alatt levő elemei csupa nullából állnak, így valamely oldalukat elhagyhatjuk. Ebből adódóan elég csak a számunkra értékes elemeket eltárolnunk. A tárolás módja lehet sor- és oszlopfolytonos is, az egyszerűség kedvéért most ragaszkodjunk a sorfolytonos ábrázoláshoz. 
+        </para>
+        
+        <programlisting>
+<![CDATA[
+#include <stdio.h>
+#include <stdlib.h>
+
+int
+main ()
+{
+    int nr = 5;
+    double **tm;
+    
+    printf("%p\n", &tm);
+    
+    if ((tm = (double **) malloc (nr * sizeof (double *))) == NULL)
+    {
+        return -1;
+    }
+
+    printf("%p\n", tm);
+    
+    for (int i = 0; i < nr; ++i)
+    {
+        if ((tm[i] = (double *) malloc ((i + 1) * sizeof (double))) == NULL)
+        {
+            return -1;
+        }
+
+    }
+
+    printf("%p\n", tm[0]);    
+    
+    for (int i = 0; i < nr; ++i)
+        for (int j = 0; j < i + 1; ++j)
+            tm[i][j] = i * (i + 1) / 2 + j;
+
+    for (int i = 0; i < nr; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+            printf ("%f, ", tm[i][j]);
+        printf ("\n");
+    }
+
+    tm[3][0] = 42.0;
+    (*(tm + 3))[1] = 43.0;  // mi van, ha itt hiányzik a külső ()
+    *(tm[3] + 2) = 44.0;
+    *(*(tm + 3) + 3) = 45.0;
+
+    for (int i = 0; i < nr; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+            printf ("%f, ", tm[i][j]);
+        printf ("\n");
+    }
+
+    for (int i = 0; i < nr; ++i)
+        free (tm[i]);
+
+    free (tm);
+
+    return 0;
+}
+]]>
+        </programlisting>
+        <para>
+            A program egy ötsoros, ötoszlopos háromszögmátrixot fog kiírni a standard output-ra. A működése a következő: Lefoglalunk annyi helyet a memóriában, amennyi szükséges lesz a mátrix reprezentálásához, majd ellenőrizzük, hogy sikerült-e a foglalás. Ha sikeres volt, kiírjuk a kétdimenziós tömbünk elemeinek az indexeit. Ezután kezdjük el feltölteni az adatainkkal a tömböt. Ezt többfélekébben is megtehetjük, a forráskódban négyféle verzió látható a negyedik sor négy elemére:                
+        </para>
+        <para>
+            1. A tömb egy elemének értékének explicit módon történő megadása a tömb különálló elemeire hivatkozva
+        </para>
+        <para>
+            2. A tömbre mutató  mutató értékét növeljük annyival, amennyivel arrébblevő tömböt szeretnénk elérni, így a résztömb megfelelő elemére tudunk expliciten hivatkozni. Itt ha lehagyjuk a külső zárójeleket, a program azt fogja hinni, hogy a tm+3-ik sor 1-edik elemére szeretnénk hivatkozni, itt nagyfokú odafigyelés szükséges.
+        </para>
+        <para>
+            3. Mutatót állítva a harmadik résztömb után kettővel levő értékre
+        </para>
+        <para>
+            4. Mutatót állítva a tömbben levő harmadik tömbre és annak a harmadik elemére állítva a mutatót (Itt jön be a double** szerepe)
+        </para>
+        <para>
+            Ha feltöltöttük a mátrixot a kívánt elemekkel, már csak annyi dolgunk van, hogy kiírjuk azt a kimenetre, majd felszabadítsuk a tömbjeinknek lefoglalt tárhelyet.
+        </para>
+        <figure>
+            <title>A program kimenete</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="Caesar/doublecscscs.png" scale="300" />
+                </imageobject>
+                <textobject>
+                    <phrase>A program kimenete</phrase>
+                </textobject>
+            </mediaobject>
+        </figure>
+
+    </section>         
+    <section>
+        <title>C EXOR titkosító</title>
+        <para>
+            Sok olyan helyzet adódhat, amikor hasznos, vagy akár elengedhetetlen egy bitsorozat titkosítása. Ha egy fájlunk illetéktelen kézbe kerül, fontos adatok tudódhatnak ki, ezért érdemes kriptográfiai módszerekkel titkosítani azt. Erre egy egyszerű megoldás lehet egy xor-titkosítás. Bár nem a legkomplexebb módszer, így egy gyengén titkosított fájlból könnyen ki lehet nyerni a fontos adatokat, gyorsan dolgozik és megfelelő hosszúságú kulcs megadása esetén nehéz nyers erővel feltörni. 
+        </para>
+        <programlisting>
+            <![CDATA[
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+#define MAX_KULCS 100
+#define BUFFER_MERET 256
+
+
+int main (int argc, char **argv)
+{
+
+  char kulcs[MAX_KULCS];
+  char buffer[BUFFER_MERET];
+
+  int kulcs_index = 0;
+  int olvasott_bajtok = 0;
+
+  int kulcs_meret = strlen (argv[1]);
+  strncpy (kulcs, argv[1], MAX_KULCS);
+
+  while ((olvasott_bajtok = read (0, (void *) buffer, BUFFER_MERET)))
+    {
+
+      for (int i = 0; i < olvasott_bajtok; ++i)
+      	{
+
+      	  buffer[i] = buffer[i] ^ kulcs[kulcs_index];
+      	  kulcs_index = (kulcs_index + 1) % kulcs_meret;
+
+      	}
+
+      write (1, buffer, olvasott_bajtok);
+
+    }
+}
+            ]]>
+        </programlisting>
+        <para>
+            Az algoritmus karakterenként végigfut a titkosítandó fájlon és egy előre megadott kulccsal egy kizáró vagy műveletet hajt végre, azaz a bitsorozatban a megfelelő helyen álló értkekkel összehasonlítja a kulcs megfelelő helyen álló értékével és ha ugyanaz a bitérték, 0-t ad vissza, ha különböző, akkor 1-et. Ezzel bebiztosítjuk, hogy minden megadott kulcs esetén más lesz a kimenet. Ami miatt az algoritmus jól tud működni, az az, hogy ha a kulccsal elvégezzük az xor műveletet a titkosított bitsorozaton,  pontosan az eredeti, titkosítatlan adatainkat fogjuk visszakapni.
+        </para>
+    </section>        
+    <section>
+        <title>Java EXOR titkosító</title>
+        <para>
+            A következő program egy java implementációja az előző exor-titkosítónak. A forráskód nagymértékben hasonlít első ránézésre a c programhoz, ám vannak bizonyos pontok, ahol eltérnek egymástól. A funkcionalitás ugyanaz, egy szövegen fogunk egy xor műveletet végrehajtani egy kulccsal. 
+        </para>
+        <programlisting>
+         <![CDATA[
+public class ExorTitkosító {
+    
+    public ExorTitkosító(String kulcsSzöveg,
+            java.io.InputStream bejövőCsatorna,
+            java.io.OutputStream kimenőCsatorna)
+            throws java.io.IOException {
+        
+        byte [] kulcs = kulcsSzöveg.getBytes();
+        byte [] buffer = new byte[256];
+        int kulcsIndex = 0;
+        int olvasottBájtok = 0;
+        while((olvasottBájtok =
+                bejövőCsatorna.read(buffer)) != -1) {
+            
+            for(int i=0; i<olvasottBájtok; ++i) {
+                
+                buffer[i] = (byte)(buffer[i] ^ kulcs[kulcsIndex]);
+                kulcsIndex = (kulcsIndex+1) % kulcs.length;
+                
+            }
+            
+            kimenőCsatorna.write(buffer, 0, olvasottBájtok);
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        try {
+            
+            new ExorTitkosító(args[0], System.in, System.out);
+            
+        } catch(java.io.IOException e) {
+            
+            e.printStackTrace();
+            
+        }
+        
+    }
+    
+}
+ ]]>  
+         </programlisting>   
+        <para>
+            ...
+        </para>        
+    </section>        
+    <section xml:id="bhax-textbook-feladatok-caesar.EXOR-toro">
+        <title>C EXOR törő</title>
+        <para>
+            Ha egy xor-titkosított fájlból ki szeretnénk nyerni az eredeti bitsorozatot, csupán annyit kell tennünk, hogy a megfelelő kulccsal elvégezzük az xor műveletet. Ha nem tudjuk a kulcsot, természetesen próbálkozhatunk azzal is, hogy sorra vesszük az összes lehetséges kulcsot és mindegyikkel megpróbáljuk feltörni a titkosítást. Természetesen ehhez ismernünk kell bizonyos tulajdonságait a kulcsnak, pontosabban hogy hány és milyen karakterekből áll és a karakterkódolást. Ezután az összes lehetséges kombinációt végigfuttatjuk a fájlunkon, és a kimenetet figyeljük bizonyos mintákért, amik biztosan megjelennek a kívántt fájlban. Ilyen lehet egy karaktersorozat egy szövegben, vagy egy header valamilyen adatcsomagban.
+        </para>
+        <para>
+            A kulcs mérete exponenciálisan növeli a maximális műveletszámot, mely egy ilyen módon titkosított szöveg nyers erővel való feltörésére: <emphasis>n^k</emphasis>, ahol n a használt karakterek halmazának számossága, k pedig a kulcshossz. Ha nyolc alfanumerikus karaktert használunk kulcsként, a maximális műveletszám több, mint 2.82*10^12, azaz, több, mint kétbillió. Ezt tovább lehet növelni több, speciális karakter használatával, vagy hosszabb kulcsok megadásával.
+        </para>
+        <para>
+            Bár a próbálkozások száma soknak tűnhet, ez nem elég olyan alkalmazási területekre, ahol az adatok védelme mindennél fontosabb. Olyan helyeken azonban, ahol csak egyszerű felhasználók elől szükséges az adatok elrejtése, például játékok fájljainak titkosításakor, ez a módszer tökéletesen megfelel.
+        </para>
+        <programlisting>
+            <![CDATA[
+                    #define MAX_TITKOS 4096
+#define OLVASAS_BUFFER 256
+#define KULCS_MERET 8
+
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+double atlagos_szohossz (const char *titkos, int titkos_meret)
+{
+  int sz = 0;
+  for (int i = 0; i < titkos_meret; ++i)
+    if (titkos[i] == ' ')
+      ++sz;
+
+  return (double) titkos_meret / sz;
+}
+
+int tiszta_lehet (const char *titkos, int titkos_meret)
+{
+  double szohossz = atlagos_szohossz (titkos, titkos_meret);
+
+  return szohossz > 6.0 && szohossz < 9.0
+    && strcasestr (titkos, "hogy") && strcasestr (titkos, "nem")
+    && strcasestr (titkos, "az") && strcasestr (titkos, "ha");
+
+}
+
+void exor (const char kulcs[], int kulcs_meret, char titkos[], int titkos_meret)
+{
+
+  int kulcs_index = 0;
+
+  for (int i = 0; i < titkos_meret; ++i)
+    {
+
+      titkos[i] = titkos[i] ^ kulcs[kulcs_index];
+      kulcs_index = (kulcs_index + 1) % kulcs_meret;
+
+    }
+
+}
+
+int exor_tores (const char kulcs[], int kulcs_meret, char titkos[],
+	    int titkos_meret)
+{
+
+  exor (kulcs, kulcs_meret, titkos, titkos_meret);
+
+  return tiszta_lehet (titkos, titkos_meret);
+
+}
+
+int main (void)
+{
+
+  char kulcs[KULCS_MERET];
+  char titkos[MAX_TITKOS];
+  char *p = titkos;
+  int olvasott_bajtok;
+
+  // titkos fajt berantasa
+  while ((olvasott_bajtok =
+	  read (0, (void *) p,
+		(p - titkos + OLVASAS_BUFFER <
+		 MAX_TITKOS) ? OLVASAS_BUFFER : titkos + MAX_TITKOS - p)))
+    p += olvasott_bajtok;
+
+  for (int i = 0; i < MAX_TITKOS - (p - titkos); ++i)
+    titkos[p - titkos + i] = '\0';
+
+  for (int ii = '0'; ii <= '9'; ++ii)
+    for (int ji = '0'; ji <= '9'; ++ji)
+      for (int ki = '0'; ki <= '9'; ++ki)
+		for (int li = '0'; li <= '9'; ++li)
+		  for (int mi = '0'; mi <= '9'; ++mi)
+		    for (int ni = '0'; ni <= '9'; ++ni)
+		      for (int oi = '0'; oi <= '9'; ++oi)
+				for (int pi = '0'; pi <= '9'; ++pi)
+				  {
+				    kulcs[0] = ii;
+				    kulcs[1] = ji;
+				    kulcs[2] = ki;
+				    kulcs[3] = li;
+				    kulcs[4] = mi;
+				    kulcs[5] = ni;
+				    kulcs[6] = oi;
+				    kulcs[7] = pi;
+
+				    if (exor_tores (kulcs, KULCS_MERET, titkos, p - titkos))
+				      printf
+					("Kulcs: [%c%c%c%c%c%c%c%c]\nTiszta szoveg: [%s]\n",
+					 ii, ji, ki, li, mi, ni, oi, pi, titkos);
+
+				    exor (kulcs, KULCS_MERET, titkos, p - titkos);
+				  }
+
+  return 0;
+}
+
+                    ]]>
+        </programlisting>    
+    </section>        
+    <section>
+        <title>Neurális OR, AND és EXOR kapu</title>
+        <para>
+        	Tutoriált: Ádám Petra
+        </para>
+        <para>
+            Manapság meglehetősen elterjedt fejlesztési irány lett a gépi tanulás, avagy mesterséges intelligencia. Ez az algoritmus-halmaz a neurális hálókra épül, melynek a következő a lényege: Először a "tanítás" történik meg, mely során adatokat adunk meg, valamint annak tulajdonságait. Ezután a gép felépít magának egy algoritmust, mely alapján később el fogja dönteni, hogy a további bemenő adatok is rendelkeznek-e azokkal a tulajdonságokkal. Ekkor kezdődhet el a tesztelés. Bemeneti adatokat szolgáltatunk a számítógépnek, melyeket az kategorizál egy bizonyos szempont alapján, majd eldönti, hogy milyen tulajdonságokkal rendelkeznek. Fontos lehet, hogy megadjunk szempontokat, amik alapján az algoritmus "értelmezi" a bejövő adatfolyamot, hogy a kívánt tulajdonságokra legyen kihegyezve a kategorizálás. 
+        </para>
+        <para>
+            Három fő szintből áll a folyamat: Egy bemeneti szintből, ahol az érkező adatok még kategorizálatlanul vannak, egy rejtett részből, melynek több alszintje lehet, itt különböző kapcsolatok alakulnak ki a bizonyos bemeneti értékek közt, ezek alapján fog majd a kategorizlás történni. Ez a réteg meglehetősen bonyolult, komplexebb neurális hálók esetén már-már követhetetlen emberek számára, ezért lett a neve "rejtett réteg". A harmadik szinten már a kategorizált adatok vannak, melyek végigfutottak a rejtett rétegen, ennek a rétegnek a neve a kimeneti réteg.
+        </para>
+        <para>
+            A háló felépítése során először random számokkal súlyozzuk a bemenő értékeket(0 és 1 között) és egy aktivációt függvényt (általánosan szigmoid, vagy tangens hiperbolikusz) alkalmazunk rá, majd végigvisszük azokat a folyamaton, így olyan értékeket fogunk kapni eredményként, mely a bemeneti számokat valamilyen módon alterálta. Az eredmény alapján a súlyokat tudjuk módosítani, hogy az az adott alkalmazási területre megfelelőbb legyen, így növelve az algoritmus pontosságát.
+        </para>
+        <para>
+            Az alábbi R program három neurális hálót épít fel a három legtöbbet használt logikai kapu modellezésére, a bemeneti adatok ismeretében meg fogja tudni jósolni, hogy az adott logikai kapu műveletének alkalmazása után mi lesz a kapott eredmény.
+        </para>
+        <para>
+        	Az alábbi linken átláthatóan el van magyarázva a neurális kapuk felépítése és az, hogy milyen logika alapján lettek a súlyok megválasztva:
+        	<link xlink:href="https://medium.com/@stanleydukor/neural-representation-of-and-or-not-xor-and-xnor-logic-gates-perceptron-algorithm-b0275375fea1">https://medium.com/@stanleydukor/neural-representation-of-and-or-not-xor-and-xnor-logic-gates-perceptron-algorithm-b0275375fea1</link>
+        </para>
+        <programlisting>
+        <![CDATA[
+library(neuralnet)
+
+a1    <- c(0,1,0,1)
+a2    <- c(0,0,1,1)
+OR    <- c(0,1,1,1)
+
+or.data <- data.frame(a1, a2, OR)
+
+nn.or <- neuralnet(OR~a1+a2, or.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.or)
+
+compute(nn.or, or.data[,1:2])
+
+
+a1    <- c(0,1,0,1)
+a2    <- c(0,0,1,1)
+OR    <- c(0,1,1,1)
+AND   <- c(0,0,0,1)
+
+orand.data <- data.frame(a1, a2, OR, AND)
+
+nn.orand <- neuralnet(OR+AND~a1+a2, orand.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.orand)
+
+compute(nn.orand, orand.data[,1:2])
+
+
+
+a1      <- c(0,1,0,1)
+a2      <- c(0,0,1,1)
+EXOR    <- c(0,1,1,0)
+
+exor.data <- data.frame(a1, a2, EXOR)
+
+nn.exor <- neuralnet(EXOR~a1+a2, exor.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.exor)
+
+compute(nn.exor, exor.data[,1:2])
+
+
+
+a1      <- c(0,1,0,1)
+a2      <- c(0,0,1,1)
+EXOR    <- c(0,1,1,0)
+
+exor.data <- data.frame(a1, a2, EXOR)
+
+nn.exor <- neuralnet(EXOR~a1+a2, exor.data, hidden=c(6, 4, 6), linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.exor)
+
+compute(nn.exor, exor.data[,1:2])
+
+                    ]]> 
+        </programlisting>
+    </section>        
+    <section>
+        <title>Hiba-visszaterjesztéses perceptron</title>
+        <para>
+            C++
+        </para>
+        <para>
+            A következő program egy képet vesz inputként, majd pixelenként veszi abban a pixelben a piros szín méretét. Ezt betölti egy neurális hálóba, melynek súlyozása random számokkal van inicializálva. Ez a bitsorozat végigfut a hálón, az visszaad egy számot 1 és -1 között. Ez a szám a súlyozástól függ, ami esetünkben random lett generálva, így minden futáskor más eredményt fogunk kapni. A hiba-visszaterjesztés lényege az, hogy a rendszer önmagát "tanítja", azaz a súlyokat az elérni kívánt eredmény alapján fogja állítgatni. Ezzel a módszerrel közel 99%-os pontosság érhető el bizonyos alkalmazási területeken.
+        </para>
+        <programlisting>
+         <![CDATA[
+#include <iostream>
+#include "mlp.hpp"
+#include "png++/png.hpp"
+int main (int argc, char **argv)
+{
+    png::image <png::rgb_pixel> png_image (argv[1]);
+    int size = png_image.get_width()*png_image.get_height();
+    
+    Perceptron* p = new Perceptron(3, size, 256, 1);
+    double* image = new double[size];
+    
+    for(int i {0}; i<png_image.get_width(); ++i)
+         for(int j {0}; j<png_image.get_height(); ++j)
+            image[i*png_image.get_width()+j] = png_image[i][j].red;
+    double value = (*p) (image);
+    std::cout << value << std::endl;
+    delete p;
+    delete [] image;
+}
+ ]]>  
+        </programlisting> 
+    </section>        
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

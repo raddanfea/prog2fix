@@ -1,0 +1,342 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Chomsky!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Decimálisból unárisba átváltó Turing gép</title>
+        <para>
+            Minden programozónak tisztában kell lennie a tízesen (decimálison) kívül bizonyos számrendszerekkel, melyek a számítástechnikában nagy szerepet játszanak. Ilyen például a kettes (bináris), a nyolcas (oktális) és a hexadecimális (hexadecimális). Előfordulhat olyan eset is, hogy  ezeken felül is tisztában kell lenni más, kevésbé elterjedt reprezentációs módszerekkel. A számrendszerek közül a legegyszerűbb az unáris, azaz az egyes számrendszer, melyet viszonylag kevés esetben használunk. Az oka annak, hogy széleskörben nincs elterjedve, annak köszönhető, hogy a komplexebb számítások (szorzás, hatványozás, stb.) relatívan bonyolultak benne, valamint az, hogy az ilyen módon eltárolt adatok feleslegesen sok memóriát igényelnek. 
+        </para>
+        <para>
+            Az egyes számrendszerbe való átváltás nem egy bonyolult feladat, egy for ciklussal át tudunk váltani bármilyen számot unárisba úgy, hogy ha n az átváltandó szám, n-szer futtatjuk a ciklust, minden iterációban egy számjegyet hozzáadva a számhoz. Ezt egészen addig ismételjük, ameddig el nem érjük a várt értéket. A reprezentáció érdekében minden szám mögött nulla áll, ha sok számot fűzünk egymásba, ez segít elkülöníteni őket, de a számok értékét nem változtatja meg.
+        </para>
+        <para>
+            Mivel az unáris számrendszerben csak egy karakter létezik, ezt szabadon kicserélhetjük, így akármilyen karakterekkel reprezentálhatjuk a kívánt számot. Vannak, akik egyesek sorozatával ábrázolják az unáris számokat, mások nullákat használnak, de kétségtelen, hogy a függőleges vonalakkal való ábrázolási mód a legősibb mind közül.
+        </para>
+    </section>        
+        
+    <section>
+        <title>Az a<superscript>n</superscript>b<superscript>n</superscript>c<superscript>n</superscript> nyelv nem környezetfüggetlen</title>
+        <para>
+            Noam Chomsky a 60-as években elkezdett formális nyelvekkel foglalkozni, azaz próbált olyan szabályosságokat keresni, melyek alapján létrehozhatók bizonyos nyelvi elemekből (terminális és nem terminális karakterekből) olyan, magasabb szintű elemek (szavak), melyek meghatározott tulajdonságokkal rendelkeznek. Fontos megemlíteni, hogy csak terminális karakterekhez rendelhetünk más értékeket, nem-terminális karakterekhez nem. Ilyen szabályok egy halmazát hívjuk egy formális nyelv nyelvtanának. 
+        </para>
+        <figure>
+            <title>A Chomsky-féle nyelvosztályok</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="Chomsky/nyelvosztalyok.png" scale="200" />
+                </imageobject>
+                <textobject>
+                    <phrase>A Mandelbrot halmaz a komplex síkon</phrase>
+                </textobject>
+            </mediaobject>
+        </figure>
+        <para>
+            A nyelvtani szabályok hozzárendelések, melyek során egy karakterlánc elemeit kicseréljük más elemekre. Ez a folyamat lehet véges és végtelen is, ha elérünk egy olyan pontot, hogy kizárólag terminális karakterekből (az ábécénk betűi) áll a szavunk, megállunk. Ekkor egy környezetfüggetlen grammatikát alkottunk meg. Vannak viszont olyan nyelvek, melyek nem alkothatók meg olyan módon, hogy:
+        </para>
+        <programlisting>
+            <![CDATA[
+            F -> f
+            ]]>
+        </programlisting>
+        <para>
+            Azaz nem tudunk olyan környezetfüggetlen grammatikát létrehozni, mely az a<superscript>n</superscript>b<superscript>n</superscript>c<superscript>n</superscript> nyelvet generálná le.               
+        </para>
+        <para>
+            Példa környezetfüggő grammatikákra, melyek ezt a nyelvet generálják, ha S a kezdő karakter:
+        </para>
+                <programlisting>
+                    <![CDATA[
+                    S -> aSBC
+                    S -> aBC
+                    CB -> BC
+                    aB -> ab
+                    bB -> bb
+                    bC -> bc
+                    cC -> cc
+                    ]]>
+                </programlisting>
+                <para>
+                    Ez a szabályhalmaz a következő nyelvet generálja:
+                </para>
+                <programlisting>
+                    <![CDATA[
+                    S -> aSBC -> aaBCBC -> aaBBCC -> aabBCC -> aabbCC -> aabbcC -> aabbcc
+                    ]]>
+                </programlisting>
+                <programlisting>
+                    <![CDATA[
+                    S -> aAbc
+                    Ab -> bA
+                    Ac -> Bbcc
+                    bB -> Bb
+                    aB -> aa/aaA
+                    ]]>
+                </programlisting>
+                <para>
+                    Ez a szabályhalmaz pedig ezt a nyelvet generálja:
+                </para>
+                <programlisting>
+                    <![CDATA[
+                    S -> aAbc -> abAc -> abBbcc -> aBbbcc -> aaAbbcc -> aabAbcc -> aabbAcc -> aabbBbccc -> aabBbbccc -> aaBbbbccc -> aaabbbccc
+                    ]]>
+                </programlisting>
+                <para>
+                    Azonban ez a grammatika nem környezetfüggetlen, hiszen nem esik bele a környezetfüggetlen szabályhalmazba.
+                </para>
+        
+    </section>        
+                
+    <section>
+        <title>Hivatkozási nyelv</title>
+        <para>
+            A C programozási nyelvben szinte minden program tartalmat van változónak való értékadást, valamiféle ciklust, függvényeket, stb. Ezeket mind utasításoknak nevezzük, tehát mondhatjuk, hogy egy program nem más, mint utasítások sorozata. Ezeket pontosvesszővel választjuk el. A sorrend egyáltalán nem mindegy, hiszen ha két sort felcserélünk, valószínű, hogy nem helyesen működni a programunk, vagy akár olyan is lehet, hogy le sem fordul. Egy programozónak tisztában kell lenni minden utasítással, amit használ, hiszen csak akkor lesz képes helyesen műkökdő programot írni, ha ismeri a szintaktikai és szemantikai megszorításait egy-egy kifejezésnek. 
+        </para>
+        <para>
+            A C nyelv számos revízión keresztül érte el a mai formáját, a C18-as szabványt, de a jövőben várhatóak további verziók is. Mivel minden verzióval bővül a függvények könyvtára, vannak olyan esetke, hogy egy később írt kód nem lesz kompatibilis egy korábban kiadott fordítóval. Erre egy jó példa az snprintf() függvény, mely eltárolja egy bufferben a printf() függvény által a képernyőre kiírt adatokat.
+        </para>
+        <para>
+            Egy másik újdonság az egysoros kommentek engedélyezése, melyet a C99-es verziótól fogva '//' jelzéssel jelezzük.
+        </para>
+        <programlisting>
+            <![CDATA[
+                #include <stdio.h>
+                #include <math.h>
+
+                int main () 
+                {
+                   char str[80];
+
+                   sprintf(str, "A Pi értéke: %f", M_PI);
+                   puts(str);
+
+                   return(0);   
+                }    //Ez a program kiírja a standard kimenetre a pi értékét
+            ]]>
+        </programlisting>
+    </section>                     
+
+    <section>
+        <title>Saját lexikális elemző</title>
+        <para>
+            Sok munkahelyen, főleg, ahol írásos anyagokkal dolgoznak, fontos az, hogy egy adott szöveget gyorsan és kényelmesen lehessen elemezni. Akkor is fontos lehet egy elemzőt használni, ha valamilyen nyelvészettel kapcsolatos kutatást végzünk Ezekre az esetekre készült a python programozási nyelvhez egy nltk (Natural Language ToolKit) nevű könyvtár, mely nagymértékben megkönnyíti az írásos anyagok elemzését és feldolgozását. Ezt a könyvtárat számos kutatáshoz használják a mesterséges intelligencia, gépi tanulás és számítógépes nyelvészet terén. Tartalmaz lehetőségeket tokenizálásra, tokenekkel való műveletekre, statisztikai adatok kinyerésére és grafikus ábrázolására, valamint szavak automatikus osztályozására is szófaj szerint. 
+        </para>
+        <para>
+            Ezzel a lexikális elemzővel a következőképp lehet összeszámolni egy szövegben található számokat:
+        </para>
+        <programlisting>
+            <![CDATA[
+            import nltk
+            from nltk.tokenize import word_tokenize
+
+            text = open('text.txt').read()
+
+            tokens = word_tokenize(text)
+
+            digit_count = len(set(word for word in tokens if word.isdigit()))
+
+            print('The number of digits in the text: ')
+            print(digit_count)
+            ]]>
+        </programlisting>
+        <para>
+            Először megnyitjuk a text.txt fájlt, majd annak tartalmát odaadjuk a text változónak. Ez után szavakra bontjuk az így keletkezett string-et és végigjárjuk őket, kiszűrve azokat, amik csak számból állnak. (Fontos megemlíteni, hogy a set() függvény egy szólistát (szótárat) készít, mely a duplikált szavakat egynek veszi.) A kiszűrt list elemeinek számát a len() függvénnyel kapjuk meg, majd a számot beleírjuk a digit_count változóba. Ezután már csak annyi a dolgunk, hogy kiírjuk a kimenetre az eredményt.
+        </para>
+        <para>
+            A program alapértelmezetten az indítási helyén keresi a text.txt fájlt, de ezt tetszés szerint lehet módosítani, ha igény van rá, hogy más fájlnéven, vagy más könyvtárból szeretnénk bekérni az elemzendő fájlt.
+        </para>
+    </section>                     
+
+    <section>
+        <title>l33t.l</title>
+        <para>
+            Egy új, emberek számára viszonylag könnyen olvasható írási mód terjedt el a 80-as években  néhány hacker-társaságban. Kicseréltek bizonyos karaktereket szövegekben olyan más, nem ábécé-betűkre, melyek hasonlítottak a reprezentálni kívánt karakterekre. Ilyen például az 'A' betű kicserélése a '4' karakterre. A céljuk az volt, hogy kulcsszavas keresés során ne lehessen könnyedén a fájljaikra, weboldalaikra találni. Azóta széleskörben elterjedt ez az írásmód, melyet leetspeak-nek neveztek, (az angol 'elite' szóból). Manapság számítógépes játékokban és programozói körökben gyakori a használata. 
+        </para>
+        <para>
+            Egy 1337-kódolót a következőképp lehet a python nyelv nltk könyvtára segítségével leprogramozni:
+        </para>
+        <programlisting>
+            <![CDATA[
+            import nltk
+
+
+            text = open('text.txt').read()
+            text = text.lower()
+
+
+            text = text.replace('a', '4')
+            text = text.replace('b', '8')
+            text = text.replace('c', '(')
+            text = text.replace('e', '3')
+            text = text.replace('g', '6')
+            text = text.replace('i', '1')
+            text = text.replace('l', '|')
+            text = text.replace('o', '0')
+            text = text.replace('s', '5')
+            text = text.replace('t', '7')
+            text = text.replace('x', '8')
+            text = text.replace('z', '2')
+
+            print(text)
+            ]]>
+        </programlisting>
+        <para>
+            A program vesz egy inputot (ezesetben a text.txt fájlt), majd kicseréli benne az összes előfordulását a felsorolt karaktereknek a megadott ekvivalensükre. Ezután elmenti az így keletkezett string-et egy változóba és kírja az output-ra.
+        </para>
+    </section>                     
+
+
+    <section>
+        <title>A források olvasása</title>            
+                <programlisting><![CDATA[for(i=0; i<5; ++i)]]></programlisting>            
+            <para>
+                For ciklus, melyben a ciklusváltozó addig növekszik, amíg az kisebb, mint 5.
+            </para>     
+                <programlisting><![CDATA[for(i=0; i<5; i++)]]></programlisting>      
+            <para>
+                For ciklus, melyben a ciklusváltozó addig növekszik, amíg az kisebb, mint 5. Ugyanaz az eredmény, mint az előző példánál.
+            </para>
+                <programlisting><![CDATA[for(i=0; i<5; tomb[i] = i++)]]></programlisting>            
+            <para>
+                For ciklus, mely egy tömbbe belerakja a ciklusváltozó értékét minden iteráció során. Mivel a műveletek sorrendje itt változhat fordítótól függően, kerüljük az ilyen ciklust.
+            </para>
+                <programlisting><![CDATA[for(i=0; i<n && (*d++ = *s++); ++i)]]></programlisting>                                      
+            <para>
+                For ciklus, mely n-szer fut le és a d pointer értékét odaadja az s pointernek, majd növeli a változók értékét.
+            </para> 
+                <programlisting><![CDATA[printf("%d %d", f(a, ++a), f(++a, a));]]></programlisting>                           
+            <para>
+                Kiírunk a standard output-ra két darab kétargumentumú függgvény visszatérési értékét. Mivel a két függvény ugyanazokkal a bemeneti adatokkal dolgoznak, nem szerencsés egyszerre futtatni őket, mert nem tudhatjuk, melyik fog előbbb lefutni.
+            </para> 
+                <programlisting><![CDATA[printf("%d %d", f(a), a);]]></programlisting>            
+            <para>
+                Kiírunk a standard output-ra egy függvény visszatérési értékét és egy változót.
+            </para>
+                <programlisting><![CDATA[printf("%d %d", f(&a), a);]]></programlisting>            
+            <para>
+                Kiírunk a standard output-ra egy függvény visszatérési értékének a referenciáját és egy változót.
+            </para>  
+    </section>                     
+
+    <section>
+        <title>Logikus</title>
+        <para>
+            Hogyan olvasod természetes nyelven az alábbi Ar nyelvű formulákat?
+        </para>
+        <programlisting language="tex"><![CDATA[
+            $(\forall x \exists y ((x<y)\wedge(y \text{ prím})))$ 
+
+            $(\forall x \exists y ((x<y)\wedge(y \text{ prím})\wedge(SSy \text{ prím})))$ 
+
+            $(\exists y \forall x (x \text{ prím}) \supset (x<y)) $ 
+
+            $(\exists y \forall x (y<x) \supset \neg (x \text{ prím}))$
+]]></programlisting>        
+        <para>
+            I. Minden x-re létezik olyan y, ami prím és nagyobb nála -> végtelen sok prímszám létezik.
+        </para>
+        <para>
+            II. Minden x-re létezik olyan y, hogy x kisebb, mint y, és y is és y+2 is prím -> végtelen sok ikerprím létezik.
+        </para>
+        <para>
+            III. Minden x-re létezik y , hogy x prím, ha x kisebb y-nál -> véges sok prímszám létezik.
+        </para>
+        <para>
+            IV. Minden x-re létezik y, hogy x nagyobb, mint y, ha x nem prím. -> véges sok prímszám létezik.
+        </para>
+    </section>                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    <section>
+        <title>Deklaráció</title>
+            
+        <para>
+            Vezesd be egy programba (forduljon le) a következőket: 
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <para>egész</para>                        
+            </listitem>
+            <listitem>
+                <para>egészre mutató mutató</para>                        
+            </listitem>
+            <listitem>
+                <para>egész referenciája</para>                        
+            </listitem>
+            <listitem>
+                <para>egészek tömbje</para>                        
+            </listitem>
+            <listitem>
+                <para>egészek tömbjének referenciája (nem az első elemé)</para>                        
+            </listitem>
+            <listitem>
+                <para>egészre mutató mutatók tömbje</para>                        
+            </listitem>
+            <listitem>
+                <para>egészre mutató mutatót visszaadó függvény</para>                        
+            </listitem>
+            <listitem>
+                <para>egészre mutató mutatót visszaadó függvényre mutató mutató</para>                        
+            </listitem>
+            <listitem>
+                <para>egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvény</para>                        
+            </listitem>            
+            <listitem>
+                <para>függvénymutató egy egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvényre</para>                        
+            </listitem>            
+        </itemizedlist>            
+
+       <para>
+            Mit vezetnek be a programba a következő nevek?
+        </para>
+
+        <itemizedlist>
+            <listitem>
+                <programlisting><![CDATA[int a;]]></programlisting> 
+                <para>Egy egész típusú változó.</para>           
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int *b = &a;]]></programlisting>    
+                <para>Egy egész típusú változóra mutató pointer.</para>         
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int &r = a;]]></programlisting>  
+                <para>Egy egész típusú referencia, mely a-nak az értékét kapja.</para>           
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int c[5];]]></programlisting> 
+                <para>5 elemszámú, egészeket tartalmazó tömb.</para>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int (&tr)[5] = c;]]></programlisting> 
+                <para>Referencia egy ötelemű, egészeket tartalmazó tömbre, mely a 'c' tömb címére hivatkozik.</para>            
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int *d[5];]]></programlisting>     
+                <para>Ötelemű tömb, mely pointereket tartalmaz.</para>       
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int *h ();]]></programlisting>    
+                <para>Függvény, mely egy pointert ad vissza visszatérési értékként.</para>        
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int *(*l) ();]]></programlisting>  
+                <para>Pointer, mely egy pointerrel visszatérő függvényre mutat.</para>          
+            </listitem>
+            <listitem>
+                <programlisting><![CDATA[int (*v (int c)) (int a, int b)]]></programlisting>      
+                <para>Függvény, mely bekér két argumentumot, visszaad egy egész típusú változót, majd visszatér egy, a változóra mutató pointerrel.</para>      
+            </listitem>            
+            <listitem>
+                <programlisting><![CDATA[int (*(*z) (int)) (int, int);]]></programlisting>       
+                <para>Függvény, mely bekér két argumentumot, visszaad egy egész típusú változót, rámutat egy pointerrel, majd arra is rámutat.</para>     
+            </listitem>            
+        </itemizedlist>       
+
+    </section>                     
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

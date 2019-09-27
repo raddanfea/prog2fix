@@ -1,0 +1,160 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Gutenberg!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+        <cover>
+            <para>
+                Programozás tankönyvek rövid olvasónaplói.
+            </para>
+        </cover>
+    </info>
+    <section>
+        <title>Juhász István - Magas Szintű Programozási Nyelvek 1</title>
+        <para>         
+            <citation>PICI</citation>       
+        </para>
+        <para>
+        	A könyv 2008-as kiadású és a Debreceni Egyetem tantervi hálója alapján lett felépítve. Az első fejezetben az informatika céljáról esik szó, bár érdekes módon egy objektum-orientáltált szemlélettel tekint a világra. Az absztrakció paradigmáját részletesen megfogalmazza, hiszen erre épül a programozási (és nem programozási) nyelvek mindegyike. A programozási nyelveket három kategóriába sorolja: Gépi nyelv (számunkra nem olvasható), assembly szintű nyelv (nehezen, de átlátható) és magas szintű nyelvek (emberek számára olvasható, itt is előjön egyfajta absztrakció). Egy fordítóprogram magas szitű nyelvet fordít le gépi nyelvre, ezáltal tudjuk majd futtatni a számunkra átlátható nyelven megírt programunkat. A magas szintű nyelveket is lehet alcsoportokra bontani, ezek lesznek az imperatív (C, C++, Java, stb.) és a deklaratív (Prolog, SQL, stb.) nyelvek. A imperatív nyelvekben a programozónak magának kell a saját algoritmusait megírni, míg a deklaratív nyelvekben általában meg vannak adva előre a nyelv lehetőségei.
+A második fejezetben a nyelvek alapelemeit ismerhetjük meg. Szó lesz egy nyelv ábécéjéről: a változók nevében használható karakterektől, a szimbolikus karakterekről, konstansokról. A szerző bevezeti az adattípusok (egyszerű és összetett), a tömbök, mutatók, nevesített konstansok, és változók fogalmát.
+A harmadik fejezetben lesz szó a kifejezésekről, melyek operandusokból, operátorokból és zárójelekből állnak. A három írásmódról is szó esik, bemutatásra kerül a prefix, infix és postfix írásmód is. A C nyelvben vannak egyoperandusú operátorok is, mint a '++' operátor, mely eggyel növeli egy változó értékét egy adott utasítás előtt, vagy után attól függően, hogy az operátor a változó előtt vagy után helyezkedik el. Megismerkedhetünk a műveletek végerhajtási sorrendjével, majd mindegyikről egy rövid leírást kapunk.
+A negyedik fejezet az utasításokról szól, azaz a különböző értékadásokról, ugrásokról, elágazási lehetőségekről, ciklusokról, hívásokról, i/o utasításokról, stb. egy programban. Itt nem lesz konkrét nyelvi példa C -ben, hiszen a könyv 4 különböző nyelvet fed le, és rengeteg oldal csak kódból állna. A három kulcsszó, amivel megismertet a könyv, az a 'continue', a 'break' és a 'return'.
+A programok szerkezetéről szól az ötödik fejezet, a programegységekre bomlás logikáját magyarázza el. Itt lesz világos, hogy az eljárásorientált nyelveknek mi az előnye. Itt ismerkedhetünk meg az alprogramok fogalmával. Ez csak egy különböző név a saját magunk által létrehozott eljárásoknak és függvényeknek. Ezeknek négy komponense van: név, paraméter-lista, törzs és környezet. A rekurzió fogalmával is megismertet a könyv, ez az a programozási eszköz, amikor egy program saját magát hívja meg(általában megváltozott paraméterekkel. Többféle paraméter-átadási típus létezik. Egy alprogramnak adhatunk érték szerint, cím szerint, eredmény szerint, érték-eredmény szerint, név szerint és szöveg szerint. A C nyelv csak egy paraméter-átadási módot ismer, a paraméter típusától függ, hogy melyik fajta fog történni. A következő részben hosszasan kifejti minden egyes nyelvben a blokk és hatáskör fogalmát, de a C nyelvnek csak két oldalt szán. Itt lesz szó a különböző szabályokról és az ezek kikerülésére használható kulcsszavakról (extern, auto, register, static).
+Az absztrakt adattípusokról nem tudunk meg sokat, csupán annyit, hogy egy módszer az információ elrejtésére, és hogy egyre népszerűbb az alkalmazása.
+A kivételkezelésnek is külön fejezet van szentelve, ez a paradigma segíthet kiküszöbölni a programban levő futási, valamint észrevenni az esetleges szemantikabeli hibákat. A könyv nem hoz a C nyelvből példát, hiszen a kivételkezelés nem része a nyelvnek, de megoldást nyújthatnak egy bizonyos mértékig egyszerű if-else utasítások is. A párhuzamos programozás a C nyelvbe be van építve, egy új szálat a fork() utasítással tudunk nyitni. Ennek a segítségével tudunk például több magon futtatni egy ciklust egy programban (lásd: végetlen ciklus több magon).
+Az I/O kezeléséhez is új fejezetet nyitott a szerző, ez talán az egyik legfontosabb, bár nem a legnehezebb eleme a programozásnak, hiszen valamilyen módon tudnunk kell kommunikálni a programunkkal. Kétféle adatátviteli mód létezik: folyamatos (konvezióval) és rekord módú (binárisan történő). Ez csupán annyit jelent, hogy például a prinf() függvény típuskonverziót hajt végre egy szám kiírásakor (innen jön a név - print formatted). Lesz itt szó az állománykezelésről (nyitás, feldolgozás, zárás) és a különböző nyelvi eszközökről is. A könyv végén még szó esik röviden a memóriakezelésről, de itt már nem találkozunk egy nyelvben sem konkrét példával, kizárólag elméleti szinten mutatja be a nyelvek ezen elemeit.
+        </para>
+    </section>        
+    <section>
+        <title>B. W. Kernighan, D. M. Ritchie - A C programozási nyelv</title>
+         <para>
+            Az első fejezetben azonnal rátér a könyv a programozásra és egy "hello world" program elkészítésében segít az olvasónak. Megadja, hogy mire kell odafigyelni, valamint hogy hogyan kell lefuttatni a programot egy UNIX rendszeren. Itt már előjönnek olyan dolgok, amiket még csak később fog elmagyarázni a szerző, de egy gyors áttekintést ad róluk a teljesség kedvéért. A változókat sajátos módon vezeti be, nem magyarázza el azonnal, hogy mik azok, hanem rögtön egy példaprogramot ad a felhasználó kezébe. Miután a működését értelmezte, azután fog csak plusz információt kapni az olvasó a kifejezések jelentéséről. Itt bevezetésre kerülnek az int, float, short, long, double és a char típusú változók. Ekkor a while ciklus is be  lesz vezetve, melyek segítségével megírhatjuk az első valóban hasznos programunkat. 
+v<![CDATA[
+
+/* Fahrenheit­Celsius táblázat kinyomtatása f = 0, 20, . . ., 300
+értékekre */
+
+
+
+#include <cstdio>
+
+
+int main ()
+{
+int lower, upper, step;
+float fahr, celsius;
+lower = 0; /* A hőmérséklet­táblázat alsó határa */
+upper = 300; /* felső határ */
+step = 20; /* lépésköz */
+fahr = lower;
+while (fahr <= upper) {
+celsius = (5.0 / 9.0) * (fahr - 32.0);
+printf ("%4.0f %6.1f \n", fahr, celsius);
+fahr = fahr + step;
+}
+}
+
+]]>
+
+
+A következő bemutatott része a c nyelvnek a karatkterek ki- és bevitele lesz, méghozzá a putchar() és a getchar() függvényeken keresztül. Itt ismerkedünk meg a ++i és az i++ kifejezésekkel is. Ezekkel kapunk pár példát különböző inkrementálási megoldásokra, és végül szó esik az 'or' logikai operátor használatáról. 
+A következő témakör a tömbökkel foglalkozik, deklarálásukkal, rajtuk végezhető műveletekkel. Ezután a függvényekről lesz szó, melyek talán a legfontosabb elemei egy programozási nyelvnek. Ehhez kapunk példákat is, és hamar megismerkedhetünk az argumentumokal és az érték alapján való hívással. 
+A 9. részben a szerző egyesíti az eddig megismert részeit a nyelvnek és egy példaprogramot tár elénk, mely tartalmaz függvényeket, tömböket, relációs operátorokat és ciklusokat is.
+
+<programlisting>
+
+    <![CDATA[
+
+#define MAXLINE 1000 /*A beolvasott sor maximális mérete*/
+/*Sor beolvasása s­be, a hosszát adja vissza*/
+getline (char s[],int lim)
+{
+int c, i;
+for (i = 0; i < lim ­ 1 && (c =getchar ()) != EOF
+&& c != '\n'; ++i)
+s [i] = c;
+if (c == '\n') {
+s [i] = c;
+++i;
+}
+s [i] = '\0';
+return (i);
+}
+/*s1 másolása s2­be; s2­t elég nagynak feltételezi*/
+copy (s1 [], s2 [])
+{
+int i;
+i = 0;
+while ((s2 [i] = s1 [i]) != '\0')
+++i;
+}
+/*A leghosszabb sor kiválasztása*/
+main ()
+{
+int len; /*A pillanatnyi sor hossza*/
+int max; / *Az eddigi maximális hossz*/
+char line [MAXLINE]; /*A pillanatnyilag olvasott sor*/
+char save [MAXLINE]; /*A leghosszabb sor mentésére*/
+max = 0;
+while ((len = getline (line,MAXLINE)) > 0)
+if (len > max) {
+max = len;
+copy (line,save);
+}
+}
+if (max > 0) /*Volt sor*/
+printf ("%s", save);
+
+            ]]>
+</programlisting>
+Ezután még egy kicsit elmélyedhetünk a különböző változók "élettartamában", hogy pontosabban megértsük a fordító működését és hogy a későbbi félreértéseket elkerüljük. Fontos megjegyezni azonban, hogy bár van rá lehetőségünk, a globálisan deklarált változókat erősen ellenzi a legtöbb programozó, hiszen könnyen megváltoztathatja az értéküket egy olyan függvény vagy eljárás, melynek nem lenne szabad elérne az adott változót. 
+Ezután már csak az összefoglalás marad hátra, itt egy pár olyan feladatot ad a könyv, melyhez az eddig tanult tudás elegendő.
+A típusokról és a kifejezésekről a második fejezetben esik szó részletesebben, majd megtudhatjuk, hogy bizonyos architekrúrákon milyen módon vannak tárolva. A különböző változókon elvégzett műveleteket 8 fejezeten át tárgyalja a könyv, itt szó esik az aritmetikai és logikai operátorokról, relációkról, inkrementálásról és típuskoverzióról is. A fejezet végén egy precedencia-táblát mutat be, melyben fentről lefelé haladva vannak rendezve a különböző elvégezhető műveletek, azoknak "erőssége" alapján.
+A harmadik fejezetben részletesen megismertet a könyv a különböző feltételes utasításokkal, melyek szinte minden programban elengedhetetlenek. 
+Itt szó esik a következő utasításokról:
+    if-else
+    else-if
+    switch
+    while, for
+    do-while
+    break, continue, goto
+Bár már látott és írt is az olvasó ilyen utasításokat, ebben a fejezetben részletesen be van mutatva a használatuk és lényegük.
+A negyedik fejezet a függvényeknek van szentelve, itt bemutatja az író az összes olyan lehetőséget, melyekkel dolgozhatunk egy program írásánál a függvényekben. Itt lesz szó a blokkstruktúráról, a változók kezeléséről majd végül a rekurzióról is. 
+A mutatók talán a c nyelv legjellegzetesebb elemei, segítségükkel rengeteg lehetőség áll a rendelkezésünkre, viszonylag kis erőforrás-igénnyel. Nem csoda tehát, hogy a teljes ötödik fejezet ezeknek a különleges változóknak van szentelve. Itt leginkább a tömbök kezeléséről, az elemek között való műveletekről lesz szó. Itt láthatunk példákat egyszerű változók címével való műveletekre, tömbök bejárására mutatókkal, valamint a parancssori argumentumokkal is találkozhatunk. A fejezet végén röviden megtárgyaljuk a függvénymutatók célját, használatát.
+A hatodik fejezet a struktúrákról szól. Először a könyv bevezeti a fogalmat, majd egy pár egyszerűbb példát hoz a lehetséges alkalmazási módokra, miközben a szintaxist bemutatja. Szót ejt az önhivatkozó, azaz rekurzív struktúrákról, majd  az unionok és típusnévdefiníciók  fogalmát vezeti be.
+Ezután lesz csak szó a be-és kimenetről, azaz a tárhellyel és általában az I/O-val foglalkozó függvényekkel. Itt részletesen tájékozódhat az olvasó a printf(), scanf(), getchar(), putchar(), stb. függvények használatáról, működéséről. Itt esik szó a rendszerhívásokról, melyek a UNIX alapú operációs rendszerek fontos elemei, valamint a tárhelykezelésről, melyet minden programozónak helyesen kell tudnia használni. Ide tartoznak az alloc, calloc, malloc függvények.
+Az utolsó, fejezetben az UNIX operációs rendszerrel való kommunikációról esik szó, itt leginkább a tárhellyel való kommunikálás problémáinak megfelelő kezelése a cél, az open(), read(), close() függgvényekkel. A RAM és a háttértár eléréséről sok részlet kimaarad, de az olvasó, aki idáig eljutott, valószínűleg más forrásból is szerzett tudást, így ezzel a témakörrel valószínűleg nem lesz problémája a karrierje során. 
+A könyv végén a függelékben egy majdnem ötvensoros összefoglalót találunk a megtárgyalt nyelvi eszközökről, melyet gyorsan, könnyen át tud nézni az olvasó, ha valami probléma adódik programozás közben, miután elolvasta a könyv többi részét.  Itt összegyűjti a szerző a fontos kifejezéseket, utasításokat és a szintaxisukat. A könyv lezárás nélkül marad, talán azt szimbolizálva, hogy a nyelv folyamatos fejlődése miatt nem lehet teljes, mindent egybefoglaló olvasmányt készíteni.
+        </para>
+        <para>
+            Alapismeretek
+        </para>
+        <para>
+            Ebben a fejezetben az olvasó megírja az első programját, mely egy egyszerű "Hello World" típusú program. Itt szó esik a különböző speciális kifejezésekről, mint a "\n". Ezután megismerkedünk a programozás legfontosabb elemével, a változó-értékadással. Ekkor találkozunk először a változó-típusokkal és a rajtuk végzett műveletekkel. Itt már a while ciklus is előjön, de még nincs részletesen elmagyarázva. A harmadik alfejezetben a for utasítás jön elő, melyet a már megismert while ciklushoz hasonlít a könyv. Ezután láthatunk példákat szimbolikus állandókra, és láthatjuk a változóktól való különbségüket. Láthatjuk továbbá a getchar() és a putchar() függvények használatát, valamint kicsit specifikusabb példákat velük kapcsolatban. A hatodik alfejezetben a tömbökkel ismerkedhetünk meg, valamint az if/else kifejezéssel. Itt is találhatunk példákat különböző alkalmazásaira ezeknek a nyelvi elemeknek. A következő témakör a függvényekkel kapcsolatos, itt láthatunk példát egyszerű hatványozó függvényre, valamint a függvények tulajdonságairól is szerezhetünk ismereteket (érték szerinti hívás). A kilencedik alfejezet a karaktertömbökről szól, bár még a string-ekről nem esik szó. Az utolsó részben a külső változókról esik szó, azoknak a használatáról és céljukról. Az összefoglalás részben néhány gyakorló-feladatot kap az olvasó, melyek az eddig megismert kifejezésekhez, paradigmákhoz kapcsolódnak.
+        </para>
+        <para>
+        	Típusok, operátorok, kifejezések
+        </para>
+        <para>
+            A fejezetet a különböző változótípusok leírásával, jellemzésével kezdik a szerzők, majd a karakterláncokról,  állandókról lesz szó. Miután ezeknek a deklarációjáról is esett szó, a különböző operátorok és használatuk van bemutatva.
+        </para>
+    </section>        
+    <section>
+        <title>Benedek Zoltán, Levendovszky Tihamér - Szoftverfejlesztés C++ nyelven</title>
+        <para>                
+            <citation>BMECPP</citation>
+        </para>
+        <para>
+        	A könyv bevezetőjében megtudhatjuk a c++ nyelv leglényegesebb különbségeit a többi objetum-orientált nyelvtől, valamint rövid összefoglalót kapunk a c nyelvből örökölt elemekről. Feltételezi a szerző, hogy az olvasónak már van valamennyi tapasztalata a C nyelvvel, és azonnal a különbségeket kezdi el részletezni. 
+Az első valóban a nyelv elemeiről szóló fejezetben a függvényekkel foglalkozik (itt is látszik a különbség a Kernighan-Ritchie könyvtől: Ott a változók, adattípusok voltak az első téma), és a C-vel való viszonyát fejti ki, valamint az újdonságokról ejt szót, mint például az üres (void) paraméterről. Bemutat egy új változótípust, a "bool"-t, mely csak 1, vagy 0 értéket vehet fel. A függvények túlterhelését is fontos megemlíteni, két függvénynek lehet azonos neve, ha más a paraméterlistájuk. A referencia szerinti paraméter-átadás is újdonság, ennek a segítségével egyszerűbben, átláthatóan kezelhetjük a változóinkat.
+A harmadik fejezetben az objektumorientáltságról esik szó, mely szintén egy olyan elem, mely a C nyelvben nem elérhető. Ennek a meglehetősen népszerű programozási szemléletnek az alapja, hogy minden univerzumelem felfogható egy adathalmaznak, melyen függvényekkel és eljárásokkal végezhetünk műveleteket. A paradigma három fő alapfogalmáról is szó esik, az egységbezárásról, az öröklődésről és a többalakúságról. A konstruktorokkal és destruktorokkal a 3.4-es alfejezetben ismerkedhetünk meg részletesebben, ezek azok a részei egy osztálynak, melyek az osztály minden meghívásakor, illetve felszabaduláskor lefutnak. Ezekben tudunk változókat deklarálni, vagy különböző műveleteket végezni már meglévő struktúrákkal (pl. mozgató szemantika - LZWBinFa). A dinamikus tagok osztálybeli kezeléséről is lesz szó, ezekkel vigyázni kell, sok eset lehetséges, amikor dupla felszabadítás, vagy többszörös adatmódosítás történik. Erre jó példát hoz a szerző, melyben egy változóra több pointer is mutat, és ezáltal több módon lehet elérni. Ezzel az a baj, hogy könnyen "elromolhat" a változónk. A "Friend" típusú függvényekről és osztályokról szól a következő alfejezet, melyek olyan függvények és osztályok, melyek el tudják érni egy másik osztály privát tagjait is. A statikus tagok lesznek a következő témakör, melyek olyan konstans változók, melyek egy osztály minden objektumában azonos értéket vesznek fel. Érdekesség, hogy a memóriában egy változónyi hely van nekik foglalva a helytakarékosság céljából. A negyedik fejezetet a konstans változók ismertetésével kezdi a szerző, ezek olyan változók, melyeknek a program futása során nem változhat meg az értékük. Konstans pointerek deklarálására is van lehetőségünk, ezeknek sem lehet megváltoztatni az értékét, azaz minden esetben ugyanarra a memóriacímre fog mutatni. Konstans változókat egy osztályban az inicializásási listában kell létrehozni. konstans tagfüggvények is léteznek, ezek paraméterül átadott változóit nem lehet módosítani. 
+A C++ nyelv Input/Output függvényei kissé máshogy működnek, mint C-ben, itt a bitshift operátorokkal történik a ki- és beolvasás. (Talán hasznos lehet megemlíteni, hogy van lehetőségünk a c nyelv függvényeit használni, ezek egy külön header fájlban vannak elhelyezve, pl. 'cstdio.h'). Az állománykezelés hasonlóan működik, min C-ben, bár itt is van lehetőségünk az imént megismert operátorokat használnunk, ha szipatikusak. 
+Az operátoroknak egy teljes fejezetet szánt a szerző, hiszen velük kapcsolatban sok újdonság van a C++ nyelvben. Az egyik legerősebb eleme a nyelvnek az operátor-túterhelés (operator-overload), mellyel egy operátor viselkedését tudjuk megváltoztatni (ismét, lásd: mozgató szemantika). A típuskonverzió is egy hasznos eleme a nyelvnek, Bár a C nyelvhez képest itt nincs sok különbség, itt fordítva működött a fejlődés iránya: először lettek a c++ nyelvben megalkotva az újítások, és azután vette át a C nyelv is ezeket az elemeket.
+Névterekkel el tudjuk választani az azonos nevű és paraméterlistájú függvényeket, így azok egyértelműek lesznek. Ez egy magányos programozó számára nem feltétlenül hasznos, de egy cégen, vagy vállalaton belüli munkát képes megkönnyíteni. Én szemályesen egyszerűbb programoknál szívesen hívom meg az std névteret a 'using' kulcsszóval, így később nem kell majd minden egyes i/o műveletnél használnom. 
+A kivételkezelés bonyolultabb programoknál hasznos lehet, ennek a segítségével könnyebben lehet megtalálni az esetleges hibákat a programunkban. Ezeket a 'try', a 'catch' és a 'throw' kulcsszavakkal tuduk használni. A könyv ezután A sablonokat fejti ki a maradék ~100 oldalban. Ezek olyan elemei a nyelvnek, melyek segítségével egy adott osztályt vagy függvényt több adattípus esetén is tudjuk használni. Ilyenkor csak egyszer kell deklarálnunk az osztályt/függvényt, és később az átadott paraméterek fogják meghatározni a viselkedését.
+A könyv végén egy gyors összefoglaló van az operátor-precedenciáról, a különböző ajánlott fejlesztői környezetekről (Visual C++, linux os), valamint egy táblázatot is találhatunk a különböző C utasítások C++ megfelelőiről.
+        </para>
+
+    </section>        
+</chapter>                

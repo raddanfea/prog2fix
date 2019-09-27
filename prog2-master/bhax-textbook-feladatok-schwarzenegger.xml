@@ -1,0 +1,82 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Schwarzenegger!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Szoftmax Py MNIST</title>
+        <para>
+        	A neurális hálók a gépi tanulás alapkövei, és ezáltal egyre nagyobb figyelem fordul feléjük. Többféle módszer is van különbözo neurális hálót létrehozó algoritmusok létrehozására, ebben a feladatban a Softmax regressziót használjuk. A célunk, hogy kézzel írt számjegyeket minél nagyobb pontossággal tudjon felismerni a számítógép.
+        </para>
+        <para>
+			Az MNIST (Modified National Institute of Standards and Technology) egy adatbázis, melyben 28x28 pixeles képek, valamint a hozzájuk tartozó címkék vannak kézzel írt számokról. 60.000 kép tartozik az alap adatbázisba, és mellé van 10.000 további, melyet nem használnak fel az algoritmusokban, hanem annak a tesztelésére hagyják meg. 
+		</para>
+		<para>
+			A következő python script ezt a neurális hálót építi fel. A pontossága 90% körül van, ami jól hangozhat, de bőven lehet még rajta finomítani. 
+        </para>
+    </section>        
+
+<!--
+    <section>
+        <title>Szoftmax R MNIST</title>
+        <para>
+            R            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>        
+-->
+    
+    <section>
+        <title>Mély MNIST</title>
+        <para>
+        	Tutoriált: Ádám Petra
+        </para>
+        <para>
+        	A neurális hálók pontosságának javítása érdekében több "titkos" réteget vezethetünk be, melyek, bár exponenciálisan fogják növelni az algoritmus komplexitását, meglehetosen nagy javulást okozhatnak a hibaszázalékok csökkentésében. Ilyen titkos réteggel már találkoztunk, mikor egy xor kaput próbáltunk neurális hálóval szimulálni. Minél több ilyen réteget rakunk a programunkba, annál finomabban tudjuk majd a rétegek súlyozását alakítani. 
+        </para>
+        <para>
+			DEEP MNIST PROGRAM
+        </para>
+    </section>        
+<!--
+    <section>
+        <title>Deep dream</title>
+        <para>
+            Keras            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>        
+-->                  
+    <section>
+        <title>Minecraft-MALMÖ</title>
+        <para>
+        	A Minecraft Malmö projekt egy kezdoknek szóló, Microsoft által elindított neurális háló-fejleszto program. A célja, hogy játékosan ismertesse meg a leendo fejlesztokkel egy háló felépítését és muködését. 
+        </para>
+        <para>
+			A projekt egyáltalán nem kötött, mindenki saját magának szabhat meg egy célt, amit megpróbál megvalósítani. Ilyenek lehetnek egyszeru feladatok, például egy szobában a leheto legrövidebb úton ejlutni A-ból B-be, vagy a generált világban tájékozódni. 
+		</para>
+		<para>
+			A projekthez biztosítanak egy python api-t, melynek segítségével könnyen lehet a játékbeli paramétereket vizsgálni. A szükséges források ehhez a 
+			https://github.com/Microsoft/malmo címen találhatóak.
+		</para>
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</chapter>                

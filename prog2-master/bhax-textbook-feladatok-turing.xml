@@ -1,0 +1,399 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Turing!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Végtelen ciklus</title>
+        <para>
+            Egy végtelen ciklus egy programban nem szerencsés, ha nem direkt van implementálva, hiszen erőforrást használunk anélkül, hogy akármilyen számolást végeznénk. Vannak esetek azonban, amikor egy véget nem érő, folyamatosan futó ciklus hasznos, sőt, elkerülhetetlen. A legegyértelműbb használata egy ilyen folyamatnak a rendszer erőforrásainak tesztelése. Ha a processzor órajelével játszadozunk, azaz overclock-olunk, a stabilitást egészen egyszerűen llehet tesztelni egy olyan végtelen ciklussal, mely 100%-ban dolgoztatja a processzorunkat. 
+        </para>
+        <para>
+            Abban az esetben is hasznos lehet egy ilyen folyamat, ha egy inputot várunk egy felhasználótól, vagy másik programtól. Végtelen ciklus nélkül nem tudnánk bizonyos időközönként ellenőrizni, hogy a felhasználó megnyomott-e egy billentyűt, vagy nem. Láthatjuk tehát, hogy elkerülhetetlen egy végtelen ciklus használata, ha bizonyos időintervallumomként le kell futtatni egy kódrészletet. 
+            Több mód is van egy végtelen ciklus létrehozására, lehet for, while, do-while ciklussal, vagy goto kifejezéssel is implementálni.
+            Íme egy-egy példa mindegyikre: 
+        </para>
+        <para>
+            For ciklussal:               
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+{
+int main()
+    {
+        for(;;)
+        {}
+        return 0;
+    }
+  }
+}]]></programlisting>  
+<para>
+          While ciklussal:
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{ 
+      {
+        while(TRUE)
+        {}
+        return 0;
+      }
+}]]></programlisting> 
+        <para>
+          Do While ciklussal;
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+int main()
+  {
+  do
+    {} 
+  while (1);
+  return 0;
+}
+  }
+}]]></programlisting>  
+        <para>
+            Goto kifejezéssel:
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+  int main()
+  {
+  cycle:
+  goto cycle;
+  return 0;
+} 
+}]]></programlisting>  
+        <para>
+          A C és C++ nyelvekben a többmagosítás (multithreading) a fork() függvénnyel valósítható meg, ezzel tudjuk elérni, hogy több szálat (thread) legyen képes használni a programunk. Egy fork() függvény két részre osztja a folyamatot, így ha n számú fork() függvényt helyezünk a programunkba, 2^n szálat fogunk tudni dolgoztatni.
+          Ezt a következő példában láthatjuk: 
+        </para>
+        <para>
+            Ha nem akarjuk, hogy a programunk lefoglalja a lehető legtöbb megengedett cpu-időt, bevezethetjük a sleep() függvényt, mely a zárójelek közt megadott ideig (másodpercben) megállítja a folyamatunkat. Ezzel a függvénnyel el lehet érni a programjainkban, hogy csak bizonyos sebességgel fussanak, vagy csak bizonyos időközönként hajtsanak végre egy folyamatot. Ebben az esetben a végtelen ciklusunk nem fogja 100%-ban dolgoztatni a processzort, hiszen összesen 1 művelet hajtódik végre másodpercenként.
+        </para>            
+    </section>        
+        
+    <section>
+        <title>Lefagyott, nem fagyott, akkor most mi van?</title>
+        <para>
+            Egy minden informatikust érintő probléma a "Halting Problem", azaz az a kérdés, hogy  lehet-e olyan programot írni, mely eldönti egy másik programról, hogy az végtelen ciklusba került-e. A problémával először Alan Turing foglalkozott 1936-ban, és arra a konklúzióra jutott, hogy nem lehetséges ilyen programot írni. Ezt az állítást a következőképp bizonyíthatjuk: 
+        </para>
+        <para>
+            Tegyük fel, hogy sikerült olyan programot írni, mely el tudja dönteni bármilyen programról, hogy meg fog-e állni, vagy sem. Ha egy ilyen programnak bemenetül adjuk önmagát, ez a folyamat a végtelenségig fog futni, hiszen a rekurzió minden lépésében újra meghívja önmagát. Így a programunk, amelynek az lett volna a célja, hogy leállítsa a végtelenségig futó programokat, végtelen ciklusba került. 
+        </para>
+        <para>
+            Erre a problémára sajnos nincs megoldás, így az informatikusoknak jelentős figyelmet kell fordítani arra, hogy az általuk írt programokban lezajló folyamatok egyszer véget érjenek.
+        </para>
+    </section>        
+                
+    <section>
+        <title>Változók értékének felcserélése</title>
+        <para>
+            Egy program futása közben sok esetben fordul elő, hogy két változó értékét egymás memóriacímére kell helyeznünk. Ez a folyamat az összes rendező algoritmus része, és a legtöbb adatszerkezet (pl. tömb, lista, stb) kezeléséhez szükséges. A legegyszerűbb megoldás a problémára egy harmadik, ideiglenes változó bevezetése, de ez értékes memóriát vehet el a rendszertől, valamint felesleges deklarációkhoz vezet. A legtöbb algoritmus Olyan módszereket használ, melyekhez nem szükséges egy új változót deklarálni. 
+        </para>
+        <para>
+            Az első két módszer hasonlít egymáshoz, ugyanazon az alapelven működnek. Mindkettő három lépésből áll, annyi a különbség, hogy míg az egyikben összeadást és kivonást használunk, a másikban szorzást és osztást. A folyamat első lépése az, hogy a két változó értékét összeadjuk és eltároljuk a változók egyikében. A következő lépés során a változatlan értékű változónak megadjuk az összegből levont értékét. Ekkor ennek a változónak az értéke pontosan annyi lesz, mint a másik változó értéke volt a folyamat megkezdése előtt. A harmadik, azaz utolsó lépésben Az első változónknak megadjuk az önmagából levont másik változó értékét. Ekkor a két változó értékének a cseréje megtörtént.
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+   int main()
+  {
+  a=a+b;
+  b=a-b;
+  a=a-b;
+
+  return 0;
+  }
+}]]></programlisting>  
+    </section>          
+
+    <section>
+        <title>Labdapattogás</title>
+        <para>
+            Sok programban, főleg játékokban szükség van arra, hogy valamilyen elemet mozgasssunk a képernyőn. Mivel a képernyő pixelekből áll, melyeknek saját koordinátáik vannak, meg lehet oldani elemek mozgatását az elem pillanatbeli helyzetének változtatásával. Egy terminálablakban is tudunk hasonló módon mozgatni egy elemet, esetünkben egy karaktert, melynek megadhatjuk, hogy csak egy bizonyos kereten belül mozogjon. 
+        </para>
+        <para>
+            A labda (esetünkben egy O szimbólum) ciklusonként kirajzolódik, valamint helyet változtat egy adott irányba. Ha eléri a pálya szélét, azaz az egyik for ciklusban teljesül a feltétel, a labda irányt változtat. Mindez egy végtelen (while) ciklusban fut, így a labda addig fog pattogni, amíg manuálisan le nem állítjuk a programot.
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+
+#include <iostream>
+#include <stdlib.h>
+#include <unistd.h>
+
+char bitzero(char x) {
+    int i;
+    char bitt = x&0x1;
+    for (i=0; i<8; i++) {
+        bitt |= (x>>i)&1;
+    }
+    return 1-bitt;
+}
+
+void rajzol(char width, char height) {
+    int i;
+    for (i=1; i<=height; i++) {
+        std::cout << std::endl;
+    }
+    for (i=1; i<=width; i++) {
+        std::cout << " ";
+    }
+    std::cout << "O" << std::endl;
+}
+
+int main() {
+    char x=1, y=1, vx=1, vy=1;
+    while(1) {
+        system("clear");
+        vx-=2*bitzero(79-x);
+        vx+=2*bitzero(x);
+        vy-=2*bitzero(24-y);
+        vy+=2*bitzero(y); 
+        x+=vx;
+        y+=vy;
+        rajzol(x,y);
+        usleep(100000);
+    } 
+    return 0;
+}
+
+}]]></programlisting> 
+    </section>                     
+
+    <section>
+        <title>Szóhossz és a Linus Torvalds féle BogoMIPS</title>
+        <para>
+            Mikor Linus Torvalds megírta a saját kerneljét, szüksége volt egy algoritmusra, mely nagyjából meg tudja állapítani a számítógép teljesítményét. Erre megoldásként megírta a BogoMIPS nevű programját. A neve beszédes, a "bogo" rész a bogus szóból ered, mely hamisat jelent, a MIPS (Million Instructions Per Second) pedig millió instrukciót másodpercenként. Azért lett ez a neve, mert bár a processzor teljesítménye függvényében általánosan nő a visszaadott szám. Ez az érték nem pontos, különböző architektúrák közötti összehasonlításra nem alkalmas, mert a memória, az I/O rendszer és a gyorsítótár sebbessége és mérete nagyobb mértékben befolyásolja, mint a processzor órajele. 
+        </para>
+        <para>
+           A program azt nézi meg, hogy hány utasítást tud a rendszer végrehajtani bizonyos időközönként (2^n tick-enként) Ha a végrehajtott utasításokra szánt idő túllépi az egy másodpercet, a folyamat leáll és visszaad egy értéket. Ez az érték úgy jön ki, hogy elosztjuk a végrehajtott utasítások számát az eltelt idővel, majd elosztjuk a CLOCKS_PER_TICK konstanssal, melynek értéke a clock() függvény másodpercenkénti tick-jeinek a száma (1.000.000). 
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+void delay(const unsigned long long int &loops);
+
+int main() {
+
+  unsigned long long int loops_per_sec = 1;
+  unsigned long long int ticks;
+  std::cout << "Calibrating delay loop.." << std::endl;
+  while (loops_per_sec <<= 1) {
+    ticks = clock();
+    delay (loops_per_sec);
+    ticks = clock() - ticks;
+
+    std::cout << ticks << " " << loops_per_sec << std::endl ;
+    if (ticks >= CLOCKS_PER_SEC) {
+      loops_per_sec = (loops_per_sec / ticks) * CLOCKS_PER_SEC;
+      double result = static_cast<double> (((loops_per_sec / 5000) / 100) + (loops_per_sec / 5000) % 100);
+
+      std::cout << "ok - " << std::fixed << std::setprecision(2) << result << " BogoMIPS" << std::endl;
+      return 0;
+    }
+  }
+
+  std::cerr << "failed" << std::endl;
+  return -1;
+}
+
+void delay(const unsigned long long int &loops) {
+  for (unsigned long long int i = 0; i < loops; ++i)
+    ;
+  }
+}]]></programlisting>  
+        <para>
+            A program 1993 óta a linux kernel része és bootoláskor azóta is minden alkalommal lefut. Bár benchmark-ra nem alkalmas, ha valami probléma van valahol a rendszerben, a BogoMIPS segíthet szűrni annak a lehetséges okát.
+        </para>
+        <para>
+            Egy változó méretének lehetőleg elég nagynak kell lennie, hogy egy program futása során ne legyenek problémák abból, hogy az értéke lenullázódik. Ha viszont túl nagy a mérete, az ahhoz vezethet, hogy feleslegesen sok memóriát használ a program, hiszen túl nagy memóriaszeletet tulajdonít a változóknak, pedig kevesebb is bőven elég lenne. A c++ nyelv egy egyszerű egész számot 32 bittel tárol el, így 2^32, azaz több, mint négy milliárd különböző értéket vehet fel. 
+        </para>
+        <para>
+            Ennek a bizonyítását a következő programmal végezhetjük el: 
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+int main()
+{
+  int a=1;
+  int i;
+
+  while(a!=0)
+  {
+    a <<= 1;
+    i++;
+  }
+
+  std::cout << "int: " << i << std::endl;
+
+  return 0;
+  }
+}]]></programlisting>  
+        <para>
+          A program ban az "a" változónak 1 értéket adunk, mely binárisan is 1. Ezután a számjegyeket folyamatosan toljuk el balra, egészen addig, amíg a rendszer nem képes tovább tolni a számot, mivel az "kicsúszik" a számára lefoglalt memóriából. Ekkor az 1 már nem lesz a szám része és csupa 0 értékkel fog rendelkezni az a változó. A lépéseket összeszámolva megkapjuk, hogy hánysor kellett balra tolni az első bitet, hogy az eltűnjön.
+        </para>
+
+    </section>                     
+
+    <section>
+        <title>Helló, Google!</title>
+        <para>
+            Mikor a 90-e évek elején fokozatosan egyre népszerűbbé vált az internet, sokszor nehéz volt navigálni rajta, mert az adatok halmazában nehéz volt eligazoddni, megtalálni a keresett weboldalt. 1996-ban két egyetemista, Larry Page és Sergey Brin kidolgozott egy algoritmust, hogy a weboldalakat népszerűségeük és megbízhatóságuk alapján tudják csoportosítani. Az algoritmus azt nézte meg, hogy egy oldalra hány külső link mutat és az oldalról hány link mutat ki. Az oldalak értékét úgy számolták ki, hogy az összes oldalra mutató linkek számát elosztották a kimenő linkek számával (persze relatívan a többi oldalhoz képest). Ekkor egy tört érték jön ki, mellyel megismétlik a folyamatot. A folyamatos szorzások során az eredmény nem lesz teljesen pontos, hiszen egy határérték felé fog haladni, de leállíthatjuk a folyamatot, ha már olyannyira kicsi lesz az eltérés az n-edik és az n-1-edik művelet közt, hogy az nem befolyásol semmit. Az algoritmusnak nagy sikere lett és azóta is használatban van más, komplexebb algoritmusok mellett
+        </para>
+        <para>
+           A PageRank forráskódja c ++-ban: 
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+   int main()
+  void kiir(double tomb[], int db);
+double tavolsag(double PR[], double PRv[], int n);
+void pagerank(double T[4][4]);
+
+
+int main() {
+  double L[4][4] = {
+    {0.0,  0.0,      1.0/3.0,  0.0},
+    {1.0,  1.0/2.0,  1.0/3.0,  1.0},
+    {0.0,  1.0/2.0,  0.0,      0.0},
+    {0.0,  0.0,      1.0/3.0,  0.0}
+  };
+
+  std::cout << std::endl << "Az oldalak PageRank értékei:" << std::endl;
+  pagerank(L);
+
+  std::cout << std::endl;
+  
+  return 0;
+}
+
+
+void kiir(double tomb[], int db) {
+  for (int i = 0; i < db; ++i) {
+    std::cout << std::fixed << std::setprecision(6) << tomb[i] << std::endl;
+  }
+}
+
+double tavolsag(double PR[], double PRv[], int n) {
+  double osszeg = 0;
+  
+  for (int i = 0; i < n; ++i)
+    osszeg += (PRv[i] - PR[i]) * (PRv[i] - PR[i]);
+
+  return std::sqrt(osszeg);
+}
+
+void pagerank(double T[4][4]) {
+  double PR[4] = { 0.0, 0.0, 0.0, 0.0 };
+  double PRv[4] = { 1.0/4.0, 1.0/4.0, 1.0/4.0, 1.0/4.0};
+
+  while (true) {
+    for (int i = 0; i < 4; ++i) {
+      PR[i] = 0.0;
+      for (int j = 0; j < 4; ++j) {
+        PR[i] = PR[i] + T[i][j] * PRv[j];
+      }
+    }
+    
+    if (tavolsag(PR, PRv, 4) < 1e-10)
+      break;
+  
+    for (int i = 0; i < 4; ++i) {
+      PRv[i] = PR[i];
+    }
+  }
+
+  kiir(PR, 4);
+  }
+}]]></programlisting>  
+    </section>
+
+    <section xml:id="Brun">
+        <title>100 éves a Brun tétel</title>
+        <para>
+            Bár a prímszámok reciprokainak összegéből álló sort divergensnek tartják, 1919-ben Viggo Brun kidolgozott egy elméletet, mely szerint az ikerprímek reciprokainak összegét ha összegezzük, egy valós számot kapunk, azaz a sor konvergens. Abból, hogy a a prímek reciprokösszege divergens, következik, hogy a prímek száma végtelen, ám nem vonhatunk le hasonló állítást a Brun-konstanssal kapcsolatban.
+            A Brun-konstanst meghatározó sor képlete a következő:
+        </para>
+        <para>
+            A konstanst a szitaelméletben lehet hasznosítani, mely egész számokból álló halmazok szűrt halmazai elemének a számát vizsgálja.
+        </para>
+        <para>
+            A Brun-konstanst megközelítő érték kiszámítása R-ben:
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+library(matlab)
+
+stp <- function(x){
+
+    primes = primes(x)
+    diff = primes[2:length(primes)]-primes[1:length(primes)-1]
+    idx = which(diff==2)
+    t1primes = primes[idx]
+    t2primes = primes[idx]+2
+    rt1plust2 = 1/t1primes+1/t2primes
+    return(sum(rt1plust2))
+}
+
+x=seq(13, 1000000, by=10000)
+y=sapply(x, FUN = stp)
+plot(x,y,type="b")
+
+  }
+}]]></programlisting>  
+    </section>
+    
+    <section xml:id="bhax-textbook-feladatok-turing.MontyHall">
+        <title>A Monty Hall probléma</title>
+        <para>
+            Egy érdekes probléma merült fel 1975-ben egy Steve Selvin nevű emberben : <quote>Képzelje el, hogy egy vetélkedőben szerepel, és három ajtó közül kell választania. Az egyik mögött kocsi van, a másik kettő mögött viszont kecske. Tegyük fel, hogy maga az 1. ajtót választja, mire a műsorvezető, aki tudja, melyik ajtó mögött mi van, kinyitja a 3. ajtót, megmutatván, hogy amögött kecske van. Ezután önhöz fordul, és megkérdezi: „Nem akarja esetleg mégis a 2. ajtót választani?” Vajon előnyére válik, ha vált?</quote> - <emphasis>Wikipédia, 2019 </emphasis> 
+        </para>
+        <para>
+            Az első gondolat a legtöbb emberben az, hogy nem számít, hogy a másik ajtót választja-e a játékos, hiszen a maradék két ajtó bármelyike mögött lehet akár autó, akár a kecske. Ám ez a feltételezés nem helyes. Amikor a játékos választ egy ajtót, akkor 1/3 esélye van arra, hogy helyesen dönt és 2/3, hogy nem. Attól, hogy az egyik ajtót kizárjuk, a 2/3-os esély nem vész el, ezután egyszerűen arra az ajtóra fog vonatkozni, amely nem lett a játékos által először választva. Ebből tehát levonhatjuk azt a következtetést, hogy minden esetben nagyobb esélyünk van az autót megszerezni, ha megváltoztatjuk a döntésünket. 
+        </para>
+        <para>
+           Íme egy szimuláció a problémáról random számokkal, láthatjuk, hogy a nyert játékok száma általában kétszer annyi, ha a játékos ajtót vált az egyik rossz ajtó eliminációja után.
+        </para>
+        <programlisting language="c"><![CDATA[Program T100
+{
+int main() {
+    srand(time(0));
+
+    int rounds = 1000;
+    int rounds_won = 0;
+    int won_without_swap = 0;
+     
+    for (int i=0; i<rounds; ++i) 
+    {
+        int prize_door = rand() % 3 + 1;
+        int player_choice = rand() % 3 + 1;
+        bool door_switch = rand() % 2;
+         
+        if (!door_switch && (player_choice == prize_door)) 
+        {
+            ++won_without_swap;
+            ++rounds_won;
+        } 
+        else if (door_switch && (player_choice != prize_door)) 
+        {
+            ++rounds_won;
+        }
+    }
+
+    cout << (rounds - rounds_won) << "\t" << "Number of games lost" << endl;
+    cout << rounds_won << "\t" << "Number of games won" << endl;
+    cout << won_without_swap << "\t" << "Games won without door change" << endl;
+    int winWithChange = (rounds_won - won_without_swap);
+    cout << winWithChange << "\t" << "Games won with door change" << endl;
+    cout << winWithChange * 100 / rounds_won << "\t" << "Percent of games won with door change" << endl;
+    cout << won_without_swap * 100 / rounds_won << "\t" << "Percent won without door change" << endl;
+     
+    return 0;
+}
+  }
+}]]></programlisting>  
+    </section>
+
+</chapter>                
