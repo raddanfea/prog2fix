@@ -58,4 +58,12 @@
             A teljesen végleges commit
         </revremark>
     </revision>
+	<revision>
+        <revnumber>1.1</revnumber>
+        <date>2019-09-27</date>
+        <authorinitials>takiviko and raddanfea</authorinitials>
+        <revremark>
+            Prog 2 Kezdetek
+        </revremark>
+    </revision>
 </revhistory>

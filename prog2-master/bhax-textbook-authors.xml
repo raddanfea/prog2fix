@@ -37,6 +37,18 @@
             <orgname>Debreceni Egyetem</orgname>
             <orgdiv>PTI</orgdiv>
         </affiliation>               
+    </author>
+	<author>
+        <personname>       
+            <surname>Rádi</surname>
+            <firstname>Dániel</firstname>        
+        </personname>    
+        <affiliation>
+            <shortaffil>Diák</shortaffil>
+            <jobtitle>Diák</jobtitle>
+            <orgname>Debreceni Egyetem</orgname>
+            <orgdiv>PTI</orgdiv>
+        </affiliation>               
     </author>  
     
 
