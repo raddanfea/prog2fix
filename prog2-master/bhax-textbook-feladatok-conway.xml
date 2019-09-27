@@ -1,0 +1,85 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Conway!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Hangyaszimulációk</title>
+        <para>
+            A program lényege a valós világban élő hangyák mozgásának szimulációja. Egy adott hangya egy random irányba elindul, feromonokat bocsátva ki magából, majd az alapján dönti el a következő lépés irányát, hogy melyik rácsponton a legerősebb a szag. A feromonok, miután kibocsátja őket egy hangya, folyamatosan párolognak, így nagy eséllyel for egy olyan helyzet kialakulni, hogy a hangyák körbe-körbe "kergetik" egymást.
+        </para>
+        <para>
+            C++-ban a GUI létrehozásához ismét a QT könyvtárait használjuk. Hat fájlunk lesz, melyekből három header fájl, melyekben a szükséges osztályokat definiáljuk és három 'hajtó' program. 
+            Az ant.h-ban lesz a hangya objektum definiálása, annak x és y koordinátái, valamint jelenlegi iránya. Az irányt random inicializáljuk a konstruktorban. 
+            Az Antwin.cpp-ben hozzuk létre a játékteret, itt fognak megjelenni a hangyák egy külső osztályból, valamint a rácsszerkezet, mely a pálya felépítését adja meg. Itt tudjuk megadni a hangyák számát, a pálya méretét, a párolgás mértékét, stb.
+            Az AntThread-ben történik a hangyák mozgásának a vezérlése, valamint a kezdéskor az elhelyezése. A hangyák mozgása, hogy ne legyen túl kiszámítható, kis mértékben randomizálva van. Az utolsó részben (AntThread::run()) elindítjuk a program futását, és egy végtelen ciklussal oldjuk meg, hogy folyamatosan fusson a program. Ha megfelelő inputot kapunk, csak akkor állunk le (esc, vagy p).
+        </para>
+        <para>
+            UML osztálydiagram a programról:
+        </para>
+        <figure>
+            <title>UML</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="Conway/hangya_uml.png" scale="75" />
+                </imageobject>
+                <textobject>
+                    <phrase>UML diagram a program osztályairól</phrase>
+                </textobject>
+            </mediaobject>
+        </figure>
+    </section>        
+    <section>
+        <title>Java életjáték</title>
+        <para>
+            John Horton Conway 1970-ben bemutatott egy érdekes algoritmust, melyet sejtszimulátornak, vagy életjátéknak hívott.
+        </para>
+        <para>
+            A játék menete a következő: egy rácson helyzünk el pontokat (sejteket), majd elindítjuk az algoritmust, mely ciklusokban végigmegy a pályán és eldönti, hogy egy cellában lesz-e a következő körben pont, vagy nem. Három szabály van: 
+        </para>
+        <para>
+            1. Ha egy sejtnek kettő vagy három szomszédja van, a sejt túléli a kört. 
+            2. Ha egy sejtnek nulla, egy vagy négy szomszédja van, a sejt meghal.
+            3. Ha egy cella pontosan három szomszédjában van sejt, ott új sejt születik.      
+        </para>
+        <para>
+            A konstruktorban egy kétdimenziós mátrixot hozunk létre, majd ennek az elemeit fogjuk a szabályok alapján módosítani. Az inputot egy pár beépített függvény segítségével tudjuk vizsgálni, melynek csak közvetlenül indítás után kell megtennünk, hiszen ha fut a játék, onnantól nincs beleszólásunk a dolgok menetébe. 
+            A siklókilövőt bele tudjuk hard-code-olni a programba, hogy később legyen egy alapértelmzóezett indítási helyzet.
+        </para>
+        <para>
+            A program implementációja java-ban: Conway/eletjatek_java/Sejtautomata.java
+        </para>            
+    </section>        
+    <section>
+        <title>Qt C++ életjáték</title>
+        <para>
+            A QT könyvtárai segítségével meg tudjuk írni a sejtautomatánkat, mely hat fájlból áll. Az implementáció nagyon hasonlít a java programhoz, de az osztályokat külön fájlban helyezzük el és a java megjelenítője helyett a QT könyvtárakat használjuk.
+        </para>
+        <para>
+            A main() függvényben elindítjuk a programot, valamint a paraméterlistában átadott számokkal inicializáljuk a pálya méretét. Egy kétdimenziós mátrixot hozunk létre, melyben a számítások alapján fogjuk tudni az értékeket változtatni.
+        </para>
+        <figure>
+            <title>Sejtautomata</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="Conway/Sejtautomata.png" scale="200" />
+                </imageobject>
+                <textobject>
+                    <phrase>Sejtautomata</phrase>
+                </textobject>
+            </mediaobject>
+        </figure>
+    </section>        
+    <section>
+        <title>BrainB Benchmark</title>
+        <para>
+            /home/viktor/prog1/bhax_textbook_IgyNeveldaProgramozod/Conway/BrainB
+        </para>
+        <para>
+            Utólag felhasználom egy passzolási lehetőségem erre a feladatra.
+        </para>
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

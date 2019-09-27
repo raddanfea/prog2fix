@@ -1,0 +1,24 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Berners-Lee!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>A C++ és a Java nyelvek összehasonlítása</title>
+        <para>
+            A c++ és a Java nyelvek szintaxisa között első ránézésre lehet, hogy nem sok különbséget fogunk látni, de felépítésükben és működésükben sokféleképpen eltér a két programozási nyelv. Más célból alkották meg őket, a java nyelv lényege, hogy egyszer kell megírnia a programozónak a kódot és minden platformon fogja tudni futtatni a JVM, azaz Java Virtual Machine segítségével. Ezzel ellentétben a c++ nyelv a C nyelv kiterjesztése, az objektum-orientáltság lehetőségével, referenciákkal és egyéb gyakran használt elemekkel bővítették ki a nyelvet, de meghagyták a "régi", alacsonyabb szintű paradigmákat is, mint a mutatók. Az objektum-orientáltság használata a c++ nyelvben a programozó szabad döntése, ám a java nyelvben csak objetktum-orientált szemlélettel lehet programozni. Erre jó példa az, hogy egy egyszerű "hello world" programhoz is egy main osztályt kell létrehozni, melybe az egész program be lesz ágyazva. A c++ nyelvben olyan fogalmakkal is találkozhatunk, melyeket manapság nem sok helyen használnak, de a C nyelvből lett örökölve, így benne maradt a nyelvben, ilyen például az unió és a struktúrák, melyeknek egyszerűen helyettesíthetők osztályokkal. A java nyelv, mivel egy virtuális környezetben fut, "biztonságosabbnak" mondható, ez annyit jelent, hogy a memóriakezelés automatikusan történik, a programozónak nincs lehetősége annyi memóriát allokálnia például egy struktúrának, amennyit ő szeretne. Ebből adódóan a "memory leak" sokkal kevésbé fenyegető jelenség, viszont lényegesen kevesebb szabadsága van a programozónak, ezáltal sok kód kevésbé optimalizált és lassabban fut. A biztonságossága a java nyelvnek a futási időben bekövetkezett hibákra is kiterjed, például 0-val való osztáskor hibaüzenetet fogunk kapni a rendszertől, míg a c++ nyelv nem tudja megfelelően kezelni a helyzetet. A több szálon való programozásra is ad lehetőséget a java, ezt elég nehézkes a c++ nyelvben megvalósítani, mely ezen a téren a C nyelv sajátosságait örökölte.
+        </para>
+    </section>        
+
+    <section>
+        <title>A Python3 programozási nyelv</title>
+        <para>
+            A python egy interpreteres, általános használatú magas szintű programozási nyelv, melyet sokan szeretnek az egyszerű, szabados szintaxisa miatt. Sokan ajánlják kezdőknek, mivel a fejlesztés során elsődleges cél volt a kód olvashatósága, ugyanekkor sokan el is vetik emiatt, mondván, hogy nem elég specifikus, sok dolog nem egyértelmű. Erre egy jó példa az, hogy változókan nem kell a programozónak deklarálnia, ezt automatikusan elvégzi a rendszer. Ennek az az előnye, hogy nem kell ismerni a különböző változótípusokat, ám lehet, hogy egy haladó programozó nem fogja tudni pontosan azt leprogramozni, amit szeretne. Több verziója is van a python-nak, a legújab és legelterjedtebben használt a python 3, de sokan ragaszkodnak a python 2-höz. Vannak programok, amik csak a python 2-ben működnek, emiatt vannak olyanok, akik nem szívesen váltanak. A legújabb csomagok azonban csak python 3-on érhetőek el, így ha a régi programokkal való kompatibilitás nem fontos, érdemes a 3-as verzióval kezdeni.
+        </para>
+    </section>        
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

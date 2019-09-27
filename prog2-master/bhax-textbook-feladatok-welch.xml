@@ -1,0 +1,77 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Welch!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Első osztályom</title>
+        <para>
+            Az osztályok az objektum-orientált programozás legfontosabb elemei. Ezeknek a paradigmáknak  a segítségével a három alapfogalmat, az öröklődést, az egybezárást és a többalakúságot is megvalósíthatjuk. Egy osztály deklarációja a class kulcsszó segítségével történik, és hullámos zárójellel zárjuk egybe az elemeit. Egy osztályban több változót és függvényt helyezhetünk el és kezelhetünk egy egységként. Egy osztály elemeire az [osztálynév].[elemnév] szintaxissal hivatkozunk. Egy osztályban lehetnek publikus, privát és védett részek is, melyek azt határozzák meg, hogy az adott egység elérhető-e az osztályon kívüli elemek által.
+        </para>
+        <para>
+            A következő program egy polártranszformációs algoritmus, melynek a header fájljában deklaráljuk az osztályt és egy for ciklussal 10 tagot hozunk létre. Ezután következik a matematikai rész, minden egyes tagban lefut az algoritmus a többitől függetlenül és így 10 különböző eredményt kapunk.
+        </para>              
+    </section>        
+
+    <section>
+        <title>LZW</title>
+        <para>
+        	Tutor: Ádám Petra
+        </para>
+        <para>
+            Az LZW algoritmus egy, a 80-as években kifejlesztett módszer bináris adatok tömörítésére. A bejövő inputot bináris alakban meggvizsgálja és egy bináris fa adatszerkezetet épít fel belőle úgy, hogy minden alkalommal, amikor egy olyan substring következik, mely még korábban nem szerepelt a fában, a fa egyik ágát növeli csak, méghozzá azzal az elemmel, amely a már létező substring után következik. Ha a bejövő elem '0' értékű, a bal oldali ágba fog kerülni, ha '1', akkor a jobb ágba. Érdemes megemlíteni, hogy ez egy szigorú értelemben vett bináris fa lesz, tehát vagy 0, vagy 2 ága lesz minden elemnek.
+        </para>
+        <para>
+            Az alábbi program a standard input-ról veszi az adatokat és azokat rendezi egy bináris fába. Minden elem egy struktúra, malyben mutatók vannak a fa következő elemeire, valamint az adott elem értéke, mely 0, vagy 1 lehet. 
+        </para>
+    </section>        
+        
+    <section>
+        <title>Fabejárás</title>
+        <para>
+            Egy bináris fa bejárásának 3 módja van: Preorder, Inorder és Posztorder. A neveiket a gyökérelem bejárásának az időpontja adja. Mindhárom bejárási módszerrel elérjük a fa összes elemét, de más sorrendben. 
+            A preorder módszerrel először a fa gyökérelemét dolgozzuk fel, majd a bal- és végül a jobb oldali részfáját. Ezzel szemben az inorder bejárási móddal a bal oldali részfát járjuk be először, majd a gyökérelemet és végül a jobb oldali részfát. A posztorder módszer a gyökérelemet utoljára dolgozza fel, míg a részfákat balról jobbra veszi sorra.
+            A kódunkban csupán annyi a dolgunk, hogy egyfajta bejárási módot lekódolunk, majd a többit a sorok megfelelő sorrendbe helyezésével megkapjuk. 
+        </para>
+    </section>        
+                        
+    <section>
+        <title>Tag a gyökér</title>
+        <para>
+            Ha a gyökeret nem csak egy mutatóként, hanem tagként szeretnénk elhelyezni a fában, akkor annyit kell tennünk, hogy a gyökérnek kinevezünk egy elemet és abból építjük tovább a fát, mintha  az egy részfa gyökere lenne. Ekkor az értékét egy speciális karakterre állítjuk, ez esetben a "/" jelre. Ez a jel többször nem fog megjelenni a fában hiszen csak 0 és 1 értékeket olvasunk be. 
+        </para>
+    </section>        
+                
+    <section>
+        <title>Mutató a gyökér</title>
+        <para>
+            Ha mutatóként szeretnénk a gyökér elemet elhelyezni az osztályban,  azt úgy tudjuk megvalósítani, hogy a konstruktorba írjuk bele a gyökér pointer deklarációját. Ekkor a fa mutatójának referenciaként kell azt átadnunk.
+            Ekkor egyes elemeket nem az osztály elemeiként fogjuk tudni elérni, hanem mutatók által. 
+            A programunk átírása nem nehéz, a gyökérelemet "csomopont *gyoker" -ként deklráljuk, majd erre építjük fel a fát. Ekkor az eddig "." operátorral hivatkozott jobb és bal oldali mutatókat a "->" operátorral fogjuk tudni elérni.
+       </para>
+    </section>                     
+
+    <section>
+        <title>Mozgató szemantika</title>
+        <para>
+            Ha egy, ár felépített fát szeretnénk lemásolni valahova, az első gondolatunk az lenne, hogy a pointerek értékét egyszerűen másoljuk bele egy új fa struktúrába. Azonban ez nem egy jó megoldás, hiszen ha az eredeti fa törlődik, az új fa mutatói nem fognak felhasználható adatra mutatni. Ezért az a helyes megoldás, ha egy teljesen ú fát építünk fel és új elemeknek foglalunk helyet a memóriában minden egyes alkalommal, amikor egy új levélhez érünk. Ez talán nem a leg helytakarékosabb megoldás, de szükséges ahhoz, hogy az adataink ne vesszenek el az egyik fából, ha a másikat töröljük.
+        </para>
+        <programlisting>
+        <![CDATA[
+        LZWBinFa & operator= ( LZWBinFa && regi )
+            {
+                std::cout << "LZWBinFa move assign" << std::endl;
+                std::swap ( gyoker, regi.gyoker );
+                std::swap ( fa, regi.fa );
+                return *this;
+            }
+            ]]>
+        </programlisting>
+        <para>
+            A mozgató értékadást az std::move() függvénnyel tudjuk meghívni. Fontos megemlíteni, hogy ez nem mozgat semmit sehova, csak jobbérék-referenciát csinál a neki átadott struktúrából.
+        </para>
+    </section>                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
