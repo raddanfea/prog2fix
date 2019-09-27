@@ -8,6 +8,7 @@
 
     <section>
         <title>Objektum-Orientált Szemlélet</title>
+<<<<<<< HEAD
 	<para>
 		Az objektum-orientált programozás azok számára kissé idegen lehet, akik azelőtt kizárólag procedurális programozással foglalkoztak, mert olyan magas szintű paradigmákat vezet be, melyek elsőre talán nem tűnnek hasznosnak, vagy könnyen implementálhatónak. Azonban ezeket a feltevéseket semmi nem cáfolja jobban, mint a tény, hogy a legtöbb manapság írt program objektum-orientált szemlélettel íródik. Ez szerves része olyan elismert és elterjedt nyelveknek, mint a Java, C#, Python, Ruby, és a lista folyatatódik látszólag a végtelenségig. A kissé absztraktabb felfogás sokak számára könnyebbséget jelent, főleg a kezdő programozóknak, vagy azoknak, akik nem kívánnak teljesen belemerülni a számítástudomány rejtelmeibe. Az alapvető koncepciókat, mint változók, függvények, stb. megtartja, de kiegészíti osztályokkal, virtuális függvényekkel és absztrakt típusokkal. Három alapötlet mentén tudunk objektum-orientált programokat írni: Egybezárás, többalakúság és öröklődés. Ha ezek mentén írjuk a programjainkat és betartjuk a hozzájuk kapcsolódó szabályokat, hamar rájöhetünk, hogy tulajdonképpen nem is olyan nehéz átlátni ezt az erősen absztrakt gondolatmenetet még egy újoncnak sem. 
 	</para>
@@ -146,6 +147,134 @@
 		    }
 		    
 		    d16PiHexaJegyek = sb.toString();
+=======
+        <para>
+Az objektum-orientált programozás azok számára kissé idegen lehet, akik azelőtt kizárólag procedurális programozással foglalkoztak, mert olyan magas szintű paradigmákat vezet be, melyek elsőre talán nem tűnnek hasznosnak, vagy könnyen implementálhatónak. Azonban ezeket a feltevéseket semmi nem cáfolja jobban, mint a tény, hogy a legtöbb manapság írt program objektum-orientált szemlélettel íródik. Ez szerves része olyan elismert és elterjedt nyelveknek, mint a Java, C#, Python, Ruby, és a lista folyatatódik látszólag a végtelenségig. A kissé absztraktabb felfogás sokak számára könnyebbséget jelent, főleg a kezdő programozóknak, vagy azoknak, akik nem kívánnak teljesen belemerülni a számítástudomány rejtelmeibe. Az alapvető koncepciókat, mint változók, függvények, stb. megtartja, de kiegészíti osztályokkal, virtuális függvényekkel és absztrakt típusokkal. Három alapötlet mentén tudunk objektum-orientált programokat írni: Egybezárás, többalakúság és öröklődés. Ha ezek mentén írjuk a programjainkat és betartjuk a hozzájuk kapcsolódó szabályokat, hamar rájöhetünk, hogy tulajdonképpen nem is olyan nehéz átlátni ezt az erősen absztrakt gondolatmenetet még egy újoncnak sem. </para>
+	<para>
+Az alábbi kód talán a legegyszerűbb olyan objektum-orientált program, mely hasznos is. A neve polár-transzformációs generátor, mely kissé ijesztőnek hangzik, de csupán annyiból áll, hogy két random változót hoz létre, majd az egyiket visszaadja. a belső függvény újbóli meghívása során megvizsgálja, hogy van-e nem visszaadott random szám generálva, ha van, visszaadja azt, ha nincs, akkor pedig két újat generál. Ezzel valamennyire fel lehet gyorsítani a generálási folyamatot, mely sok generálás esetén elég erőforrás-igényes lehet. 
+[kód]</para>
+	<para>
+Mint látjuk, a program forráskódja meglehetősen rövid, nem tart sokáig kibogozni. Ha a megírása után belenézünk a Sun Microsystems által kiadott dokumentációba, azt láthatjuk, hogy szinte teljesen megegyezik az általunk írt program, valamint az általuk implementált randomszám-generátor. 
+Ha át szeretnénk írni egy objektum-orientált programot egy másik nyelvre, általában csupán annyi a teendőnk, hogy átírunk egy pár kulcsszót és a két nyelv közti kisebb szintaktikai eltéréseket figyelembe véve átmásoljuk a programot egy új fájlba és odaadjuk a fordítónak. Az imént megvitatott Java forráskódot nem tart több, mint 10 percbe átírni C++ nyelvre úgy, hogy ugyanúgy működjön, mint a Java program.
+[kód]
+        </para>
+    </section>        
+
+    <section>
+        <title>Homokozó</title>
+        <para>
+Ahogy az előző fejezetben megtárgyaltuk, adott objektum-orientált szemlélettel írt programokat átírni egy másik objektum-orientált nyelvbe általában nem nehéz, általában csak szintaktikailag különböznek a forráskódok. Ez a helyzet a tavaly c++-ban megírt binFa programmal is, melybe nem szükséges sok időt belefektetni, hogy átírjuk Java nyelvre. 
+A konverzió első lépése az, hogy átmásoljuk a szükséges osztályokat egy külön fájlba, amit .java kiterjesztéssel látunk el. Az a legjobb, ha abból a verzióból indulunk ki, amelyben referenciaként kezeljük a fa gyökerét, hiszen a Java nyelvben minden értékátadás referenciaként működik. Ezen kívül át kell még írnunk az osztályok és függvények deklarációit is, melynek a szintaxisa kicsit más Javában, mert minden osztály és függvény előtt meg kell mondanunk, hogy az publikus legyen-e, valamint ha származtatunk egy osztályt egy másikból, akkor a ":" karakter helyett az "extends" kulcsszóval kell ezt megtenni. Hasonló apróságokat kell átírnunk, és ha mindent jól csináltunk, a .java kiterjesztésű fájlt már futtathatjuk is a JVM-ben.
+[Kód]
+        </para>
+    </section>
+
+    <section>
+        <title>Gagyi</title>
+        <para>
+A modern programnyelvek tervezői mindent elkövetnek azért, hogy az írt programkód átlátható, olvasható, egyértelmű és helyes legyen. Ezen kívül fontos az is, hogy gyorsan fusson, ezért a fordítókba sokféle optimalizációt implementálnak. Ezek akkor lesznek megfelelőek, ha a programok ugyanúgy fordulnak le az optimalizációval, mint nélküle. Ez általában így van, de nem mindig. Az interpreteres nyelveket sokkal nehezebb optimalizálni, hiszen a futásidőben fordulnak a programok, így ha közben sokat analizálgatunk, a gépünk ugyanúgy lelassulhat, mint egy rosszul megírt kód esetén. 
+Egy jó példa lehet optimalizációra a Java nyelvbe beépített "pool-ozás". Ez annyit jelent, hogy ha kis számokkal számolunk a programunkban (-128-tól 127-ig), akkor az egy előre megírt adatbázisra fog referenciákat létrehozni, nem pedig teljesen új objektumokat. Ezzel lényegesen javul a futásidő, ám valóban ugyanúgy fog a prpgramunk futni? A válasz: Attól függ. Általában igen, hiszen ha a számokkal egyszerű aritmetikát végzünk, amit általában számokkal szoktunk, nem változik az objektumok funkcionalitása, viszont lényegesen gyorsabban futnak le a programjaink, mert nem kell folyamatosan új objektumokat létrehoznia a rendszernek. Viszont ha két szám memóriacímét vizsgáljuk, akkor beleütközhetünk egy olyan problémába, hogy két számnak ugyanaz lehet a memóriacíme. Emiatt lehetséges az, hogy a következő feltételre, ami normális körülmények között nem lehetne semmilyen módon igaz, azt kapjuk, hogy a [-128, 127] tartományon belüli számok megfelelnek. 
+Az ilyenfajta, nem tökéletesen egyértelmű implementációkkal pontosan ez a gond: egy nem szokványos helyzetben a programjaink félrecsúszhatnak, rossz eredményt adhatnak, esetenként lehet, hogy le sem futnak. Talán az ilyen furcsaságok miatt tart egy-egy felvetődő problémára megoldást találni, hiszen nem tudhatjuk kezdőként, hogy mi hibáztunk, vagy egyszerűen a fordító máshogy, talán rosszul értelmezi a kódunkat. Ezért fontos, hogy elolvassuk a nyelv adott dokumentációját, és ha kérdésünk van, forduljunk valaki olyanhoz, aki teljes mértékben ismeri a nyelv adottságait.
+        </para>
+    </section>
+
+    <section>
+        <title>Yoda</title>
+        <para>
+Feltesszük az alábbi esetet:
+
+<![CDATA[
+string nuku = null;
+]]>
+
+A Yoda írási módban a kifejezésben az összehasonlítás sorrenjét megcseréljük. Amennyiben ismerjük A-t, emberi módon általában rákérdezhetünk arra hogy A egyenlő-e B-vel.
+<![CDATA[
+if( nuku.equals("imaword")
+]]>
+
+Yoda kóddal viszont megkérdezük hogy B az egyenlő-e A-val.
+<![CDATA[
+if("imaword".equals(nuku)
+]]>
+
+Az azért fontos mert amennyiben A null-al egyenlő, NullPointerException hibát kapunk amely a programunk futását gátolja. Amennyiben Egy ismert változót/stringet hasonlítunk össze null-al, azt a Java gond nélkül összehasonlítja.
+
+Ennek az okozója az hogy amikor null-t dekraláltuk a Java egy semmire se mutató pointert hozott létre, nincs hozzá tartozó objectum. 
+Amennyiben alkalmazzuk a Yoda módszert, a nyelv paraméterként érkezi a null-t és nem fordul elő a hiba.
+
+Az elnevezés a Star Wars filmsorozatból egy híres karater nevéből származik, aki a szavak sorrendjét megcserélve beszél.
+        </para>
+    </section>
+
+    <section>
+        <title>Kódolás From Scratch</title>
+        <para>
+A feladat BBP (Bailey-Borwein-Plouffe) a Pi hexa jegyeit meghatározó algoritmus David H. Bailey 2006-os írása alapján. A feladat ennek Java nyelvre való átírása.
+
+(kép az algoritmus matematikai formátumáról)
+
+Először is létrehozunk egy számitást az alábbi részre:
+
+{16^d Pi} = {4*{16^d S1} - 2*{16^d S4} - {16^d S5} - {16^d S6}}
+
+<![CDATA[
+public PiBBP(int d) {
+        
+        double d16Pi = 0.0d;
+        
+        double d16S1t = d16Sj(d, 1);
+        double d16S4t = d16Sj(d, 4);
+        double d16S5t = d16Sj(d, 5);
+        double d16S6t = d16Sj(d, 6);
+        
+        d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
+        
+        d16Pi = d16Pi - StrictMath.floor(d16Pi);
+        
+        StringBuffer sb = new StringBuffer();
+        
+        Character hexaJegyek[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+        
+        while(d16Pi != 0.0d) {
+            
+            int jegy = (int)StrictMath.floor(16.0d*d16Pi);
+            
+            if(jegy<10)
+                sb.append(jegy);
+            else
+                sb.append(hexaJegyek[jegy-10]);
+            
+            d16Pi = (16.0d*d16Pi) - StrictMath.floor(16.0d*d16Pi);
+        }
+        
+        d16PiHexaJegyek = sb.toString();
+    }
+]]>
+
+A {16^d Sj} részletet a következő módon számíthatlyuk ki:
+
+<![CDATA[
+public double d16Sj(int d, int j) {
+	double d16Sj = 0.0d;
+	for(int k=0; k<=d; ++k)
+		d16Sj += (double)n16modk(d-k, 8*k + j) / (double)(8*k + j);
+		return d16Sj - StrictMath.floor(d16Sj);
+}
+]]>
+
+A forrás papír megadott egy bináris hatványozási módszert a A 16^n mod k kiszámítására, ezt fel is hasznájuk.
+
+<![CDATA[
+public long n16modk(int n, int k) {
+	int t = 1;
+	while(t <= n)
+	t *= 2;
+	long r = 1;
+	while(true) {
+		if(n >= t) {
+			r = (16*r) % k;
+			n = n - t;
+>>>>>>> 6061346fbb554bd95dcfc96e5b6f4aedab16e7e5
 		}
 		]]>
 	</programlisting>
