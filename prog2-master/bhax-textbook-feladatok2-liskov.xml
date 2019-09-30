@@ -6,23 +6,152 @@
         </keywordset>
     </info>
 
-        
-
     <section>
-        <title></title>
+        <title>Liskov helyettesítés sértése</title>
         <para>
-            Az előző feladat kódját fejleszd tovább: vizsgáld, hogy Vannak-e Java osztályok a Pi hexadecimális kifejtésében!
+           Források: UDPROG repó, Bátfai Norbert, madarak
         </para>
         <para>
-            Megoldás videó:
+            A Liskov féle behelyettesítési elv az objekt orientált programozás egyik fontos alapköve. Az elv kimondja, hogy a program futásának eredménye nem változhat meg attól hogy az ős osztálya helyett annak gyermeke osztályában használom.
+        </para>
+        <para>
+		Ilyen akkor fordulhat elő amikor nem megfelő sorrendben kezeljük az osztályokat, például az alábbi forrásban:
+        </para>
+        <para>
+	<programlisting>
+		<![CDATA[
+		class Madar {
+		public:
+		     virtual void repul() {};
+		};
+		]]>
+	</programlisting>
+        </para>	
+        <para>
+	Ez a class alapján az öröklődési sorrend az alábbi: MadárFaj - Madár - repül
+        </para>	
+        <para>
+	Bármilyen maradat hívunk meg, ez programunk szerint képes a repülésre, még akkor is ha nem kellene.
+        </para>
+	<para>
+	Hogyan és kene akkor? Így:
+	</para>
+        <para>
+	<programlisting><![CDATA[
+		class RepuloMadar : public Madar {
+		public:
+		     virtual void repul() {};
+		};]]>
+	</programlisting>
+        </para>
+	<para>
+	Az öröklődési sorrendet ágakra bontjuk az alábbi meghívási sorrendek szerint:
+        </para>
+        <para>
+	MadárFaj - Madár
+        </para>
+        <para>
+	MadárFaj - RepülőMadár - Madár
+        </para>
+    </section>  
+
+    <section>
+        <title>Szülő-Gyerek</title>
+        <para>
         </para>
         <para>
             Megoldás forrása:                
         </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
+	<para>
+	<programlisting>
+		<![CDATA[
+class szulo
+{
+    private String sztring;
+    public void setOsTulajdonsag(String sztring)
+    {
+        this.sztring = sztring;
+    }
+    public String getOsTulajdonsag()
+    {
+        return this.sztring;
+    }
+}
+class gyerek extends szulo
+{
+    public String getNemSzuloTulajdonsag()
+    {
+        return "Nope.";
+    }
+}
+public class Liskov
+{
+    public static void main(String[] args)
+    {
+        szulo szulominta = new gyerek();
+        System.out.println("Liskov: " + szulominta.getNemSzuloTulajdonsag());
+    }
+}
+
+		]]>
+	</programlisting>
         </para>
-    </section>        
-        
+	<mediaobject>
+                <imageobject>
+                <imagedata fileref="liskov/szgyjava.PNG" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+<para>
+	<programlisting>
+		<![CDATA[
+#include <iostream>
+class szulo
+{
+private:
+  unsigned int stuff;
+public:
+  virtual void setStuff(int m)
+  {
+    stuff = 1;
+  }
+  virtual int getStuff()
+  {
+    return stuff;
+  }
+};
+class gyerek : public szulo
+{
+  int getGyStuff()
+  {
+    return 0;
+  }
+};
+int main()
+{
+  szulo *szulo = new gyerek();
+  std::cout << szulo->getGyStuff() << std::endl;
+  return 0;
+  
+}
+		]]>
+	</programlisting>
+        </para>
+	<mediaobject>
+                <imageobject>
+                <imagedata fileref="liskov/szgy.PNG" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+    </section> 
+<section>
+        <title>Ciklomatikus komplexitás</title>
+        <para>
+	A feladat megoldásához a McCabe ciklomatikus komplexitás alanizáló programot használtam amely részletes elemzést is biztosít. Jelen feladatban csak a második oszlopban található számok érdekelnek minket. Kódforrás a korábban felhasznált PHB generátor. (III/Arroway/Kódolás From Scratch)
+	</para> 
+	<mediaobject>
+                <imageobject>
+                <imagedata fileref="liskov/compx.PNG" format="PNG"/>
+                </imageobject>
+        </mediaobject>    
+</section>   
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
