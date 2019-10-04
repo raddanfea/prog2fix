@@ -153,5 +153,63 @@ int main()
                 </imageobject>
         </mediaobject>    
 </section>   
+
+<section>
+	<title>Az SMNIST felélesztése</title>
+	<para>
+		A tavalyi félévben már foglalkoztunk egy keveset a Bátfai Norbert által írt SMNIST for Humans v3 androidos programmal, melynek a célja az, hogy a mesterséges intelligencia határait valamilyen módon összemérje az emberi képesség határaival. 
+	</para>
+	<para>
+		A felmérés folyamata a következő: a képernyőn megjelenő pontokat kell összeszámolni és megnyomni az adott számozású gombot a mobiltelefonunk képernyőjén. A játék egyre nehezedik és gyorsul, és egy idő után azon kapja magát az ember, hogy véletlenszerűen nyomkodja a gombokat, reménykedve, hogy eltalálja a helyes számot. Itt jön be az a tény, hogy a hasonló, mintafelismeréshez kapcsolódó mesterséges intelligencia algoritmusok sokkal jobban teljesítenek az ilyen feladatokban. Míg egy ember (tapasztalatom szerint) 5-6 pontig azonnal meg tudja mondani, hogy hány pont van a képernyőn, egy erre a célra betanított algoritmusnak talán csak az idő és erőforrások szabnak határt. 
+	</para>
+	<para>
+		Ha elkezdjük a feladatot, a legelső teendőnk az lesz, hogy beimportáljuk a fájlokat az Android Studio-ba. Ezután szükséges lesz átírnunk egy-két dolgot a programunkban és a konfigurációs fájlokban, hogy működjön. Itt nem tudok seemi konkrétat írni, mert két platformon próbáltam megoldani a problémát és mindkettőn más volt a probléma. Egy kis interneten való kutakodás után nem okozhat problémát a dolog. Fontos lehet, hogy a szükséges fájlok elérési útvonalát helyesen adjuk meg a konfigurációs fájlokban. Ezután ha sikerült az összes problémát elhárítani, amit a fordító feldobott, elkezdhetjük a programon belül a módosításokat elvégezni. A legtöbb dologhoz elég annyit tennünk, hogy egy-egy változó értékét átírjuk, például a háttérszín megváltoztatásához a bgColor[] tömbön belül kell átírnunk az rgb értékeket. 
+	</para>
+</section>
+<section>
+	<title>BPP algoritmus futási ideinek összevetése</title>
+	<para>
+		Az előző fejezetben megtárgyalt BPP algoritmus segítségével ki lehet számolni a pi matematikai konstans számjegyeit adott pontossághoz. A programunkat Java nyelven írtuk meg, ami azt jelenti, hogy egy interpreter fordította a programunkat valós időben. De vajon ez mennyire befolyásolja a futási időt?
+	</para>
+	<para>
+		Vessük össze a Java kódunkat egy, szintén a bpp algoritmust implementáló c++ és c# programmal!
+		Először is gondoljuk át, hogy milyen tényezők állhatnak a futási idők mögött - ezek csak feltevések, nem a valós teszt eredményei: 
+	</para>
+	<para>
+		Egy interpreteres nyelv (Java és C#) lassabb lesz, mint egy fordított (C++), hiszen az utóbbinál nem szükséges valós időben fordítani semmit, egyedül a már kész algoritmust kell végigjárnia a rendszernek.
+	</para>
+	<para>
+		Egy objektum-orientált nyelv, ahol nem lehet elhagyni az osztályokat (Java és C#) lassabb lesz, mint egy tiszta, alacsony(abb) szintű nyelv (mint a C és a C++)
+	</para>
+	<para>
+		Azonban lehetséges, hogy valamelyik nyelv jobban van optimalizálva, mint egy másik
+	</para>
+	<para>
+		Most pedig futtassuk le a tényleges állományokat!
+	</para>
+	<orderedlist numeration="upperroman">
+	<listitem>
+	<para>10^6: C++: 2.03 Java: 2.46 C#: 2.34</para>
+	</listitem>
+	<listitem>
+	<para>10^7: C++: 25.29 Java: 24.84 C#: 26.78 </para>
+	</listitem>
+	<listitem>
+	<para>10^8: C++: 4.35.19 Java: 3.58.98 C#: 4.37.64</para>
+	</listitem>
+	</orderedlist>
+	<para>
+		10^6: C++: 2.03 Java: 2.46 C#: 2.34
+	</para>
+	<para>
+		10^7: C++: 25.29 Java: 24.84 C#: 26.78 
+	</para>
+	<para>
+		10^8: C++: 4.35.19 Java: 3.58.98 C#: 4.37.64
+	</para>
+	<para>
+		Meglepetésként érhet, hogy a Java program gyorsabban futott le, mint a másik kettő, ha több számítás történt, ez minden bizonnyal a sok optimalizáció miatt van. A C# kód nagyjából olyan gyors volt, mint a C++, bár valószínűleg abban is sok az optimalizáció, hiszen egy interpreteres nyelvről beszélünk.
+	</para>
+</section>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
