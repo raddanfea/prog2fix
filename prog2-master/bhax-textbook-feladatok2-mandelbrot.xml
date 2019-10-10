@@ -1,0 +1,21 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Mandelbrot!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+<section>
+	<title>BPMN</title>
+	<para>
+	<mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="100%" contentdepth="100%" fileref="Mandel/input.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+	</para>
+</section>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
