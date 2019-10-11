@@ -9,11 +9,32 @@
 <section>
 	<title>BPMN</title>
 	<para>
+	 A BPMN a Business Process Model and Notation rövidítése. Ez egy grafikus ábrázolás hasonló az UML-hez, az üzleti folyamatok modelljének meghatározására szolgál.
+	</para>
+	<para>
 	<mediaobject>
                 <imageobject>
-                <imagedata scalefit="1" width="100%" contentdepth="100%" fileref="Mandel/input.png" format="PNG"/>
+                <imagedata scalefit="1" width="100%" fileref="Mandel/input.png" format="PNG"/>
                 </imageobject>
         </mediaobject>
+	</para>
+	<para>
+	A bevitelt rengeteg módon kezelhetjük programjainkban, viszont figyelnünk kell arra hogy a lehetséges problémákat elkerüljük.
+	</para>
+	<para>
+	Az felül található diagram ennek egy módját mutatja be.
+	</para>
+	<para>
+	A bevitel fogadásakor egy alapvető hivakeresési eljárást folytatunk, hogy a bevitel módtípusa és az adat típusa megfel-e az elvártnak. maennyiben nem felel meg, nem is kezeljük, különben egy hibást program vagy egy támadás nagyon könnyen túlterhelné programunkat.
+	</para>
+	<para>
+	Összehasonlítjuk a bemenetet az ismert adatokkal és felhasznájuk az adatokat szükség szerint.
+	</para>
+	<para>
+	Itt egy külön hibakezelő lefut a folyamat végekor amely kezeli a biztonsági mentéseket, korruptálási hibákat, kivételeket és a rosszindulatú támadásokat. Ennek hatékonysága nagyban függ a programozó képességeitől.
+	</para>
+	<para>
+	Amennyiben minden rendben van a folyamattal, ne felejtsük el felszabadítani a szükségtelenné vált erőforrásokat.
 	</para>
 </section>
 
