@@ -7,6 +7,23 @@
     </info>
 
 <section>
+	<title>OOCWC Class Diagramms</title>
+	<para>
+	<mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="100%" fileref="Mandel/classdiag1.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+	</para>
+	<para>	
+	<mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="100%" fileref="Mandel/classdiag2.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+	</para>
+</section>
+<section>
 	<title>BPMN</title>
 	<para>
 	 A BPMN a Business Process Model and Notation rövidítése. Ez egy grafikus ábrázolás hasonló az UML-hez, az üzleti folyamatok modelljének meghatározására szolgál.
