@@ -11,7 +11,7 @@
         <para>
 	<programlisting>
         <![CDATA[
-	import java.io.*;
+import java.io.*;
 import java.util.*;
 
 public class Main
@@ -19,8 +19,8 @@ public class Main
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
-        String OUP = "";
-        while(OUP != "Q") {
+        String OUP = "placeholder";
+        while(OUP.charAt(0) != 'Q') {
             OUP = sc.nextLine();
             for(int i = 0; i < OUP.length(); i++) {
                 switch (OUP.charAt(i)) {
@@ -40,11 +40,8 @@ public class Main
             }
             System.out.println(OUP);
         }
-        System.out.println("test.");
     }
 }
-
-
 	]]>
         </programlisting>
 	</para>
@@ -52,6 +49,52 @@ public class Main
 	Az alábbi l33t cypher Javában fut és sorokat fogad be, melyeket lefordít l33t nyelvre.
 	</para>
 	<para>
-	A sort egy stringbe menti majd azt karakterenként átnézi lecserélendő karakterekért. Amikor cserélendő karaktert talál.
+	A sort egy stringbe menti majd azt karakterenként átnézi lecserélendő karakterekért. Amikor cserélendő karaktert talál, a stinget kettévágja, a jelenlegi karaktert egy annak megfelelő l33t karakterre cseréli, majd az előtte és autána lévő résszel egyesíti azt.
 	</para>
+	<para>
+	Amennyiben Q karaktert magában írjuk, a program kilép.
+	</para>
+	
     </section>
+	<section>
+        <title>Perceptron osztály</title>
+	<para>
+A perceptron az emberi agyi neuronokhoz mintázva épül fel.
+	</para>
+	<para>
+A perceptron az egyik legegyszerűbb előrecsatolt neurális hálózat. Létrehozzuk a p nevű Perceptron osztály objektumot, a konstruktorának segítségével. Ez a perceptron 3 rétegű és egy kimeneti csomópontból áll, az egyes rétegek size változó értéke, 256, 1 szálakból állnak. Majd a számításhoz szükséges mátrixba mozgatjuk az adatokat, melyetket a heapen tárolunk, majd ezeket a helyeket felszabadítjuk a delete függvény segítségével manuálisan. A double típúsu változóba mentjük a perceptron számítás eredményét, amit megjelnítünk szabványos kimeneten.
+	</para>	
+	<para>
+	<programlisting language = "C++">
+          <![CDATA[ 	 
+	#include <iostream>
+#include "png++/png.hpp"
+#include "mlp.hpp"
+using namespace std;
+using namespace png;
+int main ( int argc, char *argv[] )
+{
+image <rgb_pixel> png_image (argv[1]);
+int size = png_image.get_width() * png_image.get_height();
+Perceptron* p = new Perceptron(3, size, 256, 1);
+double* image = new double[size];
+for (int i{0}; i < png_image.get_width(); i++)
+for (int j{0}; j < png_image.get_height(); j++)
+image[i * png_image.get_width() + j] = png_image[i][j].red;
+double value = (*p)(image);
+cout <<" "<< value << endl;
+delete p;
+delete [] image;
+}
+        ]]>
+        </programlisting>
+</para>
+<para>
+	<mediaobject>
+            <imageobject>
+                <imagedata fileref="perceptron.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+</para>
+	</section>
+</chapter>
