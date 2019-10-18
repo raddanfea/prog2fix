@@ -1,17 +1,4 @@
-<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
-    <info>
-        <title>Helló, Chomsky!</title>
-        <keywordset>
-            <keyword/>
-        </keywordset>
-    </info>
-
-    <section>
-	<title>l334d1c4</title>
-        <para>
-	<programlisting>
-        <![CDATA[
-	import java.io.*;
+import java.io.*;
 import java.util.*;
 
 public class Main
@@ -44,14 +31,3 @@ public class Main
     }
 }
 
-
-	]]>
-        </programlisting>
-	</para>
-	<para>
-	Az alábbi l33t cypher Javában fut és sorokat fogad be, melyeket lefordít l33t nyelvre.
-	</para>
-	<para>
-	A sort egy stringbe menti majd azt karakterenként átnézi lecserélendő karakterekért. Amikor cserélendő karaktert talál.
-	</para>
-    </section>
