@@ -97,4 +97,66 @@ delete [] image;
         </mediaobject>
 </para>
 	</section>
+	<section>
+	<title>Encoding</title>
+	<para>
+		Sok kezdő és idegen nyelveket nem jól ismerő programozó kezdi el a programjait a saját nyelvén írni, annotálni. Ám ezt sok fordító és IDE nem támogatja. Emiatt nem csak ajánlott, de egyenesen szükséges az, hogy a programjainkat angolul írjuk, angol változó- és függvényneveket, kifejezéseket és kommenteket, a megfelelő kompatibilitás biztosításának érdekében. 
+	</para>
+	<para>
+		De mit tehetünk abban az esetben, ha nem vagyunk hajlandók limitálni magunkat a szabványos, programozásban használt karakterhalmazhoz?
+	</para>
+	<para>
+		Először is: Ne csináljunk ilyet!
+	</para>
+	<para>
+		Másodszor: Lehetőségünk van megadni praméterként a szövegkódolást a fordítónak. Ez a következő paranccsal lehetséges UTF-8 kódolás esetén:
+	</para>
+	<programlisting>
+		<![CDATA[
+			javac -encoding utf-8 <fájlnév>
+        ]]>
+	</programlisting>
+	<para>
+		Itt az utf-8 helyett természetesen a saját fájlunk kódolási módszerét kell beírnunk, amit a következő paranccsal tudhatunk meg: 
+	</para>
+	<programlisting>
+		<![CDATA[
+			file <fájlnév>
+        ]]>
+	</programlisting>
+	<para>
+		Ez a parancs ki fogja írni az adott fájllal kapcsolatos tudnivalókat, köztük a szöveges fájlok karakterkódolását.
+	</para>
+	<para>
+		Ha lefordítottuk a programunkat, nincs más dolgunk, mint futtatni, itt már nem szabad komplikációnak lennie, hiszen ez már egy bináris fájl lesz, melyben nem maradnak meg a változónevek, kommentek.
+	</para>
+</section>
+<section>
+	<title>FullScreen</title>
+	<para>
+		Egy program írásakor el kell döntenünk, hogy milyen módon fogjuk a kimenetet megjeleníteni a felhasználó számára. Ezt több szempont alapján tehetjük meg: 
+	</para>
+	<para>
+		Ha annyi a cél, hogy egy kimeneti értéket, például egy számot kiírjunk, vagy csak saját használatra írunk egy programot minél egyszerűbben, a legcélszerűbb egy terminálban futó programot írni.
+	</para>
+	<para>
+		Ha el szeretnénk adni a programunkat, talán az a legjobb, ha egy grafikus felületet készíteni az egyszerű használat és vonzó kinézet miatt.
+	</para>
+	<para>
+		Ha egy grafikailag szofisztikált program írása a cél, mit egy képmegjelenítő, vagy egy játék, talán a legjobb ötlet egy teljes képernyős program készítése.
+	</para>
+	<para>
+		Az előző feladatban bemutatott java mandelbrot-implementáció kimenete egy képfájl, amit megnyitunk egy ablakbban, így a legelegánsabb megoldás az, ha egy teljes képernyős ablakban jelenítjük meg azt. 
+	</para>
+	<para>
+		Ha a MandelbrotHalmaz.java fájl 60. sorától beillesztjük a következő 3 sort, teljes képernyős kimenetet fogunk kapni.
+	</para>
+	<programlisting>
+		<![CDATA[
+			this.setUndecorated(true);
+			this.setVisible(false);
+			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
+		]]>
+	</programlisting>
+</section>
 </chapter>
