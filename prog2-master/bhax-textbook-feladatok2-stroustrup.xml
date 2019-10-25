@@ -82,5 +82,107 @@
         <para>
         	Ezzel a négy konstrukcióval kisebb módosításokkal bármilyen adatszerkezetet biztonságosan és gyorsan fogunk tudni mozgatni és duplikálni, ha szükség lesz rá, hiszen csak pointereket pakolunk ide-oda.
         </para>
-    </section>        
+    </section>
+<section>
+<title>RSA törés</title>
+        <para>
+        <programlisting>
+			<![CDATA[
+	import java.util.Scanner;
+	public class RSA {
+	public static void main(String[] args) {
+        KulcsPar jSzereplo = new KulcsPar();
+        String szoveg;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Adja meg a titkosítani kívánt szöveget: ");
+        szoveg=sc.nextLine();
+        byte[] buffer = szoveg.getBytes();
+        java.math.BigInteger[] titkos = new java.math.BigInteger[buffer.length];
+        for (int i = 0; i < titkos.length; ++i) {
+            titkos[i] = new java.math.BigInteger(new byte[]{buffer[i]});
+            titkos[i] = titkos[i].modPow(jSzereplo.e, jSzereplo.m);
+        }
+        for (java.math.BigInteger t : titkos) {
+            System.out.print(t);
+            System.out.println();
+        }
+        for (int i = 0; i < titkos.length; ++i) {
+            titkos[i] = titkos[i].modPow(jSzereplo.d, jSzereplo.m);
+            buffer[i] = titkos[i].byteValue();
+        }
+        System.out.println("\n" + new String(buffer));
+    }
+}
+class KulcsPar {
+    java.math.BigInteger d,e,m;
+    public KulcsPar() {
+        int meretBitekben = 700 * (int) (java.lang.Math.log((double) 10)
+                / java.lang.Math.log((double) 2));
+        java.math.BigInteger p = new java.math.BigInteger(meretBitekben, 100, new java.util.
+                Random());
+        java.math.BigInteger q = new java.math.BigInteger(meretBitekben, 100, new java.util.
+                Random());
+        m = p.multiply(q);
+        java.math.BigInteger z = p.subtract(java.math.BigInteger.ONE).multiply(q.subtract(java.
+                math.BigInteger.ONE));
+        do {
+            do {
+                d = new java.math.BigInteger(meretBitekben, new java.util.Random());
+            } while (d.equals(java.math.BigInteger.ONE));
+        } while (!z.gcd(d).equals(java.math.BigInteger.ONE));
+        e = d.modInverse(z);
+    }
+}
+]]>
+		</programlisting>
+	</para>
+	<para>
+        Az RSA (Rivest – Shamir – Adleman) az egyik első nyilvános kulcsú kriptokoszisztéma, amelyet széles körben használnak a biztonságos adatátvitelhez. Egy ilyen kriptoszisztémában a titkosítási kulcs nyilvános, és különbözik a titkosított (privát) titkosítási kulcsotól. Az RSA-ban ez az aszimmetria a két nagy prímszám szorzatának faktorizálásának gyakorlati nehézségén alapszik, a "faktoring probléma". 
+	</para>
+	<para>
+        Az RSA betűszó Ron Rivest, Adi Shamir és Leonard Adleman vezetékneveinek kezdőbetűiből áll, akik elsőként 1977-ben jelentették be az algoritmust. Clifford Cocks, a brit hírszerző ügynökség kormányzati kommunikációs központjában (GCHQ) dolgozó angol matematikus. 1973-ban kifejlesztett egy megfelelő rendszert, de ezt csak 1997-en nyilvánosították.
+	</para>
+</section> 
+
+<section>
+<title>Változó argumentumszámú ctor</title>
+<para>
+<programlisting>
+			<![CDATA[
+#include <iostream>
+#include "mlp.hpp"
+#include <png++/png.hpp>
+#include <fstream>
+
+int main (int argc, char **argv){
+    png::image <png::rgb_pixel> png_image (argv[1]);
+
+    int size = png_image.get_width()* png_image.get_height();
+
+    Perceptron* p = new Perceptron (3, size, 256, size);
+
+    double* image = new double[size];
+
+    for (int i {0}; i<png_image.get_width();++i)
+        for (int j {0}; j<png_image.get_height();++j)
+            image[i*png_image.get_width()+j]= png_image[i][j].red;
+
+    double* newPNG = (*p) (image);
+    
+    for(int i = 0; i < png_image.get_width(); ++i)
+        for(int j = 0; j < png_image.get_height(); ++j)
+            png_image[i][j].green = newPNG[i*png_image.get_width()+j];
+
+    png_image.write("output.png");
+
+    delete p;
+    delete [] image;
+}
+]]>
+		</programlisting>
+</para>
+<para>
+A main-ben beolvassuk a képet és annak adataiból létrehozzuk a perceptron osztályt. A változó méretű konstruktor segítségével a méretek akkorák lesznek mint amire szügünk van. Végigmegyünk a kép szélességén és magasságán, a megfelelő szín értékeket kiírjuk az image tömbbe, majd kimentjük az új képet és felszabadítjuk a memóriát.
+</para>
+</section> 
 </chapter>                

@@ -66,7 +66,7 @@
     <xi:include href="bhax-textbook-feladatok2-gödel.xml">
         <xi:fallback>
             <para>
-                <emphasis>XInclude: bhax-textbook-chomsky2.xml file not found</emphasis>
+                <emphasis>XInclude: bhax-textbook2-gödel.xml file not found</emphasis>
             </para>
         </xi:fallback>
     </xi:include> 
