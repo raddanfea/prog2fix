@@ -1,0 +1,86 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Stroustup!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Objektumok másolása és mozgatása c++11-ben + esszé</title>
+        <para>
+            A c++ nyelv szerves részét képezik a mutatók. Ezek memóriacímet tartalmazó változók, melyek segítségével saját magunknak viszonylag alacsony szinten tudunk adatszerkezeteket definiálni. Ha olyan területen dolgozunk, melyen fontos a sebesség és személyre szabhatóság, ezek használata valószínűleg elkerülhetetlen. Ám ennek ára van. Pointerekkel sokszor nehéz dolgozni, átlátni, a felépítését egy adott adatszerkezetnek. Ha mutatókra állítunk mutatókat, majd arra is egyet, esetleg belerakunk a programba egy pár referenciát is, hamar olyan összetettségű problémával fogunk találkozni, amit saját magunk is nehezen látunk át. Általában ha nem dolgozunk bonyolultabb adatszerkezetekkel, a mutatók használata nem nehéz, csupán kis gyakorlást igényel. Azonban egy fa, lista, vagy akár egy osztály implementálásakor exponenciálisan nőhet az átláthatóság nehézsége. A legtöbb magas szintű programozási nyelv manapság nem is engedi meg a mutatókkal való babrálást, helyette automatikusan végzi a memória allokálását és felszabadítását. Viszont ha nem akarunk, vagy nincs lehetőségünk egy előre elkészített API-val dolgozni, kénytelenek leszünk magunknak implementálni az adott probléma megoldásához szükséges erőforrásokat. 
+        </para>
+        <para>
+            Ezekre vannak jól bevált módszerek, melyek alapján könnyebben tudjuk hibamentesen megoldani a problémát. Ilyenek a másoló és mozgató értékadás és  konstruktor. Ezekre a fogalmakra már láttunk példát az előző fejezetben, az LZWBinFa algorimus során. Itt az idő tehát, hogy részletesebben is megnézzük, hogy mi történik pontosan. 
+        </para>
+        <para>
+        	Másoló konstruktor:
+        </para>
+        <programlisting>
+			<![CDATA[
+				LZWBinFa ( const LZWBinFa & regi )
+				{
+					std::cout << "LZWBinFa copy ctor" << std::endl;
+					gyoker = masol ( regi.gyoker, regi.fa );
+				}
+	        ]]>
+		</programlisting>
+        <para>
+        	Itt a konstruktor bemeneti értékként megkapja a régi fa objektumot, a masol() függvénnyel lemásolja annak tartalmát, majd ráállít egy mutatót, ami a gyökérmutatója lesz az új fának. Fontos megemlíteni, hogy konstans értéket kap a konstruktor, ezzel biztosítjuk, hogy az eredeti fa nem változik.
+        </para>
+        <para>
+        	Mozgató konstruktor: 
+        </para>
+        <programlisting>
+			<![CDATA[
+		LZWBinFa ( LZWBinFa && regi )
+			{
+				std::cout << "LZWBinFa move ctor" << std::endl;
+				gyoker = nullptr;
+				*this = std::move ( regi );
+			}
+	        ]]>
+		</programlisting>
+        <para>
+        	Ez a kódcsipet azt meséli el, hogy lenullázzuk az eredeti fa értékét, majd az újonnan létrehozott BinFa típusú példány gyökerének odaadjuk a régi fa szerkezetét. Ez az std::move() függvénnyel történik, mely jobbértékké alakítja a bemenetként kapott értéket, ezzel megteremtve a lehetőséget, hogy egy egyenlőségjel jobb oldalára írjuk azt.
+        </para>
+        <para>
+        	Másoló értékadás: 
+        </para>
+        <programlisting>
+			<![CDATA[
+	    LZWBinFa & operator= ( const LZWBinFa & regi )
+	    	{
+				std::cout << "LZWBinFa copy assign" << std::endl;
+				Csomopont * ujgyoker = masol( regi.gyoker, regi.fa );
+				szabadit (gyoker);
+				gyoker = ujgyoker;
+				return *this;
+		    }
+	        ]]>
+		</programlisting>
+        <para>
+        	Itt egy "operator overloading" varázslat történik, mellyel az egyenlőségjel jelentését írjuk felül. Létrehozunk egy új Csomopont példányra mutató pointert ujgyoker néven, majd rámásoljuk a bal oldali értékként kapott fa szerkezetét. Eltöröljük a régi gyökérből induló fát, majd a régi mutatónak (itt: gyoker) odaadjuk a az új gyökér értékét. Ezután visszaadunk egy erre a fára mutató pointert, ami mutatni fog az imént lemásolt fa gyökerére, ez az érték fog odaadódni az egyenlőség al oldalán levő változónak.
+        </para>
+        <para>
+        	Mozgató értékadás:
+        </para>
+        <programlisting>
+			<![CDATA[
+		LZWBinFa & operator= ( LZWBinFa && regi )
+			{
+				std::cout << "LZWBinFa move assign" << std::endl;
+				std::swap ( gyoker, regi.gyoker );
+				std::swap ( fa, regi.fa );
+        		return *this;
+			}
+	        ]]>
+		</programlisting>
+        <para>
+        	Ezt talán a legegyszerűbb átlátni a négy konstruktor közül: Itt is az egyenlőségjelet írjuk felül, de ebben az esetben a jobb oldali értéket az std::move() függvény keretein belül kell megadni. Csupán annyi történik, hogy az új fa és a régi fa gyökerét, majd adataikat kicseréljük egymással. Ezzel azt érjük el, hogy az eredeti fára mutató pointer ki lesz nullázva, hiszen null értékű pointerrel cseréltük ki, az új pointer értéke pedig a fa gyökere lesz. Itt is visszaadunk egy erre az objektumra mutató pointert, ami jobbértékként az eredeti mutató helyén lesz.
+        </para>
+        <para>
+        	Ezzel a négy konstrukcióval kisebb módosításokkal bármilyen adatszerkezetet biztonságosan és gyorsan fogunk tudni mozgatni és duplikálni, ha szükség lesz rá, hiszen csak pointereket pakolunk ide-oda.
+        </para>
+    </section>        
+</chapter>                

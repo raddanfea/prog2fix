@@ -47,13 +47,29 @@
         </xi:fallback>
     </xi:include>   
 
-	<xi:include href="bhax-textbook-feladatok-chomsky2.xml">
-    <xi:fallback>
+    <xi:include href="bhax-textbook-feladatok2-chomsky.xml">
+        <xi:fallback>
             <para>
                 <emphasis>XInclude: bhax-textbook-chomsky2.xml file not found</emphasis>
             </para>
         </xi:fallback>
     </xi:include>   
+
+    <xi:include href="bhax-textbook-feladatok2-stroustrup.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: bhax-textbook-stroustrup.xml file not found</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include>   
+
+    <xi:include href="bhax-textbook-feladatok2-gödel.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: bhax-textbook-chomsky2.xml file not found</emphasis>
+            </para>
+        </xi:fallback>
+    </xi:include> 
     
             
 </part>  
