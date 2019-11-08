@@ -14,31 +14,5 @@ Itt egy pálda egy Scheme script-re, mely egy mandalát készít egy szövegből
 [kód]
 	</para>
 </section>
-<section>
-	<title>Allokátorok</title>
-        <para>
-Az allokátorok a C ++ szabvány könyvtár egyik alkotóeleme, és szerepet játszanak
-tárolók méretének módosítására a program futásakor. Ők felelősek
-a memória és a tárolási kérelmek elosztása érdekében az összes tárolás
-kezésére. A C ++ szabvány könyvtár általános célú disztribútorokat tartalmaz, ezt vesszük alapértelmezettnek, de természetesen a programozó létrehozhat egyéni egyet, ezt fogjuk tenni a jelenlegi feladatunk során. Leginkább kicsi programokhoz használják őket
-memóriamennyiség csökkentésére. Az allokátorok a futási idő és a memória lábnyoma csökkentése szempontjából szintén hasznosak.
-	</para>
-<para>
-Az allokátor az alacsony szintű memóriaműveletekkel kapcsolatos összes részletet kezeli, de néhány metainformációt is megad arról, hogy milyen típusú szervezetet kezel. Az új (new) és törölj (delete) operátorokat használja a memória megszerzéséhez és felszabadításához.
-</para>
-<para><programlisting><![CDATA[ int[][] dataMatrix = new int[matrix.length][matrix.length];]]></programlisting></para>
-<para>
-A kódcsipet példa egy mátrix adatainak a memóriában való lefoglalására, elemei int típusuak és a mátrix mérete változó.
-</para>
-<para>Ne felejtsük el a lefoglalt memóriát felszabadítani amennyiben már nincs rá szükség!
-</para>
-</section>
-<section><title>Allokátorok</title>
-<para>
-</para>
-<para>
-</para>
-</section>
+
 </chapter>
-<para>
-</para>
