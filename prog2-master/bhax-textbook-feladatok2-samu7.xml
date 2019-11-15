@@ -21,6 +21,29 @@ Az ssscanf beolvassa az adatokat null-terminált karakterlánc-pufferből. A for
 <para>A kapott input egy string, egy decimális és egy karakter. Ezek itt az object nevét, egy számtulajdonságot és típusát közöljük. A változatokban az átadott adatok típusa és száma különbözik.
 </para>
 </section>
+<section>
+	<title>BrainB Qt slot-signal</title>
+	<para>A signal(jel) és a slot(rés) az objektumok közötti kommunikációra szolgálnak. A jel- és résidő-mechanizmus a Qt központi eleme. A jeleket és a nyílásokat a Qt metaobjektum-rendszere teszi lehetővé.
+	</para>
+	<para>A résidők jelek fogadására használhatók, de ezek szintén normális tagfunkciók. Csakúgy, mint egy objektum nem tudja, hogy valaki megkapja-e a jeleit, a rés nem tudja, hogy van-e valamilyen jel csatlakoztatva. Egyetlen nyíláshoz annyi jelet csatlakoztathat, amennyit csak akar, és egy jel csatlakoztatható annyi nyíláshoz, amennyire szüksége van. Lehetőség van arra is, hogy egy jelet közvetlenül egy másik jelhez csatlakoztassunk.
+</para>
+	<para>
+	<mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="40%" fileref="samu7/abstract-connections.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+	</para>
+<para>
+	<programlisting>
+		<![CDATA[connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) ),
+                  this, SLOT ( updateHeroes ( QImage, int, int ) ) );
+		]]>
+	</programlisting>
+        </para>
+<para>A programban lévő signal-slot konfiguráció észleli az objektum változásait és jelez az objektumtulajdonságfrissítőnek hogy végezze el a szükséges módosításokat.
+</para>
+</section>
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>
