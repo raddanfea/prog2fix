@@ -77,13 +77,7 @@
                 <emphasis>XInclude: bhax-textbook2-samu7.xml file not found</emphasis>
             </para>
         </xi:fallback>
-    </xi:include> 
-        <xi:include href="bhax-textbook-feladatok2-samu7.xml">
-        <xi:fallback>
-            <para>
-                <emphasis>XInclude: bhax-textbook-samu7.xml file not found</emphasis>
-            </para>
-        </xi:fallback>
+
     </xi:include>     
     <xi:include href="bhax-textbook-feladatok2-schwarzenegger.xml">
         <xi:fallback>
