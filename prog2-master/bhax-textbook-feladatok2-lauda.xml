@@ -1,0 +1,17 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Arroway!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>PortScan</title>
+	<para>
+		Az objektum-orientált programozás azok számára kissé idegen lehet, akik azelőtt kizárólag procedurális programozással foglalkoztak, mert olyan magas szintű paradigmákat vezet be, melyek elsőre talán nem tűnnek hasznosnak, vagy könnyen implementálhatónak. Azonban ezeket a feltevéseket semmi nem cáfolja jobban, mint a tény, hogy a legtöbb manapság írt program objektum-orientált szemlélettel íródik. Ez szerves része olyan elismert és elterjedt nyelveknek, mint a Java, C#, Python, Ruby, és a lista folyatatódik látszólag a végtelenségig. A kissé absztraktabb felfogás sokak számára könnyebbséget jelent, főleg a kezdő programozóknak, vagy azoknak, akik nem kívánnak teljesen belemerülni a számítástudomány rejtelmeibe. Az alapvető koncepciókat, mint változók, függvények, stb. megtartja, de kiegészíti osztályokkal, virtuális függvényekkel és absztrakt típusokkal. Három alapötlet mentén tudunk objektum-orientált programokat írni: Egybezárás, többalakúság és öröklődés. Ha ezek mentén írjuk a programjainkat és betartjuk a hozzájuk kapcsolódó szabályokat, hamar rájöhetünk, hogy tulajdonképpen nem is olyan nehéz átlátni ezt az erősen absztrakt gondolatmenetet még egy újoncnak sem. 
+	</para>
+</section>
+    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+</chapter>                
