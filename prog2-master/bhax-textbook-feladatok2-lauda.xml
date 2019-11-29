@@ -1,6 +1,6 @@
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
     <info>
-        <title>Helló, Arroway!</title>
+        <title>Helló, Lauda!</title>
         <keywordset>
             <keyword/>
         </keywordset>
@@ -10,9 +10,63 @@
         <title>PortScan</title>
 	<para>A forráskód egy for ciklus alatt megpróbálkozik minden lehetséges portra csatlakozni. Amennyiben ez sikerül, a port nyitott, amenyiben a csatlakozás hibát ad vissza, a port zárt vagy nem létezik. Amennyiben más kód is fut hibakezelőnk alatt amely hibába ütközik, akkor is zártnak tekinti a függvény-ciklus a portot (jelen esetben ez nem fordul elő).
 	</para>
+<programlisting language="java"><![CDATA[
+            public static void main(String[] args) {
+        
+                for(int i=0; i<1024; ++i)
+                    
+                    try {
+                        
+                        java.net.Socket socket = new java.net.Socket(args[0], i);
+                        
+                        System.out.println(i + " figyeli");
+                        
+                        socket.close();
+                        
+                    } catch (Exception e) {
+                        
+                        System.out.println(i + " nem figyeli");
+                        
+                    }
+            }
+            ]]>
+          </programlisting>
 
 	<para>Mivel normál esetben ilyet nem csinálunk, ez a hálózat támadásának tekinthető. Mivel minden minden egyes portot ellenőrzünk ez bruteforce támadásnak minősül, amelyet a legtöbb védelmi rendszer autómatikusan is észlel. Ezt a saját hálózatunkon kívül, engedély nélkül elvégezni nem ajánlott és legtöbb esetben illegális.
 	</para>
+</section>
+    <section>
+        <title>AOP</title>
+	<para>A feladathoz telepítenünk kell az aspectj-t. Ubuntun ezt így tudjuk megcsinálni: <command>sudo apt install aspectj</command>. Majd fordítunk:<command>ajc LZWBinFa.java Aspect.aj</command>.
+	</para>
+
+	<para>A joint egy olyan pont a programban amikor valamilyen folyamat lefut. Például, egy metódus meghívódik vagy egy kivételt throwolunk,inicializálunk egy objektumot, stb. A pointcutnak van jobb és bal oldala, ezeket kettőspont választja el. Bal oldalon a pointcut neve és paraméterei állnak ahol az elérhető adatokhoz férhetünk hozzá ha lefut a metódus. A jobboldalt maga a pointcut szerepel, például a call vagy az execution. Itt adjuk meg, hogy mire utal a pointcut.
+	</para>
+<para>
+A before, after és around parancsokkal adjuk meg hogy a metódus hívása előtt, után, közben vagy helyette fusson le. A within adja meg melyik osztályt szeretnénk használni, a target a meghívó java object, az argumentumok pedig azok az értékek amiket használni szeretnénk.
+</para>
+<programlisting language="java"><![CDATA[
+private long egyes = 0;
+private long nullas = 0;
+pointcut pushback(): execution(public void push_back(char));
+before(char ch): pushback() && args(ch) {
+
+    if (ch == '1') {
+        egyes++;
+    } else {
+        nullas++;
+    }
+}
+pointcut main(): execution(public static void main(String[]));
+after(): main() {
+    System.out.println("Egyesek száma: " + egyes);
+    System.out.println("Nullások száma: " + nullas);
+}
+            ]]>
+          </programlisting>
+<para>
+A fenti kód az egyesek és nullások összeszámlálására készült. Valahányszor lefut a push_back(char), előtte megnézzük hogy a char milyen karakter és növeljük az adott értékhez tartozó darabszámunkat. Végül, ,mMiután lefut a programunkban a main függvény, kiiratjuk a darabszámokat a termilálba. 
+</para>
 </section>
     
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
