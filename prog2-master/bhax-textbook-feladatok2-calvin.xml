@@ -6,9 +6,17 @@
         </keywordset>
     </info>
     <section>
-	<title>placeholder text</title>
+	<title>Android telefonra a TF objektum detektálója</title>
     <para>
-    	placeholder text
+A TensorFlow egy ingyenes és nyílt forráskódú szoftverkönyvtár az "adatáramláshoz", különböző programokhoz számos feladat körén belül hasznos. Ez egy szimbolikus matematikai könyvtár gépi tanulási alkalmazásokhoz, például neurális hálózatokhoz is használható. Google fejlesztette ki hogy kutatásában és gyártásban használják. <link xlink:href="https://en.wikipedia.org/wiki/Apache_License#Version_2.0">
+Apache License 2.0</link> alatt lett publikálva. Az appstore-ban rengeteg TF alapú alkalmazás elérhető ingyenesen, vagy felhasználhatjuk saját programunk elkészítésére <link xlink:href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/android">a példa forrást</link>.
+	</para>
+<para>
+	<mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="32%" fileref="calvin/tf.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
 	</para>
 </section>
 </chapter>

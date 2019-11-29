@@ -37,8 +37,12 @@
 </section>
     <section>
         <title>AOP</title>
-	<para>A feladathoz telepítenünk kell az aspectj-t. Ubuntun ezt így tudjuk megcsinálni: <command>sudo apt install aspectj</command>. Majd fordítunk:<command>ajc LZWBinFa.java Aspect.aj</command>.
+	<para>A feladathoz telepítenünk kell az aspectj-t. Ubuntun ezt így tudjuk megcsinálni:
 	</para>
+<programlisting language="java"><![CDATA[
+sudo apt install aspectj
+ajc LZWBinFa.java Aspect.aj]]>
+          </programlisting>
 
 	<para>A joint egy olyan pont a programban amikor valamilyen folyamat lefut. Például, egy metódus meghívódik vagy egy kivételt throwolunk,inicializálunk egy objektumot, stb. A pointcutnak van jobb és bal oldala, ezeket kettőspont választja el. Bal oldalon a pointcut neve és paraméterei állnak ahol az elérhető adatokhoz férhetünk hozzá ha lefut a metódus. A jobboldalt maga a pointcut szerepel, például a call vagy az execution. Itt adjuk meg, hogy mire utal a pointcut.
 	</para>
@@ -46,23 +50,22 @@
 A before, after és around parancsokkal adjuk meg hogy a metódus hívása előtt, után, közben vagy helyette fusson le. A within adja meg melyik osztályt szeretnénk használni, a target a meghívó java object, az argumentumok pedig azok az értékek amiket használni szeretnénk.
 </para>
 <programlisting language="java"><![CDATA[
-private long egyes = 0;
-private long nullas = 0;
+private long egy = 0;
+private long null = 0;
 pointcut pushback(): execution(public void push_back(char));
 before(char ch): pushback() && args(ch) {
 
     if (ch == '1') {
-        egyes++;
+        egy++;
     } else {
-        nullas++;
+        null++;
     }
 }
 pointcut main(): execution(public static void main(String[]));
 after(): main() {
-    System.out.println("Egyesek száma: " + egyes);
-    System.out.println("Nullások száma: " + nullas);
-}
-            ]]>
+    System.out.println("Egyesek száma: " + egy);
+    System.out.println("Nullások száma: " + null);
+}]]>
           </programlisting>
 <para>
 A fenti kód az egyesek és nullások összeszámlálására készült. Valahányszor lefut a push_back(char), előtte megnézzük hogy a char milyen karakter és növeljük az adott értékhez tartozó darabszámunkat. Végül, ,mMiután lefut a programunkban a main függvény, kiiratjuk a darabszámokat a termilálba. 
