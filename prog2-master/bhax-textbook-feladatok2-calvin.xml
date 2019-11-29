@@ -5,7 +5,7 @@
             <keyword/>
         </keywordset>
     </info>
-    <section>
+<section>
 	<title>Android telefonra a TF objektum detektálója</title>
     <para>
 A TensorFlow egy ingyenes és nyílt forráskódú szoftverkönyvtár az "adatáramláshoz", különböző programokhoz számos feladat körén belül hasznos. Ez egy szimbolikus matematikai könyvtár gépi tanulási alkalmazásokhoz, például neurális hálózatokhoz is használható. Google fejlesztette ki hogy kutatásában és gyártásban használják. <link xlink:href="https://en.wikipedia.org/wiki/Apache_License#Version_2.0">
@@ -51,4 +51,32 @@ Apache License 2.0</link> alatt lett publikálva. Az appstore-ban rengeteg TF al
         </para>
 
 </section>
+<section>
+ <title>Minecraft MALMO-s példa</title>
+
+<para>
+A Minecraft Malmo a Microsoft mesterséges intelligencia kísérleti és kutatási projektje, amely a Minecrafton alapul. A játékhoz hozzáadjuk a Pythonban írt gyakorlati szinteket, ahol a mesterséges intelligencia megtanul és megpróbálhatja őket ágens formájában utánozni.
+</para>
+
+        <para>
+Szükségünk van a <link xlink:href="https://github.com/Microsoft/malmo">Minecraft MALMÖ forrásra</link>, illetve a Python-ra és az 1.8-as OpenJDK-ra. A segédprogramok útvonalait be kell illeszteni a megfelő környezeti változóba amennyiben ezt nem tettük meg korábban. 
+</para><programlisting language="java"><![CDATA[Windows alatt: Rendszer - Speciális Rendszerbeállítások -Speciális - Környezeti változók]]>
+</programlisting>
+<para>Leggyakrabban a JAVA_HOME -ot kell a letöltött verzió pontos elérési útjára beállítani.
+</para>
+<para>
+Majd a programot lebuildeljük és futtatjuk:
+</para><programlisting language="java"><![CDATA[Minecraft\launchClient.bat]]>
+</programlisting>
+        <para>
+            Másik konzolból tudjuk indítani a Python példákat, úgynevezett küldetéseket. Például:<function>python .\tutorial_1.py</function>
+            A legelő küldetésben még nem történik semmi csak visszaszámol 10-től egy
+            számláló.
+        </para>
+        <mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="70%" fileref="calvin/malmo.PNG" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+    </section>
 </chapter>
