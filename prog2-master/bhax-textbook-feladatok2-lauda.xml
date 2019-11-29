@@ -71,6 +71,44 @@ after(): main() {
 A fenti kód az egyesek és nullások összeszámlálására készült. Valahányszor lefut a push_back(char), előtte megnézzük hogy a char milyen karakter és növeljük az adott értékhez tartozó darabszámunkat. Végül, ,mMiután lefut a programunkban a main függvény, kiiratjuk a darabszámokat a termilálba. 
 </para>
 </section>
+
+
+<section>
+	<title>
+		Android játék: MindMark
+	</title>
+	<para>
+		Ebben a feladatban egy korábbi, de nem túl régi projektemet mutatom be, mely MindMark néven talán az olvasáskor már meg is található a Google Play store-on. 
+	</para>
+	<para>
+		Az alkalmazás valójában csak akkor tekinthető játéknak, ha a szó tágabb jelentését vesszük, de egészen jól el lehet szórakozni vele, emiatt úgy döntöttem, hogy belefér a kategóriába. Teljes forráskódot nem fogok linkelni, de fontosabb, vagy érdekesebb részleteket mutatok belőle.
+	</para>
+	<para>
+		A játék (nevezzük annak) felépítése a következő: Van egy dobozunk a képernyő felső részén, ami két másodpercenként véletlenszerűen piros, vagy zöld színre vált, valamint a képernyő alján két gombunk, melyek közül az egyik piros, a másik zöld. Az, hogy melyik milyen színű, az szintén véletlenszerűen változik két másodpercenként. A cél az, hogy azt a gombot nyomjuk meg, amely színe megegyezik a felső doboz színével. 10 kör után a reakcióidőnk összeadódik, ez lesz az eredményünk, mely elmentődik egy fájlba, hogy később össze tudjuk hasonlítani az előző eredményeinkkel. Ezen a játékmódon kívül van egy végtelen mód is, melyben a játékosnak egyre kevesebb ideje van a reagálásra. Itt nem az összes reakcióidő adódik össze, hanem a helyes gombnyomások száma. Itt akkor van vége a játéknak, ha rossz gombot nyom a játékos.
+	</para>
+		<mediaobject>
+            <imageobject>
+                <imagedata fileref="lauda/mindmark.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+</section>
+
+
+
+<section>
+	<title>
+		jUnit
+	</title>
+	<para>
+		A jUnit egy java kódokhoz írt tesztelőprogram, mellyel a futás bizonyos pontjainál tudunk kimenteni és ellenőrizni adatokat. Ez egy debugoláshoz kiváló módszer, hiszen ha nem tudjuk, melyik függvényünk az, ami elrontja a végső kimenetet, egyszerűen kimentjük az összesnek az eredményét és összehasonlítjuk azzal, aminek ki kéne jönnie. A jUnit az Apache Maven keretrendszert használja, így könnyen futtatható a legtöbb IDE-ben, és nagyobb projektekben is könnyen deploy-olható. 
+	</para>
+	<para>
+		A feladat során a binfa egy már korábban ellenőrzött, papíron kiszámolt végeredményét kell összehasonlítanunk a program futása során kapott outputtal. 
+	</para>
+	<para>
+		A tesztprogram írásakor figyelembe kell venni, hogy egy különböző fán kell majd végrehajtanunk a tesztet, mint amiről az outputot olvassuk, hiszen lehet, hogy egy olyan függvényt használunk, ami "elrontja" az előző függvény általi visszatérési értéket, ha ezzel számolnánk a tesztben, akkor elromlana az is és false positive eredményt kapnánk. Az assertEquals(inputs) függvénnyel azt tudjuk megnézni, hogy a számolt eredmény (függvénnyel vagy expliciten megadva) megegyezik-e a programunk kimenetével. Ha igen, akkor lefut a többi kód is, így egy egyszerű println() függvénnyel ki tudjuk írni, hogy megegyeznek-e az értékek.
+	</para>
+</section>
     
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 </chapter>                

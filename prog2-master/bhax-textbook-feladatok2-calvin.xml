@@ -19,4 +19,36 @@ Apache License 2.0</link> alatt lett publikálva. Az appstore-ban rengeteg TF al
         </mediaobject>
 	</para>
 </section>
+
+<section>
+    <title>
+        Mnist
+    </title>
+    <para>
+        Manapság egyre többen foglalkoznak neurális hálókkal, a legtöbb programozó úgy véli, ez a - valójában egyáltalán nem új - módszer lehetőséget adhat egy általános mesterséges intelligencia létrehozására. Ilyen neurális hálókat rengeteg feladatra be tudunk tanítani, és a legtöbb alkalmazási területen nagy sikerük van. A legfejlettebb alkalmazási területek közé tartozik a kép- és hangfelismerés, bár tény, hogy ezek az algoritmusok nem tökéletesek. Ahhoz, hogy egy fejlett neurális hálót létre tudjunk hozni, általában nem elég az, hogy megadjuk inputként az adatainkat, majd egy már előre megírt struktúrába betöltjük azt, hiszen ekkor az algoritmus valószínűleg vagy nem lesz olyan mértékben szofisztikált, mint szeretnénk, vagy feleslegesen sokáig fog tartani a tanítás. Mivel minden alkalmazási területnek megvannak a sajátosságai, érdemes ezekhez finomhangolni a neurális hálóink felépítését. Rengeteg felépítési gráf létezik, akit érdekel a téma, annak érdemes elmerülni benne, sok olyan megmagyarázatlan viselkedési forma van, amire még mindig keressük az okot.
+    </para>
+    <para>
+        Az mnist egy olyan neurális háló, amely képes kézzel írott betűk felismerésére. Bemenetként egy 28x28 pixel méretű fekete-fehér képet kell megadnunk, és a tanítási folyamat után képes lesz megállapítani, hogy milyen betűt mutattunk neki. Ez a feladat sokak szerint a gépi tanulás "hello world" programja, hiszen egyszerű lefuttatni, megérteni és módosításokat végezni rajta. A hibaarány általában 1% alatt szokott lenni, de ezt lehet csökkenteni fejlettebb módszerekkel. A legkisebb hibaszázalékot a konvolúcionális neurális hálók adják, melyek úgy épülnek fel, hogy a folyamat során a node-ok száma egyre csökken, majd ismét megnő. Így a hibázás arányát le lehet csökkenteni 0.25% alá, ami azt jelenti, hogy 400 képenként fog egy képet eltéveszteni.
+    </para>
+    <para>
+        Az általam kipróbált neurális háló képes volt felismerni mind a  három általam írt számot, amit megadtam neki.
+    </para>
+        <mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="50%" fileref="calvin/number.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+    <para>
+        A saját képem
+    </para>
+        <mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="50%" fileref="calvin/mnist_screenshot.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+        <para>
+            A futás során felismert szám
+        </para>
+
+</section>
 </chapter>

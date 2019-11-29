@@ -89,13 +89,6 @@ delete [] image;
         ]]>
         </programlisting>
 </para>
-<para>
-	<mediaobject>
-            <imageobject>
-                <imagedata fileref="perceptron.png"></imagedata>
-            </imageobject>
-        </mediaobject>
-</para>
 	</section>
 	<section>
 	<title>Encoding</title>
