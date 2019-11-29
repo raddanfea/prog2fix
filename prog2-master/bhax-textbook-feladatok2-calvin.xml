@@ -39,7 +39,7 @@ Apache License 2.0</link> alatt lett publikálva. Az appstore-ban rengeteg TF al
                 </imageobject>
         </mediaobject>
     <para>
-        A saját képem
+        A saját számom
     </para>
         <mediaobject>
                 <imageobject>
@@ -78,5 +78,28 @@ Majd a programot lebuildeljük és futtatjuk:
                 <imagedata scalefit="1" width="70%" fileref="calvin/malmo.PNG" format="PNG"/>
                 </imageobject>
         </mediaobject>
+    </section>
+
+    <section>
+        <title>
+            Mély Mnist    
+        </title>
+        <para>
+            Az előző mnist-es példában volt szó arról, hogy a neurális hálóknak többfajta felépítése is lehet, melyeket gráfként tudunk lerajzolni. A legegyszerűbb gráffajták, melyeket tanulóprogramok használnak, általában három rétegből állnak: egy input rétegből, egy "titkos", vagy "rejtett" rétegből, és egy output rétegből. Sok alkalmazási területhez azonban nem elég egy rejtett réteg. Ha egy bonyolultabb feladatra szeretnénk mesterséges "intelligenciát" létrehozni, akkor azt úgy tudjuk felépíteni, hogy több rejtett réteg legyen az input és output rétegek között. Itt meghatározatjuk rétegenként a node-ok számát, valamint azt, hogy a kapcsolatok milyen node-okat kötnek össze.
+        </para>
+        <para>
+            Itt egy link egy weboldalra, ahol a különböző tipográfiák előnyei és hátrányai vannak elmagyarázva: https://towardsdatascience.com/the-mostly-complete-chart-of-neural-networks-explained-3fb6f2367464
+        </para>
+        <para>
+            A kép- és formafelismeréshez a legtöbb helyen konvolúcionális neurális hálókat ajánlanak, de általában jó eredményeket adnak a Support-Vector-Machine-ek is.
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata scalefit="1" width="70%" fileref="calvin/ConvNN.png" format="PNG"/>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Konvolúcionális neurális háló
+        </para>
     </section>
 </chapter>

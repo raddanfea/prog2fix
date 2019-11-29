@@ -88,7 +88,7 @@ A fenti kód az egyesek és nullások összeszámlálására készült. Valahán
 	</para>
 		<mediaobject>
             <imageobject>
-                <imagedata fileref="lauda/mindmark.png"></imagedata>
+                <imagedata fileref="lauda/mindmark.png" width="33%"></imagedata>
             </imageobject>
         </mediaobject>
 </section>
