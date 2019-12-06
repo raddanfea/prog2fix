@@ -41,7 +41,8 @@ Az ssscanf beolvassa az adatokat null-terminált karakterlánc-pufferből. A for
 		]]>
 	</programlisting>
         </para>
-<para>A programban lévő signal-slot konfiguráció észleli az objektum változásait és jelez az objektumtulajdonságfrissítőnek hogy végezze el a szükséges módosításokat.
+<para>
+	A programban lévő signal-slot konfiguráció észleli az objektum változásait és jelez az objektumtulajdonságfrissítőnek hogy végezze el a szükséges módosításokat.
 </para>
 </section>
 <section>
@@ -49,7 +50,7 @@ Az ssscanf beolvassa az adatokat null-terminált karakterlánc-pufferből. A for
 		Webkamera használata androidon
 	</title>
 	<para>
-A webkamera használata - bár általánosan nem egy túlságosan elterjedt feature - fontos eleme lehet sok programnak. Ha magunknak kellene "from scratch" megírni egy api-t, ami a kamera bemenetét egy programnak adja be, az elég nagy fejtörést okozna. Szerencsére vannak beépített metódusok és api-k a kamera használatára. Talán egy androidos alkalmazásban a legegyszerűbb használni a kamerát bemenetként, majd  megjeleníteni a benemetet a képernyőn. Ehhez már a hivatalos dokumentációban is találunk példát, így tényleg csak annyi a dolgunk, hogy összevagdossuk a részeket és lefuttatjuk.
+		A webkamera használata - bár általánosan nem egy túlságosan elterjedt feature - fontos eleme lehet sok programnak. Ha magunknak kellene "from scratch" megírni egy api-t, ami a kamera bemenetét egy programnak adja be, az elég nagy fejtörést okozna. Szerencsére vannak beépített metódusok és api-k a kamera használatára. Talán egy androidos alkalmazásban a legegyszerűbb használni a kamerát bemenetként, majd  megjeleníteni a benemetet a képernyőn. Ehhez már a hivatalos dokumentációban is találunk példát, így tényleg csak annyi a dolgunk, hogy összevagdossuk a részeket és lefuttatjuk.
 	</para>
 </section>
 <section>
@@ -57,8 +58,13 @@ A webkamera használata - bár általánosan nem egy túlságosan elterjedt feat
 		OSM Edit
 	</title>
 	<para>
-Az OpenStreetMap egy olyan open-source térkép, melynek az adataihoz mindenki hozzáférhet és szabadon használhatja, így akár mi is rakhatunk rá új elemeket. A feladat alapján egy új elemet kellett létrehozni Debrecenben. Mivel én nem ismerem a várost olyan mértékben, hogy olyan épületet, vagy területet hozzáadjak, ami még nincs rajta, Miskolc-Felsőhámorban kezdtem el nézelődni, mert azt a környéket jól ismerem. Ahogy nézelődtem, nem találtam a kohászati múzeumot rajta, így azt választottam ki és tettem egy waypoint-szerű objektumot a térképre.
+		Az OpenStreetMap egy olyan open-source térkép, melynek az adataihoz mindenki hozzáférhet és szabadon használhatja, így akár mi is rakhatunk rá új elemeket. A feladat alapján egy új elemet kellett létrehozni Debrecenben. Mivel én nem ismerem a várost olyan mértékben, hogy olyan épületet, vagy területet hozzáadjak, ami még nincs rajta, Miskolc-Felsőhámorban kezdtem el nézelődni, mert azt a környéket jól ismerem. Ahogy nézelődtem, nem találtam a kohászati múzeumot rajta, így azt választottam ki és tettem egy waypoint-szerű objektumot a térképre.
 	</para>
+	<mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="75%" fileref="samu7/osm.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
 </section>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>
