@@ -146,7 +146,9 @@ int main()
         <title>Ciklomatikus komplexitás</title>
         <para>
 	A feladat megoldásához a McCabe ciklomatikus komplexitás alanizáló programot használtam amely részletes elemzést is biztosít. Jelen feladatban csak a második oszlopban található számok érdekelnek minket. Kódforrás a korábban felhasznált PHB generátor. (III/Arroway/Kódolás From Scratch)
-	</para> 
+	</para>  
+<para>A metrika egy adott szoftver forráskódjának alapján határozza meg annak komplexitását, egy konkrét számértékben kifejezve. A komplexitás számítása a gráfelméletre alapul.
+	</para>
 	<mediaobject>
                 <imageobject>
                 <imagedata fileref="liskov/compx.PNG" format="PNG"/>

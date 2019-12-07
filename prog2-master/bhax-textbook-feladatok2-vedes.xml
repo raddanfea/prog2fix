@@ -10,6 +10,22 @@
 			<para>
 				Sikeres védés Android játék témában.
 			</para>
+	<mediaobject>
+                <imageobject>
+                <imagedata fileref="img/rpg1.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+	<mediaobject>
+                <imageobject>
+                <imagedata fileref="img/rpg2.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
+<para>
+Egyszerű szöveg alapú RPG. Véletlenszerűen generált HP-val és listából kevert névvel végtelen ellenfelek. Ellenség halálakor a következő erősebb lesz és egy pontot kap a jatékos, amellyel a találati esélyét vagy sebzését növelheti. A bemutatáskori verzióban +5 HP opciót is lehet választani és kismértékű életerőt is visszakapunk az ellenfél halálakor. A PoweUp gombok csak akkor jelennek meg, havan a játékosnak elkölthető pontja.
+			</para>
+<para>
+A bemutatott verzióban támadás és védekzés lehetséges. A védekezéssel időt nyerhetünk amellyel életerőt szerezhetünk vissza.
+			</para>
 	</section>
 		<section>
 		<title>Takács Viktor Védés</title>

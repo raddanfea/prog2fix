@@ -11,6 +11,11 @@
 	<para>
 		Az objektum-orientált programozás azok számára kissé idegen lehet, akik azelőtt kizárólag procedurális programozással foglalkoztak, mert olyan magas szintű paradigmákat vezet be, melyek elsőre talán nem tűnnek hasznosnak, vagy könnyen implementálhatónak. Azonban ezeket a feltevéseket semmi nem cáfolja jobban, mint a tény, hogy a legtöbb manapság írt program objektum-orientált szemlélettel íródik. Ez szerves része olyan elismert és elterjedt nyelveknek, mint a Java, C#, Python, Ruby, és a lista folyatatódik látszólag a végtelenségig. A kissé absztraktabb felfogás sokak számára könnyebbséget jelent, főleg a kezdő programozóknak, vagy azoknak, akik nem kívánnak teljesen belemerülni a számítástudomány rejtelmeibe. Az alapvető koncepciókat, mint változók, függvények, stb. megtartja, de kiegészíti osztályokkal, virtuális függvényekkel és absztrakt típusokkal. Három alapötlet mentén tudunk objektum-orientált programokat írni: Egybezárás, többalakúság és öröklődés. Ha ezek mentén írjuk a programjainkat és betartjuk a hozzájuk kapcsolódó szabályokat, hamar rájöhetünk, hogy tulajdonképpen nem is olyan nehéz átlátni ezt az erősen absztrakt gondolatmenetet még egy újoncnak sem. 
 	</para>
+	<mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="60%" fileref="arroway/OOP.png" format="PNG"/>
+                </imageobject>
+        </mediaobject>
 	<para>
 		Az alábbi kód talán a legegyszerűbb olyan objektum-orientált program, mely hasznos is. A neve polár-transzformációs generátor, mely kissé ijesztőnek hangzik, de csupán annyiból áll, hogy két random változót hoz létre, majd az egyiket visszaadja. a belső függvény újbóli meghívása során megvizsgálja, hogy van-e nem visszaadott random szám generálva, ha van, visszaadja azt, ha nincs, akkor pedig két újat generál. Ezzel valamennyire fel lehet gyorsítani a generálási folyamatot, mely sok generálás esetén elég erőforrás-igényes lehet. 
 	</para>
@@ -392,12 +397,53 @@ public class LZWBinFa
     <para>
 		A modern programnyelvek tervezői mindent elkövetnek azért, hogy az írt programkód átlátható, olvasható, egyértelmű és helyes legyen. Ezen kívül fontos az is, hogy gyorsan fusson, ezért a fordítókba sokféle optimalizációt implementálnak. Ezek akkor lesznek megfelelőek, ha a programok ugyanúgy fordulnak le az optimalizációval, mint nélküle. Ez általában így van, de nem mindig. Az interpreteres nyelveket sokkal nehezebb optimalizálni, hiszen a futásidőben fordulnak a programok, így ha közben sokat analizálgatunk, a gépünk ugyanúgy lelassulhat, mint egy rosszul megírt kód esetén. 
 	</para>
+<para>
+	<programlisting><![CDATA[
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Teszt kezdése.");
+        gagyi2();
+        gagyi1();
+    }
+    public static void gagyi1(){
+        Integer x = -129;
+        Integer t = -129;
+        System.out.println (x);
+        System.out.println (t);
+
+        System.out.println("Vár: Teszt második fázis vége.");
+        while (x <= t && x >= t && t != x);
+        System.out.println("Teszt második fázis vége.");
+    }
+    public static void gagyi2(){
+        System.out.println("Teszt 1. fázis.");
+        Integer x = -128;
+        Integer t = -128;
+        System.out.println (x);
+        System.out.println (t);
+        System.out.println("Vár: Teszt első fázis vége");
+        while (x <= t && x >= t && t != x);
+        System.out.println("Teszt első fázis vége");
+    }
+}
+		]]>
+	</programlisting>
+	</para>
 	<para>
 		Egy jó példa lehet optimalizációra a Java nyelvbe beépített "pool-ozás". Ez annyit jelent, hogy ha kis számokkal számolunk a programunkban (-128-tól 127-ig), akkor az egy előre megírt adatbázisra fog referenciákat létrehozni, nem pedig teljesen új objektumokat. Ezzel lényegesen javul a futásidő, ám valóban ugyanúgy fog a prpgramunk futni? A válasz: Attól függ. Általában igen, hiszen ha a számokkal egyszerű aritmetikát végzünk, amit általában számokkal szoktunk, nem változik az objektumok funkcionalitása, viszont lényegesen gyorsabban futnak le a programjaink, mert nem kell folyamatosan új objektumokat létrehoznia a rendszernek. Viszont ha két szám memóriacímét vizsgáljuk, akkor beleütközhetünk egy olyan problémába, hogy két számnak ugyanaz lehet a memóriacíme. Emiatt lehetséges az, hogy a következő feltételre, ami normális körülmények között nem lehetne semmilyen módon igaz, azt kapjuk, hogy a [-128, 127] tartományon belüli számok megfelelnek. 
 	</para>
 	<para>
 		Az ilyenfajta, nem tökéletesen egyértelmű implementációkkal pontosan ez a gond: egy nem szokványos helyzetben a programjaink félrecsúszhatnak, rossz eredményt adhatnak, esetenként lehet, hogy le sem futnak. Talán az ilyen furcsaságok miatt tart sokáig egy-egy felvetődő problémára megoldást találni, hiszen nem tudhatjuk kezdőként, hogy mi hibáztunk, vagy egyszerűen a fordító máshogy, talán rosszul értelmezi a kódunkat. Ezért fontos, hogy elolvassuk a nyelv adott dokumentációját, és ha kérdésünk van, forduljunk valaki olyanhoz, aki teljes mértékben ismeri a nyelv adottságait.
     </para>
+	<para>
+A kódunkban a második fázis vége nem fog lefutni.
+</para>
+<mediaobject>
+                <imageobject>
+                <imagedata scalefit="1" width="100%" fileref="arroway/gagyi.PNG" format="PNG"/>
+                </imageobject>
+        </mediaobject>
 </section>
 
 <section>
