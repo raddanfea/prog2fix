@@ -139,6 +139,11 @@
     )
         ]]>
 	</programlisting>
+<mediaobject>
+  <imageobject>
+      <imagedata scalefit="1" width="100 %" fileref="Godel/mandala.png" format="PNG"/>
+    </imageobject>
+</mediaobject>
 </section>
 <section>
 	<title>Allokátorok</title>

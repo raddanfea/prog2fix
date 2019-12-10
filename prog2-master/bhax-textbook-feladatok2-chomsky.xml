@@ -59,13 +59,13 @@ public class Main
 	<section>
         <title>Perceptron osztály</title>
 	<para>
-A perceptron az emberi agyi neuronokhoz mintázva épül fel.
+A perceptron egy olyan modell, mely az emberi agyat próbálja szimulálni, és képes felismerni, vagy megtagadni egy adott bemenetet. A szükséges adatok megadása után (tanítás) bizonyos hibaszázalékkal képes lesz egy saját "véleményt", jobb szóval predikciót mondani egy addig még nem látott bemenetre.
 	</para>
 	<para>
-A perceptron az egyik legegyszerűbb előrecsatolt neurális hálózat. Létrehozzuk a p nevű Perceptron osztály objektumot, a konstruktorának segítségével. Ez a perceptron 3 rétegű és egy kimeneti csomópontból áll, az egyes rétegek size változó értéke, 256, 1 szálakból állnak. Majd a számításhoz szükséges mátrixba mozgatjuk az adatokat, melyetket a heapen tárolunk, majd ezeket a helyeket felszabadítjuk a delete függvény segítségével manuálisan. A double típúsu változóba mentjük a perceptron számítás eredményét, amit megjelnítünk szabványos kimeneten.
+A perceptron az egyik legegyszerűbb előrecsatolt neurális hálózat. Létrehozzuk a p nevű Perceptron osztály objektumot, a konstruktorának segítségével. Ez a perceptron 3 rétegű és egy kimeneti csomópontból áll, az egyes rétegek size változó értéke, 256, 1 szálakból állnak. Majd a számításhoz szükséges mátrixba mozgatjuk az adatokat, melyetket a heapen tárolunk, majd ezeket a helyeket felszabadítjuk a delete függvény segítségével manuálisan. A double típusú változóba mentjük a perceptron számítás eredményét, amit megjelenítünk szabványos kimeneten.
 	</para>	
 	<para>
-	<programlisting language = "C++">
+		<programlisting language = "C++">
           <![CDATA[ 	 
 	#include <iostream>
 #include "png++/png.hpp"
@@ -88,7 +88,10 @@ delete [] image;
 }
         ]]>
         </programlisting>
-</para>
+	</para>
+	<para>
+		A perceptronok a neurális hálók fő építőelemei és manapság egyre több alkalmazási területen találkozhat velük egy programozó. Ilyen algoritmusokkal egészen pontosan lehet mintafelismerést végezni képekben, szövegekben, hangfájlokban, stb.
+	</para>
 	</section>
 	<section>
 	<title>Encoding</title>

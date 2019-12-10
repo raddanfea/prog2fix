@@ -137,7 +137,7 @@ class KulcsPar {
 		</programlisting>
 	</para>
 	<para>
-        Az RSA (Rivest – Shamir – Adleman) az egyik első nyilvános kulcsú kriptokoszisztéma, amelyet széles körben használnak a biztonságos adatátvitelhez. Egy ilyen kriptoszisztémában a titkosítási kulcs nyilvános, és különbözik a titkosított (privát) titkosítási kulcsotól. Az RSA-ban ez az aszimmetria a két nagy prímszám szorzatának faktorizálásának gyakorlati nehézségén alapszik, a "faktoring probléma". 
+        Az RSA (Rivest – Shamir – Adleman) az egyik első nyilvános kulcsú kriptoszisztéma, amelyet széles körben használnak a biztonságos adatátvitelhez. Egy ilyen kriptoszisztémában a titkosítási kulcs nyilvános, és különbözik a titkosított (privát) titkosítási kulcsotól. Az RSA-ban ez az aszimmetria a két nagy prímszám szorzatának faktorizálásának gyakorlati nehézségén alapszik, a "faktoring probléma". 
 	</para>
 	<para>
         Az RSA betűszó Ron Rivest, Adi Shamir és Leonard Adleman vezetékneveinek kezdőbetűiből áll, akik elsőként 1977-ben jelentették be az algoritmust. Clifford Cocks, a brit hírszerző ügynökség kormányzati kommunikációs központjában (GCHQ) dolgozó angol matematikus. 1973-ban kifejlesztett egy megfelelő rendszert, de ezt csak 1997-en nyilvánosították.
@@ -147,42 +147,222 @@ class KulcsPar {
 <section>
 <title>Változó argumentumszámú ctor</title>
 <para>
-<programlisting>
-			<![CDATA[
-#include <iostream>
-#include "mlp.hpp"
-#include <png++/png.hpp>
-#include <fstream>
-
-int main (int argc, char **argv){
-    png::image <png::rgb_pixel> png_image (argv[1]);
-
-    int size = png_image.get_width()* png_image.get_height();
-
-    Perceptron* p = new Perceptron (3, size, 256, size);
-
-    double* image = new double[size];
-
-    for (int i {0}; i<png_image.get_width();++i)
-        for (int j {0}; j<png_image.get_height();++j)
-            image[i*png_image.get_width()+j]= png_image[i][j].red;
-
-    double* newPNG = (*p) (image);
-    
-    for(int i = 0; i < png_image.get_width(); ++i)
-        for(int j = 0; j < png_image.get_height(); ++j)
-            png_image[i][j].green = newPNG[i*png_image.get_width()+j];
-
-    png_image.write("output.png");
-
-    delete p;
-    delete [] image;
-}
-]]>
-		</programlisting>
+    Szinte minden modern programozási nyelv része az objektum-orientáltság. Ennek az elképesztően elterjedt paradigmának rengeteg ága, kritériuma és lehetősége van. Egy objektum létrehozása során például lefuttathatunk egy kódot, mely minden egyes objektumelem inicializálása során újra le fog futni. Annak érdekében, hogy egy adott elem többféleképpen is viselkedhessen, lehetőségünk van arra, hogy több konstruktort hozzunk létre. Ezek közül csak egy fog egy adott elem esetén lefutni, az, hogy melyik, azt az dönti el, hogy az adott bemenet melyik konstruktorra illeszkedik. Ezt a fogalmat hívjuk polimorfizmusnak, azaz többalakúságnak. A konstruktoraink különbözhetnek a bemenetek adattípusaiban, vagy azoknak a számában is. 
+</para>
+<mediaobject>
+    <imageobject>
+        <imagedata scalefit="1" width="100 %" fileref="stroustup/ctor.png" format="PNG"/>
+    </imageobject>
+</mediaobject>
+<para>
+    Ezt a paradigmát már használtuk tavaly az LZWBinFa programunkban, ahol attól függően hívtuk meg a másoló vagy a mozgató konstruktort, hogy konstans értéket adtunk át neki, vagy nem. Én is ezt használom a saját fejlesztésű RGB api-mban, melynek azért kell több konstruktort írni, hogy tudja a setBackgroundColor() függvény, hogy milyen elemre kell alkalmaznia magát.
 </para>
 <para>
-A main-ben beolvassuk a képet és annak adataiból létrehozzuk a perceptron osztályt. A változó méretű konstruktor segítségével a méretek akkorák lesznek mint amire szügünk van. Végigmegyünk a kép szélességén és magasságán, a megfelelő szín értékeket kiírjuk az image tömbbe, majd kimentjük az új képet és felszabadítjuk a memóriát.
+    <programlisting>
+        <![CDATA[
+package com.mindmark;
+
+import android.os.Handler;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+public class RGB {
+    int red;
+    int green;
+    int blue;
+
+    int color;
+    int speed;
+
+    Handler handler;
+    Button button;
+    TextView textView;
+    LinearLayout linearLayout;
+    RelativeLayout relativeLayout;
+
+    private boolean stop = false;
+
+    RGB(Button extButton, int cycleSpeed, int startingColor) {
+        button = extButton;
+        speed = cycleSpeed;
+
+        red = (startingColor & 0xFF0000) >> 16;
+        green = (startingColor & 0xFF00) >> 8;
+        blue = startingColor & 0xFF;
+
+        handler = new Handler();
+        button.setBackgroundColor(startingColor);
+        buttonColorChange();
+    }
+
+    RGB(TextView extTextView, int cycleSpeed, int startingColor) {
+        textView = extTextView;
+        speed = cycleSpeed;
+
+        red = (startingColor & 0xFF0000) >> 16;
+        green = (startingColor & 0xFF00) >> 8;
+        blue = startingColor & 0xFF;
+
+        handler = new Handler();
+
+        textView.setBackgroundColor(startingColor);
+        textViewColorChange();
+    }
+
+    RGB(LinearLayout extLinearLayout, int cycleSpeed, int startingColor) {
+        linearLayout = extLinearLayout;
+        speed = cycleSpeed;
+
+        red = (startingColor & 0xFF0000) >> 16;
+        green = (startingColor & 0xFF00) >> 8;
+        blue = startingColor & 0xFF;
+
+        handler = new Handler();
+
+        linearLayout.setBackgroundColor(startingColor);
+        linearLayoutColorChange();
+    }
+
+    RGB(RelativeLayout extRelativeLayout, int cycleSpeed, int startingColor) {
+        relativeLayout = extRelativeLayout;
+        speed = cycleSpeed;
+
+        red = (startingColor & 0xFF0000) >> 16;
+        green = (startingColor & 0xFF00) >> 8;
+        blue = startingColor & 0xFF;
+
+        handler = new Handler();
+
+        relativeLayout.setBackgroundColor(startingColor);
+        relativeLayoutColorChange();
+    }
+
+
+    public void buttonColorChange() {
+            final Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if(!stop) {
+
+                        if ((red > 0) && (green < 255) && (blue == 0)) {
+                            redMinus();
+                        } else if ((red == 0) && (green > 0) && (blue < 255)) {
+                            greenMinus();
+                        } else if ((red < 255) && (green == 0) && (blue > 0)) {
+                            blueMinus();
+                        }
+
+                        color = 0xFF000000 + 0x10000 * red + 0x100 * green + blue;
+
+                        button.setBackgroundColor(color);
+
+                        handler.postDelayed(this, speed);
+                    }
+                }
+            };
+            runnable.run();
+        }
+
+    public void textViewColorChange() {
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                if(!stop) {
+
+                    if ((red > 0) && (green < 255) && (blue == 0)) {
+                        redMinus();
+                    } else if ((red == 0) && (green > 0) && (blue < 255)) {
+                        greenMinus();
+                    } else if ((red < 255) && (green == 0) && (blue > 0)) {
+                        blueMinus();
+                    }
+
+                    color = 0xBB000000 + 0x10000 * red + 0x100 * green + blue;
+
+                    textView.setBackgroundColor(color);
+
+                    handler.postDelayed(this, speed);
+                }
+            }
+        };
+        runnable.run();
+    }
+
+    public void linearLayoutColorChange() {
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if(!stop) {
+
+                    if ((red > 0) && (green < 255) && (blue == 0)) {
+                        redMinus();
+                    } else if ((red == 0) && (green > 0) && (blue < 255)) {
+                        greenMinus();
+                    } else if ((red < 255) && (green == 0) && (blue > 0)) {
+                        blueMinus();
+                    }
+
+                    color = 0xBB000000 + 0x10000 * red + 0x100 * green + blue;
+
+                    linearLayout.setBackgroundColor(color);
+
+                    handler.postDelayed(this, speed);
+                }
+            }
+        };
+        runnable.run();
+    }
+
+    public void relativeLayoutColorChange() {
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if(!stop) {
+
+                    if ((red > 0) && (green < 255) && (blue == 0)) {
+                        redMinus();
+                    } else if ((red == 0) && (green > 0) && (blue < 255)) {
+                        greenMinus();
+                    } else if ((red < 255) && (green == 0) && (blue > 0)) {
+                        blueMinus();
+                    }
+
+                    color = 0xBB000000 + 0x10000 * red + 0x100 * green + blue;
+
+                    relativeLayout.setBackgroundColor(color);
+
+                    handler.postDelayed(this, speed);
+                }
+            }
+        };
+        runnable.run();
+    }
+
+    private void redMinus() {
+        red--;
+        green++;
+    }
+
+    private void greenMinus() {
+        green--;
+        blue++;
+    }
+
+    private void blueMinus() {
+        blue--;
+        red++;
+    }
+
+    public void stop() {
+        this.stop = true;
+    }
+
+}
+        ]]>
+    </programlisting>
 </para>
 </section> 
 </chapter>                
