@@ -2,88 +2,139 @@
     <info>
         <title>Helló, Calvin!</title>
         <keywordset>
-            <keyword/>
+            <keyword />
         </keywordset>
     </info>
-<section>
-	<title>Android telefonra a TF objektum detektálója</title>
-    <para>
-A TensorFlow egy ingyenes és nyílt forráskódú szoftverkönyvtár az "adatáramláshoz", különböző programokhoz számos feladat körén belül hasznos. Ez egy szimbolikus matematikai könyvtár gépi tanulási alkalmazásokhoz, például neurális hálózatokhoz is használható. Google fejlesztette ki hogy kutatásában és gyártásban használják. <link xlink:href="https://en.wikipedia.org/wiki/Apache_License#Version_2.0">
-Apache License 2.0</link> alatt lett publikálva. Az appstore-ban rengeteg TF alapú alkalmazás elérhető ingyenesen, vagy felhasználhatjuk saját programunk elkészítésére <link xlink:href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/android">a példa forrást</link>.
-	</para>
-<para>
-	<mediaobject>
+    <section>
+        <title>Android telefonra a TF objektum detektálója</title>
+        <para>
+            <emphasis>
+                    Telepítsük fel, próbáljuk ki!
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Rádi Dániel
+            </emphasis>
+        </para>
+        <para>
+            A TensorFlow egy ingyenes és nyílt forráskódú szoftverkönyvtár az "adatáramláshoz", különböző programokhoz számos feladat körén belül hasznos. Ez egy szimbolikus matematikai könyvtár gépi tanulási alkalmazásokhoz, például neurális hálózatokhoz is használható. Google fejlesztette ki hogy kutatásában és gyártásban használják.
+            <link xlink:href="https://en.wikipedia.org/wiki/Apache_License#Version_2.0">
+Apache License 2.0</link>
+            alatt lett publikálva. Az appstore-ban rengeteg TF alapú alkalmazás elérhető ingyenesen, vagy felhasználhatjuk saját programunk elkészítésére
+            <link xlink:href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/android">a példa forrást</link>
+            .
+        </para>
+        <para>
+            <mediaobject>
                 <imageobject>
-                <imagedata scalefit="1" width="32%" fileref="calvin/tf.png" format="PNG"/>
+                    <imagedata scalefit="1" width="32%" fileref="calvin/tf.png" format="PNG" />
                 </imageobject>
-        </mediaobject>
-	</para>
-</section>
+            </mediaobject>
+        </para>
+    </section>
 
-<section>
-    <title>
-        Mnist
-    </title>
-    <para>
+    <section>
+        <title>Mnist</title>
+        <para>
+            <emphasis>
+                    Az alap feladat megoldása, +saját kézzel rajzolt képet is ismerjen fel,
+                    https://progpater.blog.hu/2016/11/13/hello_samu_a_tensorflow-bol Háttérként ezt vetítsük le:
+                    https://prezi.com/0u8ncvvoabcr/no-programming-programming/
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+        <para>
         Manapság egyre többen foglalkoznak neurális hálókkal, a legtöbb programozó úgy véli, ez a - valójában egyáltalán nem új - módszer lehetőséget adhat egy általános mesterséges intelligencia létrehozására. Ilyen neurális hálókat rengeteg feladatra be tudunk tanítani, és a legtöbb alkalmazási területen nagy sikerük van. A legfejlettebb alkalmazási területek közé tartozik a kép- és hangfelismerés, bár tény, hogy ezek az algoritmusok nem tökéletesek. Ahhoz, hogy egy fejlett neurális hálót létre tudjunk hozni, általában nem elég az, hogy megadjuk inputként az adatainkat, majd egy már előre megírt struktúrába betöltjük azt, hiszen ekkor az algoritmus valószínűleg vagy nem lesz olyan mértékben szofisztikált, mint szeretnénk, vagy feleslegesen sokáig fog tartani a tanítás. Mivel minden alkalmazási területnek megvannak a sajátosságai, érdemes ezekhez finomhangolni a neurális hálóink felépítését. Rengeteg felépítési gráf létezik, akit érdekel a téma, annak érdemes elmerülni benne, sok olyan megmagyarázatlan viselkedési forma van, amire még mindig keressük az okot.
     </para>
-    <para>
+        <para>
         Az mnist egy olyan neurális háló, amely képes kézzel írott betűk felismerésére. Bemenetként egy 28x28 pixel méretű fekete-fehér képet kell megadnunk, és a tanítási folyamat után képes lesz megállapítani, hogy milyen betűt mutattunk neki. Ez a feladat sokak szerint a gépi tanulás "hello world" programja, hiszen egyszerű lefuttatni, megérteni és módosításokat végezni rajta. A hibaarány általában 1% alatt szokott lenni, de ezt lehet csökkenteni fejlettebb módszerekkel. A legkisebb hibaszázalékot a konvolúcionális neurális hálók adják, melyek úgy épülnek fel, hogy a folyamat során a node-ok száma egyre csökken, majd ismét megnő. Így a hibázás arányát le lehet csökkenteni 0.25% alá, ami azt jelenti, hogy 400 képenként fog egy képet eltéveszteni.
     </para>
-    <para>
+        <para>
         Az általam kipróbált neurális háló képes volt felismerni mind a  három általam írt számot, amit megadtam neki.
     </para>
         <mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="50%" fileref="calvin/number.png" format="PNG"/>
-                </imageobject>
+            <imageobject>
+                <imagedata scalefit="1" width="50%" fileref="calvin/number.png" format="PNG" />
+            </imageobject>
         </mediaobject>
-    <para>
+        <para>
         A saját számom
     </para>
         <mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="50%" fileref="calvin/mnist_screenshot.png" format="PNG"/>
-                </imageobject>
+            <imageobject>
+                <imagedata scalefit="1" width="50%" fileref="calvin/mnist_screenshot.png" format="PNG" />
+            </imageobject>
         </mediaobject>
         <para>
             A futás során felismert szám
         </para>
 
-</section>
-<section>
- <title>Minecraft MALMO-s példa</title>
-
-<para>
+    </section>
+    <section>
+        <title>Minecraft MALMO-s példa</title>
+        <para>
+            <emphasis>
+                    A https://github.com/Microsoft/malmo felhasználásával egy ágens példa, lásd pl.:
+                    https://youtu.be/bAPSu3Rndi8, https://bhaxor.blog.hu/2018/11/29/eddig_csaltunk_de_innentol_mi,
+                    https://bhaxor.blog.hu/2018/10/28/minecraft_steve_szemuvege
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Rádi Dániel
+            </emphasis>
+        </para>
+        <para>
 A Minecraft Malmo a Microsoft mesterséges intelligencia kísérleti és kutatási projektje, amely a Minecrafton alapul. A játékhoz hozzáadjuk a Pythonban írt gyakorlati szinteket, ahol a mesterséges intelligencia megtanul és megpróbálhatja őket ágens formájában utánozni.
 </para>
 
         <para>
-Szükségünk van a <link xlink:href="https://github.com/Microsoft/malmo">Minecraft MALMÖ forrásra</link>, illetve a Python-ra és az 1.8-as OpenJDK-ra. A segédprogramok útvonalait be kell illeszteni a megfelő környezeti változóba amennyiben ezt nem tettük meg korábban. 
-</para><programlisting language="java"><![CDATA[Windows alatt: Rendszer - Speciális Rendszerbeállítások -Speciális - Környezeti változók]]>
-</programlisting>
-<para>Leggyakrabban a JAVA_HOME -ot kell a letöltött verzió pontos elérési útjára beállítani.
+            Szükségünk van a
+            <link xlink:href="https://github.com/Microsoft/malmo">Minecraft MALMÖ forrásra</link>
+            , illetve a Python-ra és az 1.8-as OpenJDK-ra. A segédprogramok útvonalait be kell illeszteni a megfelő környezeti változóba amennyiben ezt nem tettük meg korábban.
+        </para>
+        <programlisting language="java">
+            <![CDATA[Windows alatt: Rendszer - Speciális Rendszerbeállítások -Speciális - Környezeti változók]]>
+        </programlisting>
+        <para>Leggyakrabban a JAVA_HOME -ot kell a letöltött verzió pontos elérési útjára beállítani.
 </para>
-<para>
-Majd a programot lebuildeljük és futtatjuk:
-</para><programlisting language="java"><![CDATA[Minecraft\launchClient.bat]]>
-</programlisting>
         <para>
-            Másik konzolból tudjuk indítani a Python példákat, úgynevezett küldetéseket. Például:<function>python .\tutorial_1.py</function>
+Majd a programot lebuildeljük és futtatjuk:
+</para>
+        <programlisting language="java">
+            <![CDATA[Minecraft\launchClient.bat]]>
+        </programlisting>
+        <para>
+            Másik konzolból tudjuk indítani a Python példákat, úgynevezett küldetéseket. Például:
+            <function>python .\tutorial_1.py</function>
             A legelő küldetésben még nem történik semmi csak visszaszámol 10-től egy
             számláló.
         </para>
         <mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="70%" fileref="calvin/malmo.PNG" format="PNG"/>
-                </imageobject>
+            <imageobject>
+                <imagedata scalefit="1" width="70%" fileref="calvin/malmo.PNG" format="PNG" />
+            </imageobject>
         </mediaobject>
     </section>
 
     <section>
-        <title>
-            Mély Mnist    
-        </title>
+        <title>Mély Mnist</title>
+        <para>
+            <emphasis>
+                    Mint az előző, de a mély változattal. Segítő ábra, vesd össze a forráskóddal a
+                    https://arato.inf.unideb.hu/batfai.norbert/NEMESPOR/DE/denbatfai2.pdf 8. fóliáját!
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
         <para>
             Az előző mnist-es példában volt szó arról, hogy a neurális hálóknak többfajta felépítése is lehet, melyeket gráfként tudunk lerajzolni. A legegyszerűbb gráffajták, melyeket tanulóprogramok használnak, általában három rétegből állnak: egy input rétegből, egy "titkos", vagy "rejtett" rétegből, és egy output rétegből. Sok alkalmazási területhez azonban nem elég egy rejtett réteg. Ha egy bonyolultabb feladatra szeretnénk mesterséges "intelligenciát" létrehozni, akkor azt úgy tudjuk felépíteni, hogy több rejtett réteg legyen az input és output rétegek között. Itt meghatározatjuk rétegenként a node-ok számát, valamint azt, hogy a kapcsolatok milyen node-okat kötnek össze.
         </para>
@@ -95,7 +146,7 @@ Majd a programot lebuildeljük és futtatjuk:
         </para>
         <mediaobject>
             <imageobject>
-                <imagedata scalefit="1" width="70%" fileref="calvin/ConvNN.png" format="PNG"/>
+                <imagedata scalefit="1" width="70%" fileref="calvin/ConvNN.png" format="PNG" />
             </imageobject>
         </mediaobject>
         <para>

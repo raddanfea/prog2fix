@@ -1,70 +1,116 @@
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
-    <info>
-        <title>Helló, Samu!</title>
-        <keywordset>
-            <keyword/>
-        </keywordset>
-    </info>
-<section>
-	<title>OOCWC Boost ASIO hálózatkezelése</title>
-	<para>A Boost.Asio egy platformközi C ++ könyvtár hálózati és alacsony szintű I/O programozáshoz, amely a fejlesztőknek következetes aszinkron modellt biztosít a modern C ++ megközelítés segítségével.
+	<info>
+		<title>Helló, Samu!</title>
+		<keywordset>
+			<keyword />
+		</keywordset>
+	</info>
+	<section>
+		<title>OOCWC Boost ASIO hálózatkezelése</title>
+		<para>
+			<emphasis>
+				Mutassunk rá a scanf szerepére és használatára! https://github.com/nbatfai/robocar-
+				emulator/blob/master/justine/rcemu/src/carlexer.ll
+			</emphasis>
+		</para>
+		<para>
+			<emphasis role="strong">
+				Rádi Dániel
+			</emphasis>
+		</para>
+		<para>A Boost.Asio egy platformközi C ++ könyvtár hálózati és alacsony szintű I/O programozáshoz, amely a fejlesztőknek következetes aszinkron modellt biztosít a modern C ++ megközelítés segítségével.
 	</para>
-	<para>
+		<para>
 Az ssscanf beolvassa az adatokat null-terminált karakterlánc-pufferből. A forrásban a következő sor változatai fordulnak elő:
 	</para>
-<para>
-	<programlisting>
-		<![CDATA[std::sscanf(yytext, "<init %s %d %c>", name, &num, &role);
+		<para>
+			<programlisting>
+				<![CDATA[std::sscanf(yytext, "<init %s %d %c>", name, &num, &role);
 		]]>
-	</programlisting>
-        </para>
-<para>A kapott input egy string, egy decimális és egy karakter. Ezek itt az object nevét, egy számtulajdonságot és típusát közöljük. A változatokban az átadott adatok típusa és száma különbözik.
+			</programlisting>
+		</para>
+		<para>A kapott input egy string, egy decimális és egy karakter. Ezek itt az object nevét, egy számtulajdonságot és típusát közöljük. A változatokban az átadott adatok típusa és száma különbözik.
 </para>
-</section>
-<section>
-	<title>BrainB Qt slot-signal</title>
-	<para>A signal(jel) és a slot(rés) az objektumok közötti kommunikációra szolgálnak. A jel- és résidő-mechanizmus a Qt központi eleme. A jeleket és a nyílásokat a Qt metaobjektum-rendszere teszi lehetővé.
-	</para>
-	<para>A résidők jelek fogadására használhatók, de ezek szintén normális tagfunkciók. Csakúgy, mint egy objektum nem tudja, hogy valaki megkapja-e a jeleit, a rés nem tudja, hogy van-e valamilyen jel csatlakoztatva. Egyetlen nyíláshoz annyi jelet csatlakoztathat, amennyit csak akar, és egy jel csatlakoztatható annyi nyíláshoz, amennyire szüksége van. Lehetőség van arra is, hogy egy jelet közvetlenül egy másik jelhez csatlakoztassunk.
-</para>
-	<para>
-	<mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="40%" fileref="samu7/abstract-connections.png" format="PNG"/>
-                </imageobject>
-        </mediaobject>
-	</para>
-<para>
-	<programlisting>
-		<![CDATA[connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) ),
+	</section>
+	<section>
+		<title>BrainB Qt slot-signal</title>
+		<para>
+			<emphasis>
+				Mutassuk be a Qt slot-signal mechanizmust ebben a projektben: https://github.com/nbatfai/esport-
+				talent-search
+			</emphasis>
+		</para>
+		<para>
+			<emphasis role="strong">
+				Rádi Dániel
+			</emphasis>
+		</para>
+		<para>
+			A signal(jel) és a slot(rés) az objektumok közötti kommunikációra szolgálnak. A jel- és résidő-mechanizmus a Qt központi eleme. A jeleket és a nyílásokat a Qt metaobjektum-rendszere teszi lehetővé.
+		</para>
+		<para>
+			A résidők jelek fogadására használhatók, de ezek szintén normális tagfunkciók. Csakúgy, mint egy objektum nem tudja, hogy valaki megkapja-e a jeleit, a rés nem tudja, hogy van-e valamilyen jel csatlakoztatva. Egyetlen nyíláshoz annyi jelet csatlakoztathat, amennyit csak akar, és egy jel csatlakoztatható annyi nyíláshoz, amennyire szüksége van. Lehetőség van arra is, hogy egy jelet közvetlenül egy másik jelhez csatlakoztassunk.
+		</para>
+		<para>
+			<mediaobject>
+				<imageobject>
+					<imagedata scalefit="1" width="40%" fileref="samu7/abstract-connections.png" format="PNG" />
+				</imageobject>
+			</mediaobject>
+		</para>
+		<para>
+			<programlisting>
+				<![CDATA[connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) ),
                   this, SLOT ( updateHeroes ( QImage, int, int ) ) );
 		]]>
-	</programlisting>
-        </para>
-<para>
+			</programlisting>
+		</para>
+		<para>
 	A programban lévő signal-slot konfiguráció észleli az objektum változásait és jelez az objektumtulajdonságfrissítőnek hogy végezze el a szükséges módosításokat.
 </para>
-</section>
-<section>
-	<title>
-		Webkamera használata androidon
-	</title>
-	<para>
+	</section>
+	<section>
+		<title>Webkamera használata androidon</title>
+		<para>
+			<emphasis>
+					Mutassunk rá a webcam (pl. Androidos mobilod) kezelésére ebben a projektben:
+					https://github.com/nbatfai/SamuCam
+			</emphasis>
+		</para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+		<para>
 		A webkamera használata - bár általánosan nem egy túlságosan elterjedt feature - fontos eleme lehet sok programnak. Ha magunknak kellene "from scratch" megírni egy api-t, ami a kamera bemenetét egy programnak adja be, az elég nagy fejtörést okozna. Szerencsére vannak beépített metódusok és api-k a kamera használatára. Talán egy androidos alkalmazásban a legegyszerűbb használni a kamerát bemenetként, majd  megjeleníteni a benemetet a képernyőn. Ehhez már a hivatalos dokumentációban is találunk példát, így tényleg csak annyi a dolgunk, hogy összevagdossuk a részeket és lefuttatjuk.
 	</para>
-</section>
-<section>
-	<title>
-		OSM Edit
-	</title>
-	<para>
+	</section>
+	<section>
+		<title>OSM Edit</title>
+		<para>
+			<emphasis>
+					Debrecen térképre dobjunk rá cuccokat, ennek mintájára, ahol én az országba helyeztem el a DEAC
+					hekkereket: https://www.twitch.tv/videos/182262537 (de az OOCWC Java Swinges
+					megjelenítőjéből:
+					https://github.com/nbatfai/robocar-emulator/tree/master/justine/rcwin
+					is
+					kiindulhatsz, mondjuk az komplexebb, mert ott időfejlődés is van...)
+			</emphasis>
+		</para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+		<para>
 		Az OpenStreetMap egy olyan open-source térkép, melynek az adataihoz mindenki hozzáférhet és szabadon használhatja, így akár mi is rakhatunk rá új elemeket. A feladat alapján egy új elemet kellett létrehozni Debrecenben. Mivel én nem ismerem a várost olyan mértékben, hogy olyan épületet, vagy területet hozzáadjak, ami még nincs rajta, Miskolc-Felsőhámorban kezdtem el nézelődni, mert azt a környéket jól ismerem. Ahogy nézelődtem, nem találtam a kohászati múzeumot rajta, így azt választottam ki és tettem egy waypoint-szerű objektumot a térképre.
 	</para>
-	<mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="75%" fileref="samu7/osm.png" format="PNG"/>
-                </imageobject>
-        </mediaobject>
-</section>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+		<mediaobject>
+			<imageobject>
+				<imagedata scalefit="1" width="75%" fileref="samu7/osm.png" format="PNG" />
+			</imageobject>
+		</mediaobject>
+	</section>
+
 </chapter>

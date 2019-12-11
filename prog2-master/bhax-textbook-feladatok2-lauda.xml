@@ -2,15 +2,27 @@
     <info>
         <title>Helló, Lauda!</title>
         <keywordset>
-            <keyword/>
+            <keyword />
         </keywordset>
     </info>
 
     <section>
         <title>PortScan</title>
-	<para>A forráskód egy for ciklus alatt megpróbálkozik minden lehetséges portra csatlakozni. Amennyiben ez sikerül, a port nyitott, amenyiben a csatlakozás hibát ad vissza, a port zárt vagy nem létezik. Amennyiben más kód is fut hibakezelőnk alatt amely hibába ütközik, akkor is zártnak tekinti a függvény-ciklus a portot (jelen esetben ez nem fordul elő).
+        <para>
+            <emphasis>
+                    Mutassunk rá ebben a port szkennelő forrásban a kivételkezelés szerepére!
+                    https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/ch01.html#id527287
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Rádi Dániel
+            </emphasis>
+        </para>
+        <para>A forráskód egy for ciklus alatt megpróbálkozik minden lehetséges portra csatlakozni. Amennyiben ez sikerül, a port nyitott, amenyiben a csatlakozás hibát ad vissza, a port zárt vagy nem létezik. Amennyiben más kód is fut hibakezelőnk alatt amely hibába ütközik, akkor is zártnak tekinti a függvény-ciklus a portot (jelen esetben ez nem fordul elő).
 	</para>
-<programlisting language="java"><![CDATA[
+        <programlisting language="java">
+            <![CDATA[
             public static void main(String[] args) {
         
                 for(int i=0; i<1024; ++i)
@@ -30,26 +42,39 @@
                     }
             }
             ]]>
-          </programlisting>
+        </programlisting>
 
-	<para>Mivel normál esetben ilyet nem csinálunk, ez a hálózat támadásának tekinthető. Mivel minden minden egyes portot ellenőrzünk ez bruteforce támadásnak minősül, amelyet a legtöbb védelmi rendszer autómatikusan is észlel. Ezt a saját hálózatunkon kívül, engedély nélkül elvégezni nem ajánlott és legtöbb esetben illegális.
+        <para>Mivel normál esetben ilyet nem csinálunk, ez a hálózat támadásának tekinthető. Mivel minden minden egyes portot ellenőrzünk ez bruteforce támadásnak minősül, amelyet a legtöbb védelmi rendszer autómatikusan is észlel. Ezt a saját hálózatunkon kívül, engedély nélkül elvégezni nem ajánlott és legtöbb esetben illegális.
 	</para>
-</section>
+    </section>
     <section>
         <title>AOP</title>
-	<para>A feladathoz telepítenünk kell az aspectj-t. Ubuntun ezt így tudjuk megcsinálni:
+        <para>
+            <emphasis>
+                    Szőj bele egy átszövő vonatkozást az első védési programod Java átiratába! (Sztenderd védési
+                    feladat volt korábban.)
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Rádi Dániel
+            </emphasis>
+        </para>
+        <para>A feladathoz telepítenünk kell az aspectj-t. Ubuntun ezt így tudjuk megcsinálni:
 	</para>
-<programlisting language="java"><![CDATA[
+        <programlisting language="java">
+            <![CDATA[
 sudo apt install aspectj
 ajc LZWBinFa.java Aspect.aj]]>
-          </programlisting>
+        </programlisting>
 
-	<para>A joint egy olyan pont a programban amikor valamilyen folyamat lefut. Például, egy metódus meghívódik vagy egy kivételt throwolunk,inicializálunk egy objektumot, stb. A pointcutnak van jobb és bal oldala, ezeket kettőspont választja el. Bal oldalon a pointcut neve és paraméterei állnak ahol az elérhető adatokhoz férhetünk hozzá ha lefut a metódus. A jobboldalt maga a pointcut szerepel, például a call vagy az execution. Itt adjuk meg, hogy mire utal a pointcut.
+        <para>A joint egy olyan pont a programban amikor valamilyen folyamat lefut. Például, egy metódus meghívódik vagy egy kivételt throwolunk,inicializálunk egy objektumot, stb. A pointcutnak van jobb és bal oldala, ezeket kettőspont választja el. Bal oldalon a pointcut neve és paraméterei állnak ahol az elérhető adatokhoz férhetünk hozzá ha lefut a metódus. A jobboldalt maga a pointcut szerepel, például a call vagy az execution. Itt adjuk meg, hogy mire utal a pointcut.
 	</para>
-<para>
+        <para>
 A before, after és around parancsokkal adjuk meg hogy a metódus hívása előtt, után, közben vagy helyette fusson le. A within adja meg melyik osztályt szeretnénk használni, a target a meghívó java object, az argumentumok pedig azok az értékek amiket használni szeretnénk.
 </para>
-<programlisting language="java"><![CDATA[
+        <programlisting language="java">
+            <![CDATA[
 private long egy = 0;
 private long null = 0;
 pointcut pushback(): execution(public void push_back(char));
@@ -66,49 +91,66 @@ after(): main() {
     System.out.println("Egyesek száma: " + egy);
     System.out.println("Nullások száma: " + null);
 }]]>
-          </programlisting>
-<para>
+        </programlisting>
+        <para>
 A fenti kód az egyesek és nullások összeszámlálására készült. Valahányszor lefut a push_back(char), előtte megnézzük hogy a char milyen karakter és növeljük az adott értékhez tartozó darabszámunkat. Végül, ,mMiután lefut a programunkban a main függvény, kiiratjuk a darabszámokat a termilálba. 
 </para>
-</section>
+    </section>
 
 
-<section>
-	<title>
-		Android játék: MindMark
-	</title>
-	<para>
+    <section>
+        <title>Android játék: MindMark</title>
+        <para>
+            <emphasis>
+                    Írjunk egy egyszerű Androidos „játékot”! Építkezzünk például a 2. hét „Helló, Android!” feladatára!
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+        <para>
 		Ebben a feladatban egy korábbi, de nem túl régi projektemet mutatom be, mely MindMark néven talán az olvasáskor már meg is található a Google Play store-on. 
 	</para>
-	<para>
+        <para>
 		Az alkalmazás valójában csak akkor tekinthető játéknak, ha a szó tágabb jelentését vesszük, de egészen jól el lehet szórakozni vele, emiatt úgy döntöttem, hogy belefér a kategóriába. Teljes forráskódot nem fogok linkelni, de fontosabb, vagy érdekesebb részleteket mutatok belőle.
 	</para>
-	<para>
+        <para>
 		A játék (nevezzük annak) felépítése a következő: Van egy dobozunk a képernyő felső részén, ami két másodpercenként véletlenszerűen piros, vagy zöld színre vált, valamint a képernyő alján két gombunk, melyek közül az egyik piros, a másik zöld. Az, hogy melyik milyen színű, az szintén véletlenszerűen változik két másodpercenként. A cél az, hogy azt a gombot nyomjuk meg, amely színe megegyezik a felső doboz színével. 10 kör után a reakcióidőnk összeadódik, ez lesz az eredményünk, mely elmentődik egy fájlba, hogy később össze tudjuk hasonlítani az előző eredményeinkkel. Ezen a játékmódon kívül van egy végtelen mód is, melyben a játékosnak egyre kevesebb ideje van a reagálásra. Itt nem az összes reakcióidő adódik össze, hanem a helyes gombnyomások száma. Itt akkor van vége a játéknak, ha rossz gombot nyom a játékos.
 	</para>
-		<mediaobject>
+        <mediaobject>
             <imageobject>
                 <imagedata fileref="lauda/mindmark.png" width="33%"></imagedata>
             </imageobject>
         </mediaobject>
-</section>
+    </section>
 
 
-
-<section>
-	<title>
-		jUnit
-	</title>
-	<para>
+    <section>
+        <title>jUnit</title>
+        <para>
+            <emphasis>
+                    A https://progpater.blog.hu/2011/03/05/labormeres_otthon_avagy_hogyan_dolgozok_fel_egy_pedat
+                    poszt kézzel számított mélységét és szórását dolgozd be egy Junit tesztbe (sztenderd védési feladat
+                    volt korábban).
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+        <para>
 		A jUnit egy java kódokhoz írt tesztelőprogram, mellyel a futás bizonyos pontjainál tudunk kimenteni és ellenőrizni adatokat. Ez egy debugoláshoz kiváló módszer, hiszen ha nem tudjuk, melyik függvényünk az, ami elrontja a végső kimenetet, egyszerűen kimentjük az összesnek az eredményét és összehasonlítjuk azzal, aminek ki kéne jönnie. A jUnit az Apache Maven keretrendszert használja, így könnyen futtatható a legtöbb IDE-ben, és nagyobb projektekben is könnyen deploy-olható. 
 	</para>
-	<para>
+        <para>
 		A feladat során a binfa egy már korábban ellenőrzött, papíron kiszámolt végeredményét kell összehasonlítanunk a program futása során kapott outputtal. 
 	</para>
-	<para>
+        <para>
 		A tesztprogram írásakor figyelembe kell venni, hogy egy különböző fán kell majd végrehajtanunk a tesztet, mint amiről az outputot olvassuk, hiszen lehet, hogy egy olyan függvényt használunk, ami "elrontja" az előző függvény általi visszatérési értéket, ha ezzel számolnánk a tesztben, akkor elromlana az is és false positive eredményt kapnánk. Az assertEquals(inputs) függvénnyel azt tudjuk megnézni, hogy a számolt eredmény (függvénnyel vagy expliciten megadva) megegyezik-e a programunk kimenetével. Ha igen, akkor lefut a többi kód is, így egy egyszerű println() függvénnyel ki tudjuk írni, hogy megegyeznek-e az értékek.
 	</para>
-</section>
-    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-</chapter>                
+    </section>
+
+
+</chapter>

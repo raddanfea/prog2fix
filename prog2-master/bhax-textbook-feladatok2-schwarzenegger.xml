@@ -2,14 +2,14 @@
     <info>
         <title>Helló, Schwarzenegger!</title>
         <keywordset>
-            <keyword/>
+            <keyword />
         </keywordset>
     </info>
     <section>
-	<title>placeholder text</title>
-    <para>
+        <title>placeholder text</title>
+        <para>
 placeholder text
 	</para>
-</section>
+    </section>
 
 </chapter>

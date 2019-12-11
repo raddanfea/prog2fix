@@ -1,95 +1,142 @@
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
-    <info>
-        <title>Helló, Mandelbrot!</title>
-        <keywordset>
-            <keyword/>
-        </keywordset>
-    </info>
+	<info>
+		<title>Helló, Mandelbrot!</title>
+		<keywordset>
+			<keyword />
+		</keywordset>
+	</info>
 
-<section>
-	<title>OOCWC Class Diagramms</title>
-	<para>
-	<mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="100%" fileref="Mandel/classdiag1.png" format="PNG"/>
-                </imageobject>
-        </mediaobject>
-	</para>
-	<para>	
-	<mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="100%" fileref="Mandel/classdiag2.png" format="PNG"/>
-                </imageobject>
-        </mediaobject>
-	</para>
-</section>
-<section>
-	<title>BPMN</title>
-	<para>
+	<section>
+		<title>OOCWC Class Diagramms</title>
+		<para>
+			<emphasis>
+					Valamilyen TeX-es csomag felhasználásával készíts szép diagramokat az OOCWC projektről (pl.
+					use case és class diagramokat).
+			</emphasis>
+		</para>
+		<para>
+			<emphasis role="strong">
+				Rádi Dániel
+			</emphasis>
+		</para>
+		<para>
+			<emphasis></emphasis>
+		</para>
+		<para>
+			<mediaobject>
+				<imageobject>
+					<imagedata scalefit="1" width="100%" fileref="Mandel/classdiag1.png" format="PNG" />
+				</imageobject>
+			</mediaobject>
+		</para>
+		<para>
+			<mediaobject>
+				<imageobject>
+					<imagedata scalefit="1" width="100%" fileref="Mandel/classdiag2.png" format="PNG" />
+				</imageobject>
+			</mediaobject>
+		</para>
+	</section>
+	<section>
+		<title>BPMN</title>
+		<para>
+			<emphasis>
+					Rajzoljunk le egy tevékenységet BPMN-ben!
+					https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_7.pdf (34-47 fólia)
+			</emphasis>
+		</para>
+		<para>
+			<emphasis role="strong">
+				Rádi Dániel
+			</emphasis>
+		</para>
+		<para>
 	 A BPMN a Business Process Model and Notation rövidítése. Ez egy grafikus ábrázolás hasonló az UML-hez, az üzleti folyamatok modelljének meghatározására szolgál.
 	</para>
-	<para>
-	<mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="100%" fileref="Mandel/input.png" format="PNG"/>
-                </imageobject>
-        </mediaobject>
-	</para>
-	<para>
+		<para>
+			<mediaobject>
+				<imageobject>
+					<imagedata scalefit="1" width="100%" fileref="Mandel/input.png" format="PNG" />
+				</imageobject>
+			</mediaobject>
+		</para>
+		<para>
 	A bevitelt rengeteg módon kezelhetjük programjainkban, viszont figyelnünk kell arra hogy a lehetséges problémákat elkerüljük.
 	</para>
-	<para>
+		<para>
 	Az felül található diagram ennek egy módját mutatja be.
 	</para>
-	<para>
+		<para>
 	A bevitel fogadásakor egy alapvető hivakeresési eljárást folytatunk, hogy a bevitel módtípusa és az adat típusa megfel-e az elvártnak. maennyiben nem felel meg, nem is kezeljük, különben egy hibást program vagy egy támadás nagyon könnyen túlterhelné programunkat.
 	</para>
-	<para>
+		<para>
 	Összehasonlítjuk a bemenetet az ismert adatokkal és felhasznájuk az adatokat szükség szerint.
 	</para>
-	<para>
+		<para>
 	Itt egy külön hibakezelő lefut a folyamat végekor amely kezeli a biztonsági mentéseket, korruptálási hibákat, kivételeket és a rosszindulatú támadásokat. Ennek hatékonysága nagyban függ a programozó képességeitől.
 	</para>
-	<para>
+		<para>
 	Amennyiben minden rendben van a folyamattal, ne felejtsük el felszabadítani a szükségtelenné vált erőforrásokat.
 	</para>
-</section>
+	</section>
 
-<section>
-	<title>UML Reverse Engineering</title>
-	<para>
+	<section>
+		<title>UML Reverse Engineering</title>
+		<para>
+			<emphasis>
+					UML osztálydiagram rajzolása az első védési C++ programhoz. Az osztálydiagramot a forrásokból
+					generáljuk (pl. Argo UML, Umbrello, Eclipse UML) Mutassunk rá a kompozíció és aggregáció
+					kapcsolatára a forráskódban és a diagramon, lásd még: https://youtu.be/Td_nlERlEOs.
+			</emphasis>
+		</para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+		<para>
 		A nagyobb cégeknél dolgozó programozók számára fontos az, hogy átlátható legyen az adott projekt felépítése és a programrészek között húzódó rés könnyen áthidalható legyen. Ehhez pontos tervezés és ugyanilyen megvalósítása szükséges a programoknak. Ezt nem elég szóban, vagy akár írásban egyeztetni, meg kell minden egyes programelem helyét és szerepét határozni a hatékony munka érdekében. Minden egyes osztálynak pontosan tudni kell a függvényeit, visszatérési értékeit, public és protected változóit, konstruktorokat, stb., még mielőtt elkezdődik a munka. Erre a legegyszerűbb és leghatékonyabb megoldás egy UML diagram készítése. Ebben az SQL adatbázisoknál használt kapcsolat-ábrázolásokhoz hasonlóan vannak megjelenítve program osztályai, az osztályokhoz tartozó függvények, stb. 
 	</para>
-	<para>
+		<para>
 		Hogy ne csak a levegőbe beszéljünk, mutassunk egy példát!
 	</para>
-	<mediaobject>
-		<imageobject>
-			<imagedata fileref="Mandel/BinFa_uml.png"/>
-		</imageobject>
-	</mediaobject>
-	<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="Mandel/BinFa_uml.png" />
+			</imageobject>
+		</mediaobject>
+		<para>
 		Ezen a képen a már jól ismert LZWBinFa java implementációjából generált UML diagramot láthatjuk. Ez talán nem a legjobb példa, hiszen nem tartalmaz öröklődést, sem absztrakt függvényeket, csak egy csomópont és egy binfa osztályt. A konstruktorokat, függvények visszatérési értékét és a bevett változótípusokat jól láthatjuk. 
 	</para>
-	<para>
+		<para>
 		Ezek alapján sokkal egyszerűbb lehet egy adott munkafolyamatba belépni és ha valami probléma adódik, kiküszöbölni azt.
 	</para>
-</section>
+	</section>
 
-<section>
-	<title>UML Osztálydiagram From Scratch</title>
-	<para>
+	<section>
+		<title>UML Osztálydiagram From Scratch</title>
+		<para>
+			<emphasis>
+					UML-ben tervezzünk osztályokat és generáljunk belőle forrást!
+			</emphasis>
+		</para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+		<para>
 		Az előző feladatban megismerkedhettünk Az UML diagramokkal és már egy létező forrásból le is generáltunk egyet. Ám az UML lényege pontosan az ellenkezője annak, amit mi csináltunk, tehát először készítünk egy diagramot, melyben megtervezzük a programunk felépítését, végiggondolva minden egyes változótípust, függvényt (vagy metódust, ki hogy szereti hívni őket) és osztályt, valamint a köztük levő relációkat. Az előző példa alapján lehet, hogy nem jutnánk sokra, hiszen az nem tartalmazott egyetlen öröklődést vagy absztrakt metódust sem, de ha elkezdünk egy egyszerű objektum-orientált példaprogramot végiggondolni, hamar rájöhetünk, hogy nem is olyan nehéz a dolog. 
 	</para>
-	<mediaobject>
-		<imageobject>
-			<imagedata fileref="Mandel/Animals_uml.png"/>
-		</imageobject>
-	</mediaobject>
-	<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="Mandel/Animals_uml.png" />
+			</imageobject>
+		</mediaobject>
+		<para>
 		A képen egy Animal osztályt láthatunk, melyből örökli a Fish és a Bird osztály a move() és az eat() metódusokat. Ennél egyszerűbb példát nem igazán lehet hozni, de ezen is jól látszik az UML osztálydiagramok lényege és célja, valamint az, hogy mennyivel egyszerűbb lehet egy ilyen eszköz segítségével a programtervezés.
 	</para>
-</section>
+	</section>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
 </chapter>

@@ -1,16 +1,28 @@
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
-    <info>
-        <title>Helló, Chomsky!</title>
-        <keywordset>
-            <keyword/>
-        </keywordset>
-    </info>
+	<info>
+		<title>Helló, Chomsky!</title>
+		<keywordset>
+			<keyword />
+		</keywordset>
+	</info>
 
-    <section>
-	<title>l334d1c4</title>
-        <para>
-	<programlisting>
-        <![CDATA[
+	<section>
+		<title>l334d1c4</title>
+		<para>
+			<emphasis>
+					Írj olyan OO Java vagy C++ osztályt, amely leet cipherként működik, azaz megvalósítja ezt a betű
+					helyettesítést: https://simple.wikipedia.org/wiki/Leet (Ha ez első részben nem tetted meg, akkor írasd
+					ki és magyarázd meg a használt struktúratömb memóriafoglalását!)
+			</emphasis>
+		</para>
+		<para>
+			<emphasis role="strong">
+				Rádi Dániel
+			</emphasis>
+		</para>
+		<para>
+			<programlisting>
+				<![CDATA[
 import java.io.*;
 import java.util.*;
 
@@ -43,30 +55,41 @@ public class Main
     }
 }
 	]]>
-        </programlisting>
-	</para>
-	<para>
+			</programlisting>
+		</para>
+		<para>
 	Az alábbi l33t cypher Javában fut és sorokat fogad be, melyeket lefordít l33t nyelvre.
 	</para>
-	<para>
+		<para>
 	A sort egy stringbe menti majd azt karakterenként átnézi lecserélendő karakterekért. Amikor cserélendő karaktert talál, a stinget kettévágja, a jelenlegi karaktert egy annak megfelelő l33t karakterre cseréli, majd az előtte és autána lévő résszel egyesíti azt.
 	</para>
-	<para>
+		<para>
 	Amennyiben Q karaktert magában írjuk, a program kilép.
 	</para>
-	
-    </section>
+
+	</section>
 	<section>
-        <title>Perceptron osztály</title>
-	<para>
+		<title>Perceptron osztály</title>
+		<para>
+			<emphasis>
+					Dolgozzuk be egy külön projektbe a projekt Perceptron osztályát!
+					Lásd https://youtu.be/XpBnR31BRJY
+			</emphasis>
+		</para>
+		<para>
+			<emphasis role="strong">
+				Rádi Dániel
+			</emphasis>
+		</para>
+		<para>
 A perceptron egy olyan modell, mely az emberi agyat próbálja szimulálni, és képes felismerni, vagy megtagadni egy adott bemenetet. A szükséges adatok megadása után (tanítás) bizonyos hibaszázalékkal képes lesz egy saját "véleményt", jobb szóval predikciót mondani egy addig még nem látott bemenetre.
 	</para>
-	<para>
+		<para>
 A perceptron az egyik legegyszerűbb előrecsatolt neurális hálózat. Létrehozzuk a p nevű Perceptron osztály objektumot, a konstruktorának segítségével. Ez a perceptron 3 rétegű és egy kimeneti csomópontból áll, az egyes rétegek size változó értéke, 256, 1 szálakból állnak. Majd a számításhoz szükséges mátrixba mozgatjuk az adatokat, melyetket a heapen tárolunk, majd ezeket a helyeket felszabadítjuk a delete függvény segítségével manuálisan. A double típusú változóba mentjük a perceptron számítás eredményét, amit megjelenítünk szabványos kimeneten.
-	</para>	
-	<para>
-		<programlisting language = "C++">
-          <![CDATA[ 	 
+	</para>
+		<para>
+			<programlisting language="C++">
+				<![CDATA[ 	 
 	#include <iostream>
 #include "png++/png.hpp"
 #include "mlp.hpp"
@@ -87,72 +110,95 @@ delete p;
 delete [] image;
 }
         ]]>
-        </programlisting>
-	</para>
-	<para>
+			</programlisting>
+		</para>
+		<para>
 		A perceptronok a neurális hálók fő építőelemei és manapság egyre több alkalmazási területen találkozhat velük egy programozó. Ilyen algoritmusokkal egészen pontosan lehet mintafelismerést végezni képekben, szövegekben, hangfájlokban, stb.
 	</para>
 	</section>
 	<section>
-	<title>Encoding</title>
-	<para>
+		<title>Encoding</title>
+		<para>
+			<emphasis>
+					Fordítsuk le és futtassuk a Javat tanítok könyv MandelbrotHalmazNagyító.java forrását úgy, hogy a
+					fájl nevekben és a forrásokban is meghagyjuk az ékezetes betűket!
+					https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/adatok.html
+			</emphasis>
+		</para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+		<para>
 		Sok kezdő és idegen nyelveket nem jól ismerő programozó kezdi el a programjait a saját nyelvén írni, annotálni. Ám ezt sok fordító és IDE nem támogatja. Emiatt nem csak ajánlott, de egyenesen szükséges az, hogy a programjainkat angolul írjuk, angol változó- és függvényneveket, kifejezéseket és kommenteket, a megfelelő kompatibilitás biztosításának érdekében. 
 	</para>
-	<para>
+		<para>
 		De mit tehetünk abban az esetben, ha nem vagyunk hajlandók limitálni magunkat a szabványos, programozásban használt karakterhalmazhoz?
 	</para>
-	<para>
+		<para>
 		Először is: Ne csináljunk ilyet!
 	</para>
-	<para>
+		<para>
 		Másodszor: Lehetőségünk van megadni praméterként a szövegkódolást a fordítónak. Ez a következő paranccsal lehetséges UTF-8 kódolás esetén:
 	</para>
-	<programlisting>
-		<![CDATA[
+		<programlisting>
+			<![CDATA[
 			javac -encoding utf-8 <fájlnév>
         ]]>
-	</programlisting>
-	<para>
+		</programlisting>
+		<para>
 		Itt az utf-8 helyett természetesen a saját fájlunk kódolási módszerét kell beírnunk, amit a következő paranccsal tudhatunk meg: 
 	</para>
-	<programlisting>
-		<![CDATA[
+		<programlisting>
+			<![CDATA[
 			file <fájlnév>
         ]]>
-	</programlisting>
-	<para>
+		</programlisting>
+		<para>
 		Ez a parancs ki fogja írni az adott fájllal kapcsolatos tudnivalókat, köztük a szöveges fájlok karakterkódolását.
 	</para>
-	<para>
+		<para>
 		Ha lefordítottuk a programunkat, nincs más dolgunk, mint futtatni, itt már nem szabad komplikációnak lennie, hiszen ez már egy bináris fájl lesz, melyben nem maradnak meg a változónevek, kommentek.
 	</para>
-</section>
-<section>
-	<title>FullScreen</title>
-	<para>
+	</section>
+	<section>
+		<title>FullScreen</title>
+		<para>
+			<emphasis>
+					Készítsünk egy teljes képernyős Java programot!
+					Tipp: https://www.tankonyvtar.hu/en/tartalom/tkt/javat-tanitok-javat/ch03.html#labirintus_jatek
+			</emphasis>
+		</para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+		<para>
 		Egy program írásakor el kell döntenünk, hogy milyen módon fogjuk a kimenetet megjeleníteni a felhasználó számára. Ezt több szempont alapján tehetjük meg: 
 	</para>
-	<para>
+		<para>
 		Ha annyi a cél, hogy egy kimeneti értéket, például egy számot kiírjunk, vagy csak saját használatra írunk egy programot minél egyszerűbben, a legcélszerűbb egy terminálban futó programot írni.
 	</para>
-	<para>
+		<para>
 		Ha el szeretnénk adni a programunkat, talán az a legjobb, ha egy grafikus felületet készíteni az egyszerű használat és vonzó kinézet miatt.
 	</para>
-	<para>
+		<para>
 		Ha egy grafikailag szofisztikált program írása a cél, mit egy képmegjelenítő, vagy egy játék, talán a legjobb ötlet egy teljes képernyős program készítése.
 	</para>
-	<para>
+		<para>
 		Az előző feladatban bemutatott java mandelbrot-implementáció kimenete egy képfájl, amit megnyitunk egy ablakbban, így a legelegánsabb megoldás az, ha egy teljes képernyős ablakban jelenítjük meg azt. 
 	</para>
-	<para>
+		<para>
 		Ha a MandelbrotHalmaz.java fájl 60. sorától beillesztjük a következő 3 sort, teljes képernyős kimenetet fogunk kapni.
 	</para>
-	<programlisting>
-		<![CDATA[
+		<programlisting>
+			<![CDATA[
 			this.setUndecorated(true);
 			this.setVisible(false);
 			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
 		]]>
-	</programlisting>
-</section>
+		</programlisting>
+	</section>
 </chapter>

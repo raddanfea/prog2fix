@@ -1,26 +1,42 @@
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
-    <info>
-        <title>Helló, Arroway!</title>
-        <keywordset>
-            <keyword/>
-        </keywordset>
-    </info>
+  <info>
+    <title>Helló, Arroway!</title>
+    <keywordset>
+      <keyword />
+    </keywordset>
+  </info>
 
-    <section>
-        <title>Objektum-Orientált Szemlélet</title>
-	<para>
+  <section>
+    <title>Objektum-Orientált Szemlélet</title>
+    <para>
+      <emphasis>
+        A módosított polártranszformációs normális generátor beprogramozása Java nyelven. Mutassunk rá,
+        hogy a mi természetes saját megoldásunk (az algoritmus egyszerre két normálist állít elő, kell egy
+        példánytag, amely a nem visszaadottat tárolja és egy logikai tag, hogy van-e tárolt vagy futtatni kell
+        az algot.) és az OpenJDK, Oracle JDK-ban a Sun által adott OO szervezés ua.!
+        https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_5.pdf (16-22 fólia)
+        Ugyanezt írjuk meg C++ nyelven is! (lásd még UDPROG repó: source/labor/polargen)
+      </emphasis>
+      </para>
+      <para>
+          <emphasis role="strong">
+              Takács Viktor
+          </emphasis>
+      </para>
+    <para>
 		Az objektum-orientált programozás azok számára kissé idegen lehet, akik azelőtt kizárólag procedurális programozással foglalkoztak, mert olyan magas szintű paradigmákat vezet be, melyek elsőre talán nem tűnnek hasznosnak, vagy könnyen implementálhatónak. Azonban ezeket a feltevéseket semmi nem cáfolja jobban, mint a tény, hogy a legtöbb manapság írt program objektum-orientált szemlélettel íródik. Ez szerves része olyan elismert és elterjedt nyelveknek, mint a Java, C#, Python, Ruby, és a lista folyatatódik látszólag a végtelenségig. A kissé absztraktabb felfogás sokak számára könnyebbséget jelent, főleg a kezdő programozóknak, vagy azoknak, akik nem kívánnak teljesen belemerülni a számítástudomány rejtelmeibe. Az alapvető koncepciókat, mint változók, függvények, stb. megtartja, de kiegészíti osztályokkal, virtuális függvényekkel és absztrakt típusokkal. Három alapötlet mentén tudunk objektum-orientált programokat írni: Egybezárás, többalakúság és öröklődés. Ha ezek mentén írjuk a programjainkat és betartjuk a hozzájuk kapcsolódó szabályokat, hamar rájöhetünk, hogy tulajdonképpen nem is olyan nehéz átlátni ezt az erősen absztrakt gondolatmenetet még egy újoncnak sem. 
 	</para>
-	<mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="60%" fileref="arroway/OOP.png" format="PNG"/>
-                </imageobject>
-        </mediaobject>
-	<para>
+    <mediaobject>
+      <imageobject>
+        <imagedata scalefit="1" width="60%" fileref="arroway/OOP.png" format="PNG" />
+      </imageobject>
+    </mediaobject>
+    <para>
 		Az alábbi kód talán a legegyszerűbb olyan objektum-orientált program, mely hasznos is. A neve polár-transzformációs generátor, mely kissé ijesztőnek hangzik, de csupán annyiból áll, hogy két random változót hoz létre, majd az egyiket visszaadja. a belső függvény újbóli meghívása során megvizsgálja, hogy van-e nem visszaadott random szám generálva, ha van, visszaadja azt, ha nincs, akkor pedig két újat generál. Ezzel valamennyire fel lehet gyorsítani a generálási folyamatot, mely sok generálás esetén elég erőforrás-igényes lehet. 
 	</para>
-	<para>
-	<programlisting><![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 	public class PolárGenerátor {
 
     boolean nincsTárolt = true;
@@ -55,14 +71,15 @@
 
 }
 		]]>
-	</programlisting>
-	</para>
-	<para>
+      </programlisting>
+    </para>
+    <para>
 		Mint látjuk, a program forráskódja meglehetősen rövid, nem tart sokáig kibogozni. Ha a megírása után belenézünk a Sun Microsystems által kiadott dokumentációba, azt láthatjuk, hogy szinte teljesen megegyezik az általunk írt program, valamint az általuk implementált randomszám-generátor. 
 		Ha át szeretnénk írni egy objektum-orientált programot egy másik nyelvre, általában csupán annyi a teendőnk, hogy átírunk egy pár kulcsszót és a két nyelv közti kisebb szintaktikai eltéréseket figyelembe véve átmásoljuk a programot egy új fájlba és odaadjuk a fordítónak. Az imént megvitatott Java forráskódot nem tart több, mint 10 percbe átírni C++ nyelvre úgy, hogy ugyanúgy működjön, mint a Java program.
 	</para>
-	<para>
-	<programlisting><![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 #include "polargen.h"
 
 double PolarGen::kovetkezo(){
@@ -90,19 +107,34 @@ double PolarGen::kovetkezo(){
 
 	
 	]]>
-	</programlisting>
-	</para>
-</section>        
+      </programlisting>
+    </para>
+  </section>
 
-<section>
+  <section>
     <title>Homokozó</title>
-	<para>
+    <para>
+      <emphasis>
+          Írjuk át az első védési programot (LZW binfa) C++ nyelvről Java nyelvre, ugyanúgy működjön!
+          Mutassunk rá, hogy gyakorlatilag a pointereket és referenciákat kell kiirtani és minden máris működik
+          (erre utal a feladat neve, hogy Java-ban minden referencia, nincs választás, hogy mondjuk egy
+          attribútum pointer, referencia vagy tagként tartalmazott legyen).
+          Miután már áttettük Java nyelvre, tegyük be egy Java Servletbe és a böngészőből GET-es kéréssel
+          (például a böngésző címsorából) kapja meg azt a mintát, amelynek kiszámolja az LZW binfáját! 1
+      </emphasis>
+    </para>
+    <para>
+        <emphasis role="strong">
+            Takács Viktor
+        </emphasis>
+    </para>
+    <para>
 		Ahogy az előző fejezetben megtárgyaltuk, adott objektum-orientált szemlélettel írt programokat átírni egy másik objektum-orientált nyelvbe általában nem nehéz, általában csak szintaktikailag különböznek a forráskódok. Ez a helyzet a tavaly c++-ban megírt binFa programmal is, melybe nem szükséges sok időt belefektetni, hogy átírjuk Java nyelvre. 
 		A konverzió első lépése az, hogy átmásoljuk a szükséges osztályokat egy külön fájlba, amit .java kiterjesztéssel látunk el. Az a legjobb, ha abból a verzióból indulunk ki, amelyben referenciaként kezeljük a fa gyökerét, hiszen a Java nyelvben minden értékátadás referenciaként működik. Ezen kívül át kell még írnunk az osztályok és függvények deklarációit is, melynek a szintaxisa kicsit más Javában, mert minden osztály és függvény előtt meg kell mondanunk, hogy az publikus legyen-e, valamint ha származtatunk egy osztályt egy másikból, akkor a ":" karakter helyett az "extends" kulcsszóval kell ezt megtenni. Hasonló apróságokat kell átírnunk, és ha mindent jól csináltunk, a .java kiterjesztésű fájlt már futtathatjuk is a JVM-ben.
 	</para>
-	<para>
-	<programlisting>
-	<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 import java.util.*;
 import java.io.*;
 import java.lang.*;
@@ -388,17 +420,44 @@ public class LZWBinFa
 
 	
 	]]>
-    </programlisting>
+      </programlisting>
     </para>
-</section>
+  </section>
 
-<section>
+  <section>
     <title>Gagyi</title>
+    <para>
+      <emphasis>
+          Az ismert formális
+        </emphasis>
+    </para>
+    <para>
+        <emphasis role="strong">
+            Rádi Dániel
+        </emphasis>
+    </para>
+    <para>
+      <programlisting>
+        <![CDATA[
+while (x <= t && x >= t && t != x);
+        ]]>
+      </programlisting>
+    </para>
+    <para> 
+      <emphasis>
+      tesztkérdéstípusra adj a szokásosnál
+      (miszerint x, t az egyik esetben az objektum által hordozott érték, a másikban meg az objektum
+      referenciája) „mélyebb” választ, írj Java példaprogramot mely egyszer végtelen ciklus, más x, t
+      értékekkel meg nem! A példát építsd a JDK Integer.java forrására 3 , hogy a 128-nál inkluzív objektum
+      példányokat poolozza!
+      </emphasis>
+    </para>
     <para>
 		A modern programnyelvek tervezői mindent elkövetnek azért, hogy az írt programkód átlátható, olvasható, egyértelmű és helyes legyen. Ezen kívül fontos az is, hogy gyorsan fusson, ezért a fordítókba sokféle optimalizációt implementálnak. Ezek akkor lesznek megfelelőek, ha a programok ugyanúgy fordulnak le az optimalizációval, mint nélküle. Ez általában így van, de nem mindig. Az interpreteres nyelveket sokkal nehezebb optimalizálni, hiszen a futásidőben fordulnak a programok, így ha közben sokat analizálgatunk, a gépünk ugyanúgy lelassulhat, mint egy rosszul megírt kód esetén. 
 	</para>
-<para>
-	<programlisting><![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 public class Main {
 
     public static void main(String[] args) {
@@ -428,89 +487,114 @@ public class Main {
     }
 }
 		]]>
-	</programlisting>
-	</para>
-	<para>
+      </programlisting>
+    </para>
+    <para>
 		Egy jó példa lehet optimalizációra a Java nyelvbe beépített "pool-ozás". Ez annyit jelent, hogy ha kis számokkal számolunk a programunkban (-128-tól 127-ig), akkor az egy előre megírt adatbázisra fog referenciákat létrehozni, nem pedig teljesen új objektumokat. Ezzel lényegesen javul a futásidő, ám valóban ugyanúgy fog a prpgramunk futni? A válasz: Attól függ. Általában igen, hiszen ha a számokkal egyszerű aritmetikát végzünk, amit általában számokkal szoktunk, nem változik az objektumok funkcionalitása, viszont lényegesen gyorsabban futnak le a programjaink, mert nem kell folyamatosan új objektumokat létrehoznia a rendszernek. Viszont ha két szám memóriacímét vizsgáljuk, akkor beleütközhetünk egy olyan problémába, hogy két számnak ugyanaz lehet a memóriacíme. Emiatt lehetséges az, hogy a következő feltételre, ami normális körülmények között nem lehetne semmilyen módon igaz, azt kapjuk, hogy a [-128, 127] tartományon belüli számok megfelelnek. 
 	</para>
-	<para>
+    <para>
 		Az ilyenfajta, nem tökéletesen egyértelmű implementációkkal pontosan ez a gond: egy nem szokványos helyzetben a programjaink félrecsúszhatnak, rossz eredményt adhatnak, esetenként lehet, hogy le sem futnak. Talán az ilyen furcsaságok miatt tart sokáig egy-egy felvetődő problémára megoldást találni, hiszen nem tudhatjuk kezdőként, hogy mi hibáztunk, vagy egyszerűen a fordító máshogy, talán rosszul értelmezi a kódunkat. Ezért fontos, hogy elolvassuk a nyelv adott dokumentációját, és ha kérdésünk van, forduljunk valaki olyanhoz, aki teljes mértékben ismeri a nyelv adottságait.
     </para>
-	<para>
+    <para>
 A kódunkban a második fázis vége nem fog lefutni.
 </para>
-<mediaobject>
-                <imageobject>
-                <imagedata scalefit="1" width="100%" fileref="arroway/gagyi.PNG" format="PNG"/>
-                </imageobject>
-        </mediaobject>
-</section>
+    <mediaobject>
+      <imageobject>
+        <imagedata scalefit="1" width="100%" fileref="arroway/gagyi.PNG" format="PNG" />
+      </imageobject>
+    </mediaobject>
+  </section>
 
-<section>
+  <section>
     <title>Yoda</title>
+    <para>
+      <emphasis>
+          Írjunk olyan Java programot, ami java.lang.NullPointerEx-el leáll, ha nem követjük a Yoda
+          conditions-t! https://en.wikipedia.org/wiki/Yoda_conditions
+      </emphasis>
+    </para>
+    <para>
+        <emphasis role="strong">
+            Rádi Dániel
+        </emphasis>
+    </para>
     <para>
 		Feltesszük az alábbi esetet:
 	</para>
-	<para>
-	<programlisting>
-		<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 		string nuku = null;
 		]]>
-	</programlisting>
-	</para>
-	<para>
+      </programlisting>
+    </para>
+    <para>
 		A Yoda írási módban a kifejezésben az összehasonlítás sorrenjét megcseréljük. Amennyiben ismerjük A-t, emberi módon általában rákérdezhetünk arra hogy A egyenlő-e B-vel.
 	</para>
-	<para>
-	<programlisting>
-		<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 		if( nuku.equals("imaword")
 		]]>
-	</programlisting>
-	</para>
-	<para>
+      </programlisting>
+    </para>
+    <para>
 		Yoda kóddal viszont megkérdezük hogy B az egyenlő-e A-val.
 	</para>
-	<para>
-	<programlisting>
-		<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 		if("imaword".equals(nuku)
 		]]>
-	</programlisting>
-	</para>
-	<para>
+      </programlisting>
+    </para>
+    <para>
 		Az azért fontos mert amennyiben A null-al egyenlő, NullPointerException hibát kapunk amely a programunk futását gátolja. Amennyiben Egy ismert változót/stringet hasonlítunk össze null-al, azt a Java gond nélkül összehasonlítja.
 	</para>
-	<para>
+    <para>
 		Ennek az okozója az hogy amikor null-t dekraláltuk a Java egy semmire se mutató pointert hozott létre, nincs hozzá tartozó objectum. 
 		Amennyiben alkalmazzuk a Yoda módszert, a nyelv paraméterként érkezi a null-t és nem fordul elő a hiba.
 	</para>
-	<para>
+    <para>
 		Az elnevezés a Star Wars filmsorozatból egy híres karater nevéből származik, aki a szavak sorrendjét megcserélve beszél.
     </para>
-</section>
+  </section>
 
-<section>
+  <section>
     <title>Kódolás From Scratch</title>
+    <para>
+      <emphasis>
+          Induljunk ki ebből a tudományos közleményből: http://crd-legacy.lbl.gov/~dhbailey/dhbpapers/bbp-
+          alg.pdf és csak ezt tanulmányozva írjuk meg Java nyelven a BBP algoritmus megvalósítását!
+          Ha megakadsz, de csak végső esetben: https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-
+          javat/apbs02.html#pi_jegyei (mert ha csak lemásolod, akkor pont az a fejlesztői élmény marad ki,
+          melyet szeretném, ha átélnél)
+      </emphasis>
+    </para>
+    <para>
+        <emphasis role="strong">
+            Takács Viktor
+        </emphasis>
+    </para>
     <para>
 		A feladat BBP (Bailey-Borwein-Plouffe) a Pi hexa jegyeit meghatározó algoritmus David H. Bailey 2006-os írása alapján. A feladat ennek Java nyelvre való átírása.
 	</para>
-	<para>
+    <para>
 		(kép az algoritmus matematikai formátumáról)
 	</para>
-	<para>
+    <para>
 		Először is létrehozunk egy számitást az alábbi részre:
 	</para>
-	<para>
-	<programlisting>
-		<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 		{16^d Pi} = {4*{16^d S1} - 2*{16^d S4} - {16^d S5} - {16^d S6}}
 		]]>
-	</programlisting>
-	</para>
-	<para>
-		<programlisting>
-		<![CDATA[
+      </programlisting>
+    </para>
+    <para>
+      <programlisting>
+        <![CDATA[
 		public PiBBP(int d) {
 		    
 		    double d16Pi = 0.0d;
@@ -542,15 +626,15 @@ A kódunkban a második fázis vége nem fog lefutni.
 		    
 		    d16PiHexaJegyek = sb.toString();
 ]]>
-	</programlisting>
-	</para>
-       <para>
+      </programlisting>
+    </para>
+    <para>
 
 A {16^d Sj} részletet a következő módon számíthatlyuk ki:
 </para>
-       <para>
-	<programlisting>
-<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 public double d16Sj(int d, int j) {
 	double d16Sj = 0.0d;
 	for(int k=0; k<=d; ++k)
@@ -558,14 +642,14 @@ public double d16Sj(int d, int j) {
 		return d16Sj - StrictMath.floor(d16Sj);
 }
 ]]>
-</programlisting>
-</para>
-       <para>
+      </programlisting>
+    </para>
+    <para>
 A forrás papír megadott egy bináris hatványozási módszert a A 16^n mod k kiszámítására, ezt fel is hasznájuk.
 </para>
-       <para>
-	<programlisting>
-<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 public long n16modk(int n, int k) {
 	int t = 1;
 	while(t <= n)
@@ -577,14 +661,14 @@ public long n16modk(int n, int k) {
 			n = n - t;
 		}
 		]]>
-	</programlisting>
-	</para>
-	<para>
+      </programlisting>
+    </para>
+    <para>
 		A {16^d Sj} részletet a következő módon számíthatlyuk ki:
 	</para>
-	<para>
-		<programlisting>
-		<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 		public double d16Sj(int d, int j) {
 		double d16Sj = 0.0d;
 		for(int k=0; k<=d; ++k)
@@ -592,14 +676,14 @@ public long n16modk(int n, int k) {
 			return d16Sj - StrictMath.floor(d16Sj);
 		}
 		]]>
-	</programlisting>
-	</para>
-	<para>
+      </programlisting>
+    </para>
+    <para>
 		A forrás papír megadott egy bináris hatványozási módszert a A 16^n mod k kiszámítására, ezt fel is hasznájuk.
 	</para>
-	<para>
-		<programlisting>
-		<![CDATA[
+    <para>
+      <programlisting>
+        <![CDATA[
 		public long n16modk(int n, int k) {
 		int t = 1;
 		while(t <= n)
@@ -618,12 +702,12 @@ public long n16modk(int n, int k) {
 		return r;
 		}
 		]]>
-	</programlisting>
-	</para>
-	<para>
+      </programlisting>
+    </para>
+    <para>
 		A main() függvényben példányosítsuk az objectumot. A megadott d = 1000000, ezért a Pi hexadecimális kifejtése a d+1 tehát 1000001. hexa jegyetől számítunk. Az eredmény: 6C65E5308. Decimálisban: 29097874184.
     </para>
-</section>
-    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-</chapter>                
+  </section>
+
+
+</chapter>

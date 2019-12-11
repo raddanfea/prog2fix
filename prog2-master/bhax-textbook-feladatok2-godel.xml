@@ -2,18 +2,29 @@
     <info>
         <title>Helló, Gödel!</title>
         <keywordset>
-            <keyword/>
+            <keyword />
         </keywordset>
     </info>
 
-<section>
-	<title>Gimp</title>
-    <para>
-        A GIMP (Gnu Image Manipulation Program) egy általános célú képszerkesztő program, ami a nevével ellentétben nem csak linux alapú operációs rendszerekre elérhető, hanem minden népszerű operációs rendszert futtató gépre letölthető. A program grafikus felületének segítségével minden feature-t elérhetünk, amit az kínál, de mint minden programozó jól tudja, a grafikus felületek akármilyen egyszerűen kezelhetők, intenzívebb munka során lassú tud lenni. Nem tudunk ciklusokkal végigjárni különböző elemeket, vagy saját metóduslistát alkalmazni több elemre egyszerre. Ráadásul egy grafikus felület hátterében is általában egy parancssori alkalmazás fut, ami parancsoknak feleltet meg bizonyos gombnyomásokat. Emiatt sok programban egy terminál-szerű ablak segítségével is ugyanazokat, vagy még több feature-t el lehet érni. Ilyen például a GIMP is, melynek nem saját programozási nyelve, csak saját "nyelvjárása" van, a Scheme, mely a Lisp nyelvnek a kiterjesztése. A nyelv egyik legjellegzetesebb tulajdonsága az, hogy a műveletek függvényszerűen, prefix alakban vannak írva, valamint az, hogy minden objektum listaként van reprezentálva. Magának a nyelvnek az alapötlete sok másik programozási nyelvvel különböző módon nem egy turing-gép, hanem az Alonso Church által feltalált lambda-kalkulus. Emiatt minden olyan programot meg lehet benne írni, amit bármilyen más nyelven írnánk.
-        Itt egy pálda egy Scheme script-re, mely egy mandalát készít egy szövegből a megadott paraméterek alapján:
-    </para>
-    <programlisting>
-        <![CDATA[
+    <section>
+        <title>Gimp</title>
+        <para>
+            <emphasis>
+                    Ha az előző félévben nem dolgoztad fel a témát (például a mandalás vagy a króm szöveges
+                    dobozosat) akkor itt az alkalom!
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+        <para>
+            A GIMP (Gnu Image Manipulation Program) egy általános célú képszerkesztő program, ami a nevével ellentétben nem csak linux alapú operációs rendszerekre elérhető, hanem minden népszerű operációs rendszert futtató gépre letölthető. A program grafikus felületének segítségével minden feature-t elérhetünk, amit az kínál, de mint minden programozó jól tudja, a grafikus felületek akármilyen egyszerűen kezelhetők, intenzívebb munka során lassú tud lenni. Nem tudunk ciklusokkal végigjárni különböző elemeket, vagy saját metóduslistát alkalmazni több elemre egyszerre. Ráadásul egy grafikus felület hátterében is általában egy parancssori alkalmazás fut, ami parancsoknak feleltet meg bizonyos gombnyomásokat. Emiatt sok programban egy terminál-szerű ablak segítségével is ugyanazokat, vagy még több feature-t el lehet érni. Ilyen például a GIMP is, melynek nem saját programozási nyelve, csak saját "nyelvjárása" van, a Scheme, mely a Lisp nyelvnek a kiterjesztése. A nyelv egyik legjellegzetesebb tulajdonsága az, hogy a műveletek függvényszerűen, prefix alakban vannak írva, valamint az, hogy minden objektum listaként van reprezentálva. Magának a nyelvnek az alapötlete sok másik programozási nyelvvel különböző módon nem egy turing-gép, hanem az Alonso Church által feltalált lambda-kalkulus. Emiatt minden olyan programot meg lehet benne írni, amit bármilyen más nyelven írnánk.
+            Itt egy pálda egy Scheme script-re, mely egy mandalát készít egy szövegből a megadott paraméterek alapján:
+        </para>
+        <programlisting>
+            <![CDATA[
 (define (elem x lista)
   (if (= x 1) (car lista) (elem (- x 1) ( cdr lista ) ) )
     )
@@ -138,48 +149,94 @@
           "<Image>/File/Create/BHAX"
     )
         ]]>
-	</programlisting>
-<mediaobject>
-  <imageobject>
-      <imagedata scalefit="1" width="100 %" fileref="Godel/mandala.png" format="PNG"/>
-    </imageobject>
-</mediaobject>
-</section>
-<section>
-	<title>Allokátorok</title>
+        </programlisting>
+        <mediaobject>
+            <imageobject>
+                <imagedata scalefit="1" width="100 %" fileref="Godel/mandala.png" format="PNG" />
+            </imageobject>
+        </mediaobject>
+    </section>
+    <section>
+        <title>Allokátorok</title>
         <para>
-Az allokátorok a C ++ szabvány könyvtár egyik alkotóeleme, és szerepet játszanak
-tárolók méretének módosítására a program futásakor. Ők felelősek
-a memória és a tárolási kérelmek elosztása érdekében az összes tárolás
-kezésére. A C ++ szabvány könyvtár általános célú disztribútorokat tartalmaz, ezt vesszük alapértelmezettnek, de természetesen a programozó létrehozhat egyéni egyet, ezt fogjuk tenni a jelenlegi feladatunk során. Leginkább kicsi programokhoz használják őket
-memóriamennyiség csökkentésére. Az allokátorok a futási idő és a memória lábnyoma csökkentése szempontjából szintén hasznosak.
-	</para>
-<para>
-Az allokátor az alacsony szintű memóriaműveletekkel kapcsolatos összes részletet kezeli, de néhány metainformációt is megad arról, hogy milyen típusú szervezetet kezel. Az új (new) és törölj (delete) operátorokat használja a memória megszerzéséhez és felszabadításához.
-</para>
-<para><programlisting><![CDATA[ int[][] dataMatrix = new int[matrix.length][matrix.length];]]></programlisting></para>
-<para>
-A kódcsipet példa egy mátrix adatainak a memóriában való lefoglalására, elemei int típusuak és a mátrix mérete változó.
-</para>
-<para>Ne felejtsük el a lefoglalt memóriát felszabadítani amennyiben már nincs rá szükség!
-</para>
-</section>
-<section><title>STL</title>
-        <para>Az STL-lel, vagyis a Standard Template Library egy C++ sablonosztály, ami általános programozási adatszerkezeteket és funkciókat biztosít. Listákat, tömböket. Egy általánosított könyvtár, komponensei paramétereket használnak. A négy elemből áll: algoritmusok, konténerek/tárolók, függvények és iterátorok. </para>
-<para>Az algoritmusok meghatározzák azokat a funkció gyűjteményeket, amiket direkt az elemtartományokhoz való felhasználásra terveztek. A funkciók lehetővé teszik a kódrészlet működését az átadott paraméterek segítségével. Az iterátorokat az értékek sorozatainak feldolgozására használhatjuk.
-</para>
-<para>A konténereknek főbb típusai: szekveniatartományok, konténer-adapterek, asszociatív konténerek és rendezetlen társító konténerek.</para>
-<para>A map egy asszociatív konténer.</para>
-<para>Térképszerűen, növekvő sorrendben rendezve tárolja az elemeket. Adatpárokat és kulcsokat (<code>std::pair&lt;>)</code> tárol, melyek paraméterek. </para>
-</section>
-<section>
-    <title>Prolog Családfa</title>
-    <para>
-        A prolog egy elsőrendű logikára épülő deklaratív nyelv, mellyel elsősorban formulák igazságértékét   tudjuk vizsgálni. A nyelv lehetőséget ad arra, hogy egy relációhalmazt adjuk meg elemek között és az ezekre vonatkozó függvényeket kiértékeljük. Egy általános példa erre egy családfán belüli relációhalmaz létrehozása. Képesek vagyunk változókat deklarálni és megadni a köztük levő kapcsolatot, és a kapcsolatokat egy komplexebb kapcsolathalmazba is beépíthetjük. Az elsőrendű logika paradigmái közül minden általánosan használt kifejezés alkalmazható, vagy létrehozható, tehát tudunk negációt, konjunkciót, diszjunkciót, és kvantorokat is megadni az adott formulákra. Lehetőségünk van továbbá arra is, hogy kiértékeljük a formulákat minden lehetséges interpretációban. Az alábbi kódcsipet egy progol script-ből származik, mely egy családfát deklarál és egy pár benne levő kapcsolatot:
-    </para>
-    <para>
-        <programlisting>
-            <![CDATA[ 
+            <emphasis>
+                https://prezi.com/jvvbytkwgsxj/high-level-programming-languages-2-c11-allocators/ a
+                CustomAlloc-os példa, lásd C forrást az UDPROG repóban!
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Rádi Dániel
+            </emphasis>
+        </para>
+        <para>
+            Az allokátorok a C ++ szabvány könyvtár egyik alkotóeleme, és szerepet játszanak
+            tárolók méretének módosítására a program futásakor. Ők felelősek
+            a memória és a tárolási kérelmek elosztása érdekében az összes tárolás
+            kezésére. A C ++ szabvány könyvtár általános célú disztribútorokat tartalmaz, ezt vesszük alapértelmezettnek, de természetesen a programozó létrehozhat egyéni egyet, ezt fogjuk tenni a jelenlegi feladatunk során. Leginkább kicsi programokhoz használják őket
+            memóriamennyiség csökkentésére. Az allokátorok a futási idő és a memória lábnyoma csökkentése szempontjából szintén hasznosak.
+	    </para>
+        <para>
+            Az allokátor az alacsony szintű memóriaműveletekkel kapcsolatos összes részletet kezeli, de néhány metainformációt is megad arról, hogy milyen típusú szervezetet kezel. Az új (new) és törölj (delete) operátorokat használja a memória megszerzéséhez és felszabadításához.
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[ int[][] dataMatrix = new int[matrix.length][matrix.length];]]>
+            </programlisting>
+        </para>
+        <para>
+            A kódcsipet példa egy mátrix adatainak a memóriában való lefoglalására, elemei int típusuak és a mátrix mérete változó.
+        </para>
+        <para>
+            Ne felejtsük el a lefoglalt memóriát felszabadítani amennyiben már nincs rá szükség!
+        </para>
+    </section>
+    <section>
+        <title>STL</title>
+        <para>
+            <emphasis>
+                Például: https://github.com/nbatfai/future/blob/master/cs/F9F2/fenykard.cpp#L180
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Rádi Dániel
+            </emphasis>
+        </para>
+        <para>
+            Az STL-lel, vagyis a Standard Template Library egy C++ sablonosztály, ami általános programozási adatszerkezeteket és funkciókat biztosít. Listákat, tömböket. Egy általánosított könyvtár, komponensei paramétereket használnak. A négy elemből áll: algoritmusok, konténerek/tárolók, függvények és iterátorok. 
+        </para>
+        <para>
+            Az algoritmusok meghatározzák azokat a funkció gyűjteményeket, amiket direkt az elemtartományokhoz való felhasználásra terveztek. A funkciók lehetővé teszik a kódrészlet működését az átadott paraméterek segítségével. Az iterátorokat az értékek sorozatainak feldolgozására használhatjuk.
+        </para>
+        <para>
+            A konténereknek főbb típusai: szekveniatartományok, konténer-adapterek, asszociatív konténerek és rendezetlen társító konténerek.
+        </para>
+        <para>
+            A map egy asszociatív konténer.
+        </para>
+        <para>
+            Térképszerűen, növekvő sorrendben rendezve tárolja az elemeket. Adatpárokat és kulcsokat (<code>std::pair&lt;>)</code>tárol, melyek paraméterek.
+        </para>
+    </section>
+    <section>
+        <title>Prolog Családfa</title>
+        <para>
+            <emphasis>
+                Ágyazd be a Prolog családfa programot C++ vagy Java programba! Lásd para_prog_guide.pdf!
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
+        <para>
+            A prolog egy elsőrendű logikára épülő deklaratív nyelv, mellyel elsősorban formulák igazságértékét   tudjuk vizsgálni. A nyelv lehetőséget ad arra, hogy egy relációhalmazt adjuk meg elemek között és az ezekre vonatkozó függvényeket kiértékeljük. Egy általános példa erre egy családfán belüli relációhalmaz létrehozása. Képesek vagyunk változókat deklarálni és megadni a köztük levő kapcsolatot, és a kapcsolatokat egy komplexebb kapcsolathalmazba is beépíthetjük. Az elsőrendű logika paradigmái közül minden általánosan használt kifejezés alkalmazható, vagy létrehozható, tehát tudunk negációt, konjunkciót, diszjunkciót, és kvantorokat is megadni az adott formulákra. Lehetőségünk van továbbá arra is, hogy kiértékeljük a formulákat minden lehetséges interpretációban. Az alábbi kódcsipet egy progol script-ből származik, mely egy családfát deklarál és egy pár benne levő kapcsolatot:
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[ 
 szuloje('Ádám','Béla').
 szuloje('Éva','Béla').
 szuloje('Ádám','Irén').
@@ -208,10 +265,10 @@ nagyapja(X,Y) :- szuloje(X,Z),szuloje(Z,Y),ferfi(X).
 
 felmenoje(X,Y) :- szuloje(X,Y);szuloje(Z,Y),felmenoje(X,Z).
             ]]>
-        </programlisting>
-    </para>
-    <para>
-        Ha egy hasonló kapcsolathalmazt szeretnénk implementálni Javában, ahhoz a JPL könyvtárat tudjuk használni. Ennek a segítségével a java nyelv szintaxisában fogunk tudni prolog lekérdezéseket végrehajtani.
-    </para>
-</section>
+            </programlisting>
+        </para>
+        <para>
+            Ha egy hasonló kapcsolathalmazt szeretnénk implementálni Javában, ahhoz a JPL könyvtárat tudjuk használni. Ennek a segítségével a java nyelv szintaxisában fogunk tudni prolog lekérdezéseket végrehajtani.
+        </para>
+    </section>
 </chapter>

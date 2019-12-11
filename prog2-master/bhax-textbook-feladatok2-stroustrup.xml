@@ -2,11 +2,22 @@
     <info>
         <title>Helló, Stroustup!</title>
         <keywordset>
-            <keyword/>
+            <keyword />
         </keywordset>
     </info>
     <section>
         <title>Objektumok másolása és mozgatása c++11-ben + esszé</title>
+        <para>
+            <emphasis>
+                    Kódcsipeteken (copy és move ctor és assign) keresztül vesd össze a C++11 másoló és a mozgató
+                    szemantikáját, a mozgató konstruktort alapozd a mozgató értékadásra! + Írj egy 1 oldalas bemutató esszé szöveget!
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Takács Viktor
+            </emphasis>
+        </para>
         <para>
             A c++ nyelv szerves részét képezik a mutatók. Ezek memóriacímet tartalmazó változók, melyek segítségével saját magunknak viszonylag alacsony szinten tudunk adatszerkezeteket definiálni. Ha olyan területen dolgozunk, melyen fontos a sebesség és személyre szabhatóság, ezek használata valószínűleg elkerülhetetlen. Ám ennek ára van. Pointerekkel sokszor nehéz dolgozni, átlátni, a felépítését egy adott adatszerkezetnek. Ha mutatókra állítunk mutatókat, majd arra is egyet, esetleg belerakunk a programba egy pár referenciát is, hamar olyan összetettségű problémával fogunk találkozni, amit saját magunk is nehezen látunk át. Általában ha nem dolgozunk bonyolultabb adatszerkezetekkel, a mutatók használata nem nehéz, csupán kis gyakorlást igényel. Azonban egy fa, lista, vagy akár egy osztály implementálásakor exponenciálisan nőhet az átláthatóság nehézsége. A legtöbb magas szintű programozási nyelv manapság nem is engedi meg a mutatókkal való babrálást, helyette automatikusan végzi a memória allokálását és felszabadítását. Viszont ha nem akarunk, vagy nincs lehetőségünk egy előre elkészített API-val dolgozni, kénytelenek leszünk magunknak implementálni az adott probléma megoldásához szükséges erőforrásokat. 
         </para>
@@ -17,14 +28,14 @@
         	Másoló konstruktor:
         </para>
         <programlisting>
-			<![CDATA[
+            <![CDATA[
 				LZWBinFa ( const LZWBinFa & regi )
 				{
 					std::cout << "LZWBinFa copy ctor" << std::endl;
 					gyoker = masol ( regi.gyoker, regi.fa );
 				}
 	        ]]>
-		</programlisting>
+        </programlisting>
         <para>
         	Itt a konstruktor bemeneti értékként megkapja a régi fa objektumot, a masol() függvénnyel lemásolja annak tartalmát, majd ráállít egy mutatót, ami a gyökérmutatója lesz az új fának. Fontos megemlíteni, hogy konstans értéket kap a konstruktor, ezzel biztosítjuk, hogy az eredeti fa nem változik.
         </para>
@@ -32,7 +43,7 @@
         	Mozgató konstruktor: 
         </para>
         <programlisting>
-			<![CDATA[
+            <![CDATA[
 		LZWBinFa ( LZWBinFa && regi )
 			{
 				std::cout << "LZWBinFa move ctor" << std::endl;
@@ -40,7 +51,7 @@
 				*this = std::move ( regi );
 			}
 	        ]]>
-		</programlisting>
+        </programlisting>
         <para>
         	Ez a kódcsipet azt meséli el, hogy lenullázzuk az eredeti fa értékét, majd az újonnan létrehozott BinFa típusú példány gyökerének odaadjuk a régi fa szerkezetét. Ez az std::move() függvénnyel történik, mely jobbértékké alakítja a bemenetként kapott értéket, ezzel megteremtve a lehetőséget, hogy egy egyenlőségjel jobb oldalára írjuk azt.
         </para>
@@ -48,7 +59,7 @@
         	Másoló értékadás: 
         </para>
         <programlisting>
-			<![CDATA[
+            <![CDATA[
 	    LZWBinFa & operator= ( const LZWBinFa & regi )
 	    	{
 				std::cout << "LZWBinFa copy assign" << std::endl;
@@ -58,7 +69,7 @@
 				return *this;
 		    }
 	        ]]>
-		</programlisting>
+        </programlisting>
         <para>
         	Itt egy "operator overloading" varázslat történik, mellyel az egyenlőségjel jelentését írjuk felül. Létrehozunk egy új Csomopont példányra mutató pointert ujgyoker néven, majd rámásoljuk a bal oldali értékként kapott fa szerkezetét. Eltöröljük a régi gyökérből induló fát, majd a régi mutatónak (itt: gyoker) odaadjuk a az új gyökér értékét. Ezután visszaadunk egy erre a fára mutató pointert, ami mutatni fog az imént lemásolt fa gyökerére, ez az érték fog odaadódni az egyenlőség al oldalán levő változónak.
         </para>
@@ -66,7 +77,7 @@
         	Mozgató értékadás:
         </para>
         <programlisting>
-			<![CDATA[
+            <![CDATA[
 		LZWBinFa & operator= ( LZWBinFa && regi )
 			{
 				std::cout << "LZWBinFa move assign" << std::endl;
@@ -75,7 +86,7 @@
         		return *this;
 			}
 	        ]]>
-		</programlisting>
+        </programlisting>
         <para>
         	Ezt talán a legegyszerűbb átlátni a négy konstruktor közül: Itt is az egyenlőségjelet írjuk felül, de ebben az esetben a jobb oldali értéket az std::move() függvény keretein belül kell megadni. Csupán annyi történik, hogy az új fa és a régi fa gyökerét, majd adataikat kicseréljük egymással. Ezzel azt érjük el, hogy az eredeti fára mutató pointer ki lesz nullázva, hiszen null értékű pointerrel cseréltük ki, az új pointer értéke pedig a fa gyökere lesz. Itt is visszaadunk egy erre az objektumra mutató pointert, ami jobbértékként az eredeti mutató helyén lesz.
         </para>
@@ -83,11 +94,23 @@
         	Ezzel a négy konstrukcióval kisebb módosításokkal bármilyen adatszerkezetet biztonságosan és gyorsan fogunk tudni mozgatni és duplikálni, ha szükség lesz rá, hiszen csak pointereket pakolunk ide-oda.
         </para>
     </section>
-<section>
-<title>RSA törés</title>
+    <section>
+        <title>RSA törés</title>
         <para>
-        <programlisting>
-			<![CDATA[
+            <emphasis>
+                    Készítsünk betű gyakoriság alapú törést egy hibásan implementált RSA kódoló:
+                    https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog2_3.pdf (71-73 fólia) által
+                    készített titkos szövegen.
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Rádi Dániel
+            </emphasis>
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[
 	import java.util.Scanner;
 	public class RSA {
 	public static void main(String[] args) {
@@ -134,32 +157,44 @@ class KulcsPar {
     }
 }
 ]]>
-		</programlisting>
-	</para>
-	<para>
+            </programlisting>
+        </para>
+        <para>
         Az RSA (Rivest – Shamir – Adleman) az egyik első nyilvános kulcsú kriptoszisztéma, amelyet széles körben használnak a biztonságos adatátvitelhez. Egy ilyen kriptoszisztémában a titkosítási kulcs nyilvános, és különbözik a titkosított (privát) titkosítási kulcsotól. Az RSA-ban ez az aszimmetria a két nagy prímszám szorzatának faktorizálásának gyakorlati nehézségén alapszik, a "faktoring probléma". 
 	</para>
-	<para>
+        <para>
         Az RSA betűszó Ron Rivest, Adi Shamir és Leonard Adleman vezetékneveinek kezdőbetűiből áll, akik elsőként 1977-ben jelentették be az algoritmust. Clifford Cocks, a brit hírszerző ügynökség kormányzati kommunikációs központjában (GCHQ) dolgozó angol matematikus. 1973-ban kifejlesztett egy megfelelő rendszert, de ezt csak 1997-en nyilvánosították.
 	</para>
-</section> 
+    </section>
 
-<section>
-<title>Változó argumentumszámú ctor</title>
-<para>
+    <section>
+        <title>Változó argumentumszámú ctor</title>
+        <para>
+            <emphasis>
+                    Készítsünk olyan példát, amely egy képet tesz az alábbi projekt Perceptron osztályának bemenetére
+                    és a Perceptron ne egy értéket, hanem egy ugyanakkora méretű „képet” adjon vissza. (Lásd még a 4
+                    hét/Perceptron osztály feladatot is.)
+            </emphasis>
+        </para>
+        <para>
+            <emphasis role="strong">
+                Rádi Dániel, Takács Viktor
+            </emphasis>
+        </para>
+        <para>
     Szinte minden modern programozási nyelv része az objektum-orientáltság. Ennek az elképesztően elterjedt paradigmának rengeteg ága, kritériuma és lehetősége van. Egy objektum létrehozása során például lefuttathatunk egy kódot, mely minden egyes objektumelem inicializálása során újra le fog futni. Annak érdekében, hogy egy adott elem többféleképpen is viselkedhessen, lehetőségünk van arra, hogy több konstruktort hozzunk létre. Ezek közül csak egy fog egy adott elem esetén lefutni, az, hogy melyik, azt az dönti el, hogy az adott bemenet melyik konstruktorra illeszkedik. Ezt a fogalmat hívjuk polimorfizmusnak, azaz többalakúságnak. A konstruktoraink különbözhetnek a bemenetek adattípusaiban, vagy azoknak a számában is. 
 </para>
-<mediaobject>
-    <imageobject>
-        <imagedata scalefit="1" width="100 %" fileref="stroustup/ctor.png" format="PNG"/>
-    </imageobject>
-</mediaobject>
-<para>
+        <mediaobject>
+            <imageobject>
+                <imagedata scalefit="1" width="100 %" fileref="stroustup/ctor.png" format="PNG" />
+            </imageobject>
+        </mediaobject>
+        <para>
     Ezt a paradigmát már használtuk tavaly az LZWBinFa programunkban, ahol attól függően hívtuk meg a másoló vagy a mozgató konstruktort, hogy konstans értéket adtunk át neki, vagy nem. Én is ezt használom a saját fejlesztésű RGB api-mban, melynek azért kell több konstruktort írni, hogy tudja a setBackgroundColor() függvény, hogy milyen elemre kell alkalmaznia magát.
 </para>
-<para>
-    <programlisting>
-        <![CDATA[
+        <para>
+            <programlisting>
+                <![CDATA[
 package com.mindmark;
 
 import android.os.Handler;
@@ -362,7 +397,7 @@ public class RGB {
 
 }
         ]]>
-    </programlisting>
-</para>
-</section> 
-</chapter>                
+            </programlisting>
+        </para>
+    </section>
+</chapter>
