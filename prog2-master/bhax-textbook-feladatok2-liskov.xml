@@ -188,7 +188,7 @@ int main()
 	</para>
 		<mediaobject>
 			<imageobject>
-				<imagedata fileref="liskov/compx.PNG" format="PNG" />
+				<imagedata fileref="liskov/compx.PNG" width="75%" format="PNG" />
 			</imageobject>
 		</mediaobject>
 	</section>
@@ -216,6 +216,11 @@ int main()
 		<para>
 		Ha elkezdjük a feladatot, a legelső teendőnk az lesz, hogy beimportáljuk a fájlokat az Android Studio-ba. Ezután szükséges lesz átírnunk egy-két dolgot a programunkban és a konfigurációs fájlokban, hogy működjön. Itt nem tudok seemi konkrétat írni, mert két platformon próbáltam megoldani a problémát és mindkettőn más volt a probléma. Egy kis interneten való kutakodás után nem okozhat problémát a dolog. Fontos lehet, hogy a szükséges fájlok elérési útvonalát helyesen adjuk meg a konfigurációs fájlokban. Ezután ha sikerült az összes problémát elhárítani, amit a fordító feldobott, elkezdhetjük a programon belül a módosításokat elvégezni. A legtöbb dologhoz elég annyit tennünk, hogy egy-egy változó értékét átírjuk, például a háttérszín megváltoztatásához a bgColor[] tömbön belül kell átírnunk az rgb értékeket. 
 	</para>
+	<mediaobject>
+		<imageobject>
+			<imagedata fileref="liskov/smnist.png" format="PNG" />
+		</imageobject>
+	</mediaobject>
 	</section>
 	<section>
 		<title>BPP algoritmus futási ideinek összevetése</title>

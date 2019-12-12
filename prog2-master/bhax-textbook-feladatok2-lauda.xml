@@ -146,8 +146,13 @@ A fenti kód az egyesek és nullások összeszámlálására készült. Valahán
 	</para>
         <para>
 		A feladat során a binfa egy már korábban ellenőrzött, papíron kiszámolt végeredményét kell összehasonlítanunk a program futása során kapott outputtal. 
-	</para>
-        <para>
+    </para>
+    <mediaobject>
+        <imageobject>
+            <imagedata fileref="lauda/junit.png" width="100%"></imagedata>
+        </imageobject>
+    </mediaobject>
+    <para>
 		A tesztprogram írásakor figyelembe kell venni, hogy egy különböző fán kell majd végrehajtanunk a tesztet, mint amiről az outputot olvassuk, hiszen lehet, hogy egy olyan függvényt használunk, ami "elrontja" az előző függvény általi visszatérési értéket, ha ezzel számolnánk a tesztben, akkor elromlana az is és false positive eredményt kapnánk. Az assertEquals(inputs) függvénnyel azt tudjuk megnézni, hogy a számolt eredmény (függvénnyel vagy expliciten megadva) megegyezik-e a programunk kimenetével. Ha igen, akkor lefut a többi kód is, így egy egyszerű println() függvénnyel ki tudjuk írni, hogy megegyeznek-e az értékek.
 	</para>
     </section>

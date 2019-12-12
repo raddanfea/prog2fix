@@ -200,5 +200,14 @@ delete [] image;
 			GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(this);
 		]]>
 		</programlisting>
+
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="Chomsky/mandelbrot_fullscreen.png" format="png"/>
+			</imageobject>
+		</mediaobject>
+		<para>
+			<emphasis>A mandelbrot halmaz-nagyító fullscreen screenshot-ja.</emphasis>
+		</para>
 	</section>
 </chapter>
