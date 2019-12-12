@@ -84,6 +84,10 @@
 				Rádi Dániel
 			</emphasis>
 		</para>
+	<para> Java-ban és C++-ban az ősön keresztül csak az ős üzenetei közvítíthetők. A
+            példaprogramokban a gyermekosztályokban definiálunk egy függvény, amit a
+            szülőosztályból példányosított objektumban akarunk használni, de erre nincs
+            lehetőség, fordításban hibát kapunk. </para>
 		<para>
             Megoldás forrása:                
         </para>
@@ -186,6 +190,9 @@ int main()
 	</para>
 		<para>A metrika egy adott szoftver forráskódjának alapján határozza meg annak komplexitását, egy konkrét számértékben kifejezve. A komplexitás számítása a gráfelméletre alapul.
 	</para>
+	<para>A ciklomatikus komplexitás Thomas J. McGabe nevéhez fűződik. A kódunk komplexitására
+            ad egy mértéket a lehetséges elágazások száma alapján.</para>
+        <para>A felhasznált képlet: M = E - N + 2P</para>
 		<mediaobject>
 			<imageobject>
 				<imagedata fileref="liskov/compx.PNG" width="75%" format="PNG" />

@@ -25,11 +25,73 @@ Az ssscanf beolvassa az adatokat null-terminált karakterlánc-pufferből. A for
 	</para>
 		<para>
 			<programlisting>
-				<![CDATA[std::sscanf(yytext, "<init %s %d %c>", name, &num, &role);
+				<![CDATA[
+{POS}{WS}{INT}{WS}{INT}{WS}{INT}	{
+					  std::sscanf(yytext, "<pos %d %u %u", &m_id, &from, &to);
+					  m_cmd = 10001;
+					}
+{CAR}{WS}{INT}				{
+					  std::sscanf(yytext, "<car %d", &m_id);
+					  m_cmd = 1001;
+					}
+{STAT}{WS}{INT}				{
+					  std::sscanf(yytext, "<stat %d", &m_id);
+					  m_cmd = 1003;
+					}
+{GANGSTERS}{WS}{INT}			{
+					  std::sscanf(yytext, "<gangsters %d", &m_id);
+					  m_cmd = 1002;
+					}
+{ROUTE}{WS}{INT}{WS}{INT}({WS}{INT})*	{
+				  int size{0};
+				  int ss{0};
+				  int sn{0};				  
+				  
+				  std::sscanf(yytext, "<route %d %d%n", &size, &m_id, &sn);
+				  ss += sn;
+				  for(int i{0}; i<size; ++i)
+				  {
+				    unsigned int u{0u};
+				    std::sscanf(yytext+ss, "%u%n", &u, &sn);
+				    route.push_back(u);
+				    ss += sn; 				    
+				  }
+				  m_cmd = 101;
+				}
+{INIT}{WS}{WORD}{WS}("c"|"g")	{
+				  std::sscanf(yytext, "<init %s %c>", name, &role);
+				  num = 1;
+				  m_cmd = 0;
+				}
+{INIT}{WS}{WORD}{WS}{INT}{WS}("c"|"g")	{
+				  std::sscanf(yytext, "<init %s %d %c>", name, &num, &role);
+				  if(num >200)
+				  {
+				    m_errnumber = 1;
+				    num = 200;
+				  }
+				  m_cmd = 1;
+				}				
+{INITG}{WS}{WORD}{WS}("c"|"g")	{
+				  std::sscanf(yytext, "<init guided %s %c>", name, &role);
+				  num = 1;
+				  m_guided = true;
+				  m_cmd = 3;
+				}
+{INITG}{WS}{WORD}{WS}{INT}{WS}("c"|"g")	{				  
+				  std::sscanf(yytext, "<init guided %s %d %c>", name, &num, &role);
+				  if(num >200)
+				  {
+				    m_errnumber = 1;
+				    num = 200;
+				  }
+				  m_guided = true;
+				  m_cmd = 2;
+				}
 		]]>
 			</programlisting>
 		</para>
-		<para>A kapott input egy string, egy decimális és egy karakter. Ezek itt az object nevét, egy számtulajdonságot és típusát közöljük. A változatokban az átadott adatok típusa és száma különbözik.
+		<para>A kapott input tárolásra kerül a {} által definiált módon, több különbözőféleképpen. Ez lehet több koordináta, sztring, int vagy egyéb addattípus.
 </para>
 	</section>
 	<section>
@@ -85,6 +147,18 @@ Az ssscanf beolvassa az adatokat null-terminált karakterlánc-pufferből. A for
 		<para>
 		A webkamera használata - bár általánosan nem egy túlságosan elterjedt feature - fontos eleme lehet sok programnak. Ha magunknak kellene "from scratch" megírni egy api-t, ami a kamera bemenetét egy programnak adja be, az elég nagy fejtörést okozna. Szerencsére vannak beépített metódusok és api-k a kamera használatára. Talán egy androidos alkalmazásban a legegyszerűbb használni a kamerát bemenetként, majd  megjeleníteni a benemetet a képernyőn. Ehhez már a hivatalos dokumentációban is találunk példát, így tényleg csak annyi a dolgunk, hogy összevagdossuk a részeket és lefuttatjuk.
 	</para>
+<para>
+Amire mindenképp szükségünk lesz: engedély az android kamera API, az android hangrögzítés API és a kamera hardware használatára. 
+</para>
+<para>
+			<programlisting>
+				<![CDATA[
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-feature android:name="android.hardware.camera" />
+<uses-permission android:name="android.permission.RECORD_AUDIO" />
+]]>
+			</programlisting>
+		</para>
 	</section>
 	<section>
 		<title>OSM Edit</title>

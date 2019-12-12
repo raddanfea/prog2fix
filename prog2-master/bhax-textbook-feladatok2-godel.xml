@@ -218,6 +218,9 @@
         <para>
             Térképszerűen, növekvő sorrendben rendezve tárolja az elemeket. Adatpárokat és kulcsokat (<code>std::pair&lt;>)</code>tárol, melyek paraméterek.
         </para>
+	<para>
+Az STL-t az első általános algoritmusok és adatstruktúrák első könyvtáraként hozták létre a C ++ számára, négy gondolatot szem előtt tartva: általános programozás, absztraktság hatékonyság elvesztése nélkül, a Von Neumann számítási modell, és az érték-szemantika.
+        </para>
     </section>
     <section>
         <title>Prolog Családfa</title>
