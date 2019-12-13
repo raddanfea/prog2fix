@@ -489,8 +489,20 @@ public class Main {
 		]]>
       </programlisting>
     </para>
+<para>JDK forrás:
+</para>
+<para>
+      <programlisting>
+        <![CDATA[
+cache = new Integer[(high - low) + 1];
+int j = low;
+for(int k = 0; k < cache.length; k++)
+cache[k] = new Integer(j++);
+]]>
+      </programlisting>
+    </para>
     <para>
-		Egy jó példa lehet optimalizációra a Java nyelvbe beépített "pool-ozás". Ez annyit jelent, hogy ha kis számokkal számolunk a programunkban (-128-tól 127-ig), akkor az egy előre megírt adatbázisra fog referenciákat létrehozni, nem pedig teljesen új objektumokat. Ezzel lényegesen javul a futásidő, ám valóban ugyanúgy fog a prpgramunk futni? A válasz: Attól függ. Általában igen, hiszen ha a számokkal egyszerű aritmetikát végzünk, amit általában számokkal szoktunk, nem változik az objektumok funkcionalitása, viszont lényegesen gyorsabban futnak le a programjaink, mert nem kell folyamatosan új objektumokat létrehoznia a rendszernek. Viszont ha két szám memóriacímét vizsgáljuk, akkor beleütközhetünk egy olyan problémába, hogy két számnak ugyanaz lehet a memóriacíme. Emiatt lehetséges az, hogy a következő feltételre, ami normális körülmények között nem lehetne semmilyen módon igaz, azt kapjuk, hogy a [-128, 127] tartományon belüli számok megfelelnek. 
+		Egy jó példa lehet optimalizációra a Java nyelvbe beépített "pool-ozás". Ez annyit jelent, hogy ha kis számokkal számolunk a programunkban (-128-tól 127-ig), akkor az egy előre létrehoz catcheben referenciákat és azokra referál, nem pedig teljesen új objektumokat készit. Ezzel lényegesen javul a futásidő, ám valóban ugyanúgy fog a prpgramunk futni? A válasz: Attól függ. Általában igen, hiszen ha a számokkal egyszerű aritmetikát végzünk, amit általában számokkal szoktunk, nem változik az objektumok funkcionalitása, viszont lényegesen gyorsabban futnak le a programjaink, mert nem kell folyamatosan új objektumokat létrehoznia a rendszernek. Viszont ha két szám memóriacímét vizsgáljuk, akkor beleütközhetünk egy olyan problémába, hogy két számnak ugyanaz lehet a memóriacíme. Emiatt lehetséges az, hogy a következő feltételre, ami normális körülmények között nem lehetne semmilyen módon igaz, azt kapjuk, hogy a [-128, 127] tartományon belüli számok megfelelnek. 
 	</para>
     <para>
 		Az ilyenfajta, nem tökéletesen egyértelmű implementációkkal pontosan ez a gond: egy nem szokványos helyzetben a programjaink félrecsúszhatnak, rossz eredményt adhatnak, esetenként lehet, hogy le sem futnak. Talán az ilyen furcsaságok miatt tart sokáig egy-egy felvetődő problémára megoldást találni, hiszen nem tudhatjuk kezdőként, hogy mi hibáztunk, vagy egyszerűen a fordító máshogy, talán rosszul értelmezi a kódunkat. Ezért fontos, hogy elolvassuk a nyelv adott dokumentációját, és ha kérdésünk van, forduljunk valaki olyanhoz, aki teljes mértékben ismeri a nyelv adottságait.
