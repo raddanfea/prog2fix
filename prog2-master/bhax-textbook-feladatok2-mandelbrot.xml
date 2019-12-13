@@ -26,6 +26,12 @@
 <para>
 A tex a szokásos nyelv, amelyet manapság szinte minden matematikus használ. Széles körben használják a tudósok és az írók is sok más területen - kémia, nyelvészet, sakk, zene - bármi, ami pontos távolságot és / vagy szokatlan betűtípust és / vagy az automatikus kereszthivatkozás kényelmét igényli. Ha egy olyan karrier elején vagy közepén áll, amelybe beletartozik valamelyik ilyen írás, akkor a lehető leghamarabb el kell kezdenie tanulni a TeX-et. Az összes TeX elsajátítása egész életen át tartó feladat lenne - az évtizedek során nőtt, mivel sok felhasználó hozzájárult ehhez, de elegendő tanulást tud megtanulni rövid és egyszerű dokumentumok készítéséhez néhány órán vagy napon belül.
 </para>
+<para>
+Az osztálydiagramok a legnépszerűbb UML-diagramok, amelyeket a szoftveralkalmazások készítéséhez használnak. Nagyon fontos megtanulni az osztálydiagram rajzának eljárását.
+
+Az osztálydiagramoknak nagyon sok tulajdonsága van, amelyeket figyelembe kell venni rajzolás közben, de itt a diagramot felülnézetből veszik figyelembe.
+
+Az osztálydiagram alapvetően a rendszer statikus nézetének grafikus ábrázolása, és az alkalmazás különféle aspektusait képviseli. Az osztálydiagramok gyűjteménye az egész rendszert képviseli.</para>
 	<para>
 			<mediaobject>
 				<imageobject>
