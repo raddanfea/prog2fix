@@ -124,6 +124,187 @@ A fenti kód az egyesek és nullások összeszámlálására készült. Valahán
                 <imagedata fileref="lauda/mindmark.png" width="33%"></imagedata>
             </imageobject>
         </mediaobject>
+        <para>
+            Az alkalmazás Android Studio-ban íródott, melynek sok beépített funkcióját használtam. Fontos elemei a játéknak az alsó két gomb, melynek a működése a következő: 
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[
+public void addTouchListenerOnLeftButton() {
+    left_button.setOnTouchListener(new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch(event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    //if the game is on and the user hasn't pressed the button in that round
+                    if ((gameIsRunning == true) && (clickHappened == false)) {
+                        timeAtButtonPress = System.currentTimeMillis();
+
+                        if (((leftButtonIsRed == true) && (screenIsRed == true)) || (leftButtonIsRed == false) && (screenIsRed == false)) {
+                            vibrate(vibrationLength);
+                            time_elapsed = timeAtButtonPress - timeAtTick;
+                            time_elapsed_string = Long.toString(time_elapsed);
+                            main_screen.setText("Correct!\n" + time_elapsed_string + " ms");
+                            clickHappened = true;
+                            array.add(time_elapsed);
+                            correctCounter++;
+                        } else {
+                            vibrate(longVibration);
+                            main_screen.setText("Incorrect!\n+ " + timeInterval + " ms");
+                            time_elapsed = timeInterval;
+                            clickHappened = true;
+                            array.add(time_elapsed);
+                        }
+
+                        //set the button color to a darker shade while it's being pressed - just for some responsive feedback
+                        if (leftButtonIsRed == true) {
+                            left_button.setBackgroundColor(0xFFBB0000);
+                        } else {
+
+                            left_button.setBackgroundColor(0xFF00BB00);
+                        }
+                    break;
+                    }
+                case MotionEvent.ACTION_UP:
+                    if(gameIsRunning == true) {
+                        if (leftButtonIsRed == true) {
+                            left_button.setBackgroundColor(0xFFAA0000);
+                        } else {
+
+                            left_button.setBackgroundColor(0xFF00AA00);
+                        }
+                    }
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                    break;
+            }
+            return false;
+        }
+    });
+}
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            A fenti textview-ra kiírt statisztika számolását nem beépített függvényekkel oldottam meg, valamiért szeretem megnehezíteni a saját dolgomat, így pl. a szórást is magamnak implementáltam.
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[
+private void getStats()
+{
+    for(int i = 0; i < array.size(); i++)
+    {
+        arrayTotal += array.get(i);
+
+        if(array.get(i) > arrayMax)
+        {
+            arrayMax = array.get(i);
+        }
+        if(array.get(i) < arrayMin)
+        {
+            arrayMin = array.get(i);
+        }
+    }
+    arrayDeviation = deviation(array);
+    arrayAvg = arrayTotal / roundsPlayed;
+}
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            Az, hogy körönként a képernyő és a gombok milyen színűek lesznek, egy random szám segítségével tudom megadni, amit felbontottam négy intervallumra, és attól függően lesznek a színek adottak, hogy melyik intervallumba esik a random szám 1 és 0 között. Ezt biztosan meg lehetett volna másképp is oldani, de ez tűnt könnyen átláthatónak és könnyen átírhatónak egy későbbi továbbfejlesztés esetén.
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[
+private void setColors() {
+
+    double random = Math.random();
+    main_screen.setText("Click!");
+
+    if (random > 0.5) {
+        main_screen.setBackgroundColor(red);
+        screenIsRed = true;
+    } else {
+        main_screen.setBackgroundColor(green);
+        screenIsRed = false;
+    }
+
+    if (random < 0.25 || (random >= 0.5) && (random < 0.75)) {
+        left_button.setBackgroundColor(darkRed);
+        right_button.setBackgroundColor(darkGreen);
+        leftButtonIsRed = true;
+    } else if ((random >= 0.25) && (random < 0.5) || (random >= 0.75)) {
+        left_button.setBackgroundColor(darkGreen);
+        right_button.setBackgroundColor(darkRed);
+        leftButtonIsRed = false;
+    }
+}
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            A háttérszín változására egy saját RGB api-t írtam, mely ezredmásodpercenként változtatja a háttérszínt kis mértékben, ezzel azt a hatást elérve, hogy átmenetes a színskála. Ebben a programrészben több konstruktort adok meg, melyeknek más a bemeneti típus-listája, így az alapján el tudja dönteni, hogy melyik konstruktornak kell életbelépnie. Még az api nem teljes, nem minden objektumtípust támogat, de nem nehéz új objektumtípusokhoz írni bele konstruktorokat, így tervezem a közeljövőben befejezni. A következő kódcsipet az api színváltásért felelő részét mutatja be: 
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[
+public void relativeLayoutColorChange() {
+    final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if(!stop) {
+
+                if ((red > 0) && (green < 255) && (blue == 0)) {
+                    redMinus();
+                } else if ((red == 0) && (green > 0) && (blue < 255)) {
+                    greenMinus();
+                } else if ((red < 255) && (green == 0) && (blue > 0)) {
+                    blueMinus();
+                }
+
+                color = 0xBB000000 + 0x10000 * red + 0x100 * green + blue;
+
+                relativeLayout.setBackgroundColor(color);
+
+                handler.postDelayed(this, speed);
+            }
+        }
+    };
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[
+private void redMinus() {
+    red--;
+    green++;
+}
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[
+private void greenMinus() {
+    green--;
+    blue++;
+}
+                ]]>
+            </programlisting>
+        </para>
+        <para>
+            <programlisting>
+                <![CDATA[
+private void blueMinus() {
+    blue--;
+    red++;
+}
+                ]]>
+            </programlisting>
+        </para>
     </section>
 
 

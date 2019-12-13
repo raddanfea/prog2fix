@@ -111,6 +111,9 @@
 		<para>
 		Ezek alapján sokkal egyszerűbb lehet egy adott munkafolyamatba belépni és ha valami probléma adódik, kiküszöbölni azt.
 	</para>
+	<para>
+		A képen látható osztályszerkezet egy aggregáció, mely annyit tesz, hogy az az osztály, amelyik kiterjeszt egy másikat, nem képes létezni a nélküle. Ebben az esetben az LZWBinFa osztály aggregációban van az osztállyal, hiszen ha töröljük a gyökérelemet, az egész fa törlődni fog. Ha ez nem így lenne, akkor kompozíciónak neveznénk a köztük levő kapcsolatot.
+	</para>
 	</section>
 
 	<section>
